@@ -6,7 +6,6 @@ Here we will place all the usefull information gathered.
 + [Project desctription](https://cdn-uploads.piazza.com/paste/itcshcp58zg2wx/322a726fbdcbf1a588ba1dc7303e2f3a4b19edc48533f92960b58c672ab4a8eb/assigment.pdf)
 
 # TODO
-+ Decide which language to use, either Rust or Java
 + Install the advised software for development [Intellij IDEA](https://www.jetbrains.com/community/education/#students)
 + Read Paper 1. from *Useful Papers*
 
@@ -16,7 +15,7 @@ Here we will place all the usefull information gathered.
 
 # Developers Requirements
 + Use of English
-+ Use of Java or Rust (To be decided)
++ Use of Java (To be decided)
 + Use of [LaTeX](https://www.overleaf.com/) for reports, namely overleaf
 + Place useful information in *SDS Project Developers Read Me*
 
