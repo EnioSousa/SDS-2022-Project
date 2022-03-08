@@ -36,3 +36,9 @@ Here we will place all the usefull information gathered.
 # Useful Papers
 
 1. [Peer-to-Peer  electronic cash system. Satoshi Nakamoto](https://klausnordby.com/bitcoin/Bitcoin_Whitepaper_Document_HD.pdf)
+
+# Useful Links
+
++ [Implementing a blockchain from scratch: why, how, and what we learned](https://jis-eurasipjournals.springeropen.com/articles/10.1186/s13635-019-0085-3)
+
++ [A blockchain in 200 lines of code](https://medium.com/@lhartikk/a-blockchain-in-200-lines-of-code-963cc1cc0e54)
