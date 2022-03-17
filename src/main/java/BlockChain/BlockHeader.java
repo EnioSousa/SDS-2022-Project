@@ -10,9 +10,11 @@ import java.security.NoSuchAlgorithmException;
  */
 
 /**
- *
+ * class is responsible for generating a block. The calculations for the validation
+ * of the transactions and other stuff, should be done outside this class. This class
+ * only generates the nonce that will generate a hash with certain characteristics
  */
-public class Block {
+public class BlockHeader {
     /**
      * Version of the block generation protocol
      */
@@ -38,7 +40,7 @@ public class Block {
      */
     private int nonce;
 
-    public Block(int version, long unixTimestamp, int difficulty, byte[] prevHash, byte[] txRootHash, int nonce) {
+    public BlockHeader(int version, long unixTimestamp, int difficulty, byte[] prevHash, byte[] txRootHash, int nonce) {
         this.version = version;
         this.prevHash = prevHash;
         this.difficulty = difficulty;
@@ -95,6 +97,12 @@ public class Block {
                 "\n}";
     }
 
+    /**
+     * This function "translates" an array of bytes into a Hex format, for easier
+     * readability
+     * @param byteArray byte array to translate
+     * @return A String in hex format
+     */
     public static String byteToHex(byte[] byteArray) {
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -106,7 +114,7 @@ public class Block {
     }
 
     /**
-     * Given a certain dificulty, this function checks if a given hash code has a certain
+     * Given a certain difficulty, this function checks if a given hash code has a certain
      * number of zeros at the beginning
      * @param hash hash to check
      * @param difficulty number of zero's in the prefix
