@@ -33,6 +33,10 @@ Here we will place all the usefull information gathered.
 
 + [Eclipse and Sybil attacks](https://bitcoin.stackexchange.com/questions/61151/eclipse-attack-vs-sybil-attack)
 
++ [P2PKH](https://komodoplatform.com/en/academy/p2pkh-pay-to-pubkey-hash/#:~:text=A%20Basic%20Example%20of%20a%20P2PKH%20Payment,-Let's%20suppose%20that&text=Alice%20sends%20the%20address%20to,the%20funds%20that%20Bob%20sent.)
+
++ [BitCoin Address](https://komodoplatform.com/en/academy/bitcoin-wallet-address/)
+
 # Useful Papers
 
 1. [Peer-to-Peer  electronic cash system. Satoshi Nakamoto](https://klausnordby.com/bitcoin/Bitcoin_Whitepaper_Document_HD.pdf)
