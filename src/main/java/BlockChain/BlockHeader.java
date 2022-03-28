@@ -59,18 +59,21 @@ public class BlockHeader {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hash;
 
+        // Size of all the fields except the nonce
+        int baseSize = 4 + 8 + 4 + 32 + 32;
+
         // Byte array to use for the hashing function
-        byte[] byteArray = new byte[4 + 4 + 4 + 32 + 32 + 4];
+        byte[] byteArray = new byte[baseSize + 4];
         // Buffer so we combine add the different bytes array
         ByteBuffer byteBuffer = ByteBuffer.wrap(byteArray);
 
         // Add different bytes arrays
-        byteBuffer.put((byte) this.version);
-        byteBuffer.put((byte) this.unixTimestamp);
-        byteBuffer.put((byte) this.difficulty);
+        byteBuffer.put(HashAlgorithm.intToByte(this.version));
+        byteBuffer.put(HashAlgorithm.longToByte(this.unixTimestamp));
+        byteBuffer.put(HashAlgorithm.intToByte(this.difficulty));
         byteBuffer.put(this.prevHash);
         byteBuffer.put(this.txRootHash);
-        byteBuffer.put((byte) this.nonce);
+        byteBuffer.put(HashAlgorithm.intToByte(this.nonce));
 
         hash = digest.digest(byteBuffer.array());
 
@@ -78,7 +81,7 @@ public class BlockHeader {
         // i.e. we will increment the nonce until we find a hash that we want
         while (!validHash(hash)) {
             this.nonce++;
-            byteBuffer.put(4 + 4 + 4 + 32 + 32, (byte) this.nonce);
+            byteBuffer.put(baseSize, HashAlgorithm.intToByte(nonce));
             hash = digest.digest(byteBuffer.array());
         }
 
@@ -91,26 +94,10 @@ public class BlockHeader {
                 "\nversion=" + version +
                 "\nunixTimestamp=" + unixTimestamp +
                 "\ndifficulty=" + difficulty +
-                "\nprevHash=" + byteToHex(prevHash) +
-                "\ntxRootHash=" + byteToHex(txRootHash) +
+                "\nprevHash=" + HashAlgorithm.byteToHex(prevHash) +
+                "\ntxRootHash=" + HashAlgorithm.byteToHex(txRootHash) +
                 "\nnonce=" + nonce +
                 "\n}";
-    }
-
-    /**
-     * This function "translates" an array of bytes into a Hex format, for easier
-     * readability
-     * @param byteArray byte array to translate
-     * @return A String in hex format
-     */
-    public static String byteToHex(byte[] byteArray) {
-        StringBuilder stringBuilder = new StringBuilder();
-
-        for (byte b : byteArray) {
-            stringBuilder.append(String.format("%02X", b));
-        }
-
-        return stringBuilder.toString();
     }
 
     /**
