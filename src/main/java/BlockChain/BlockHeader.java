@@ -34,17 +34,17 @@ public class BlockHeader {
     /**
      * The transaction group hash
      */
-    private final byte[] txRootHash;
+    private final byte[] merkleTreeHash;
     /**
      * nonce used in to compute the hash with certain characteristics
      */
     private int nonce;
 
-    public BlockHeader(int version, long unixTimestamp, int difficulty, byte[] prevHash, byte[] txRootHash, int nonce) {
+    public BlockHeader(int version, long unixTimestamp, int difficulty, byte[] prevHash, byte[] merkleTreeHash, int nonce) {
         this.version = version;
         this.prevHash = prevHash;
         this.difficulty = difficulty;
-        this.txRootHash = txRootHash;
+        this.merkleTreeHash = merkleTreeHash;
         this.unixTimestamp = unixTimestamp;
         this.nonce = nonce;
     }
@@ -72,7 +72,7 @@ public class BlockHeader {
         byteBuffer.put(HashAlgorithm.longToByte(this.unixTimestamp));
         byteBuffer.put(HashAlgorithm.intToByte(this.difficulty));
         byteBuffer.put(this.prevHash);
-        byteBuffer.put(this.txRootHash);
+        byteBuffer.put(this.merkleTreeHash);
         byteBuffer.put(HashAlgorithm.intToByte(this.nonce));
 
         hash = digest.digest(byteBuffer.array());
@@ -95,7 +95,7 @@ public class BlockHeader {
                 "\nunixTimestamp=" + unixTimestamp +
                 "\ndifficulty=" + difficulty +
                 "\nprevHash=" + HashAlgorithm.byteToHex(prevHash) +
-                "\ntxRootHash=" + HashAlgorithm.byteToHex(txRootHash) +
+                "\ntxRootHash=" + HashAlgorithm.byteToHex(merkleTreeHash) +
                 "\nnonce=" + nonce +
                 "\n}";
     }
@@ -199,8 +199,8 @@ public class BlockHeader {
      *
      * @return The transactions group hash
      */
-    public byte[] getTxRootHash() {
-        return txRootHash;
+    public byte[] getMerkleTreeHash() {
+        return merkleTreeHash;
     }
 
     /**
