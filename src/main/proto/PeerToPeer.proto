@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+option java_package = "grpcCode";
+
+service PeerToPeer {
+  rpc Ping(PingInfo) returns (PingSuccess) {}
+}
+
+message PingInfo {
+  NodeInfo dest = 1;
+  NodeInfo orig = 2;
+}
+
+/**
+  Message format for a basic info of a node
+ */
+message NodeInfo {
+  // Node identification
+  bytes nodeId = 1;
+  // IP of node
+  string nodeIp = 2;
+  // Port of the node
+  int32 nodePort = 3;
+}
+
+/**
+  Message format for a ping response
+ */
+message PingSuccess {
+  // True if ping was received, otherwise false
+  bool success = 1;
+}
