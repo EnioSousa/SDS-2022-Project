@@ -4,3 +4,4 @@ tmp/*
 /target/
 /target/
 *lst
+/target/maven-status/
