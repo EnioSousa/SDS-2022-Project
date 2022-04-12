@@ -1,5 +1,6 @@
-<<<<<<< HEAD
 *.class
-=======
-*.class
->>>>>>> dd8ca5e (gitignore update)
+tmp/*
+/dependency-reduced-pom.xml
+/target/
+/target/
+*lst

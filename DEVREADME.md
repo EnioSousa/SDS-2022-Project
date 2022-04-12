@@ -3,25 +3,32 @@
 Here we will place all the usefull information gathered.
 
 # Project description
+
 + [Project desctription](https://cdn-uploads.piazza.com/paste/itcshcp58zg2wx/322a726fbdcbf1a588ba1dc7303e2f3a4b19edc48533f92960b58c672ab4a8eb/assigment.pdf)
 
 # TODO
-+ Install the advised software for development [Intellij IDEA](https://www.jetbrains.com/community/education/#students)
+
++ Install the advised software for
+  development [Intellij IDEA](https://www.jetbrains.com/community/education/#students)
 + Read Paper 1. from *Useful Papers*
 
 # Useful Tips
+
 + Use [Google Scholar](https://scholar.google.com/) to find papers
-+ Use [Intellij IDEA](https://www.jetbrains.com/community/education/#students), with a student licence
++ Use [Intellij IDEA](https://www.jetbrains.com/community/education/#students),
+  with a student licence
 
 # Developers Requirements
+
 + Use of English
 + Use of Java (To be decided)
 + Use of [LaTeX](https://www.overleaf.com/) for reports, namely overleaf
 + Place useful information in *SDS Project Developers Read Me*
 
-# Basic Concepts Info 
+# Basic Concepts Info
 
-+ [MarkDown Tutorial](https://wordpress.com/support/markdown-quick-reference/). Use ctrl-f to search commands
++ [MarkDown Tutorial](https://wordpress.com/support/markdown-quick-reference/).
+  Use ctrl-f to search commands
 
 + [LaTeX Tutorial](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes)
 
@@ -29,7 +36,7 @@ Here we will place all the usefull information gathered.
 
 + [Distributed Ledger](https://www.investopedia.com/terms/d/distributed-ledgers.asp#:~:text=A%20distributed%20ledger%20is%20a,geographies%2C%20accessible%20by%20multiple%20people)
 
-+ [P2P: Kademlia](https://en.wikipedia.org/wiki/Kademlia)
++ [HelloWorld: Kademlia](https://en.wikipedia.org/wiki/Kademlia)
 
 + [Eclipse and Sybil attacks](https://bitcoin.stackexchange.com/questions/61151/eclipse-attack-vs-sybil-attack)
 
