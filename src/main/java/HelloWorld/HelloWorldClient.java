@@ -26,7 +26,5 @@ public class HelloWorldClient {
 
         Helloworld.HelloReply reply = stub.hello(request);
         LOGGER.info("Got reply: Message: " + reply.getMsg());
-
-        channel.shutdown();
     }
 }

@@ -3,6 +3,7 @@ package BlockChain;
 import org.junit.jupiter.api.Test;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -11,14 +12,14 @@ class HashAlgorithmTest {
     void testByteToHex() {
         String string = "D32C10";
 
-        assertEquals(string, HashAlgorithm.byteToHex(new byte[]{(byte) 0xD3, (byte)0x2C, (byte)0x10}));
+        assertEquals(string, HashAlgorithm.byteToHex(new byte[]{(byte) 0xD3, (byte) 0x2C, (byte) 0x10}));
     }
 
     @Test
     void testGenerateHash() throws NoSuchAlgorithmException {
         byte[] byteArray0 = HashAlgorithm.generateHash("Enio");
-        byte[] byteArray1 = HashAlgorithm.generateHash(new byte[]{0x01, (byte)0xFD});
-        byte[] byteArray2 = HashAlgorithm.generateHash(new byte[]{0x01}, new byte[]{(byte)0xFD});
+        byte[] byteArray1 = HashAlgorithm.generateHash(new byte[]{0x01, (byte) 0xFD});
+        byte[] byteArray2 = HashAlgorithm.generateHash(new byte[]{0x01}, new byte[]{(byte) 0xFD});
 
         String hex0 = HashAlgorithm.byteToHex(byteArray0);
         String hex1 = HashAlgorithm.byteToHex(byteArray1);
@@ -59,5 +60,12 @@ class HashAlgorithmTest {
                 () -> assertEquals("000000000004C423", stringArray[1]),
                 () -> assertEquals("000000000001E436", stringArray[2]),
                 () -> assertEquals("00001D374B26ABC3", stringArray[3]));
+    }
+
+    @Test
+    void hexToByte() {
+        byte[] byteArray = {(byte) 0x01, (byte) 0x11, (byte) 0xAF};
+
+        assertTrue(Arrays.equals(byteArray, HashAlgorithm.hexToByte("0111AF")));
     }
 }

@@ -1,24 +1,28 @@
 package PeerToPeer;
 
-import java.nio.charset.StandardCharsets;
+import BlockChain.HashAlgorithm;
+
+import java.util.concurrent.TimeUnit;
 
 public class PeerToPeer {
-    public static Node node;
+    public static Node runNode;
 
-    public static void main(String[] args) {
-        mainNode("Enio", "localhost", 5000);
+    public static Node getRunningNode() {
+        return runNode;
     }
 
-    private static void mainNode(NodeInfo nodeInfo) {
-        node = new Node(nodeInfo);
-    }
+    public static void main(String[] args) throws InterruptedException {
+        byte[] id = HashAlgorithm.hexToByte(args[0]);
+        String ip = args[1];
+        int port = Integer.parseInt(args[2]);
 
-    private static void mainNode(byte[] id, String ip, int port) {
-        mainNode(new NodeInfo(id, ip, port));
-    }
+        runNode = new Node(new NodeInfo(id, ip, port));
 
-    private static void mainNode(String id, String ip, int port) {
-        mainNode(id.getBytes(StandardCharsets.UTF_8), ip, port);
+        while (!args[0].equals("00")) {
+            runNode.doPing(new NodeInfo("00", "localhost", 5000));
+
+            TimeUnit.MILLISECONDS.sleep(1000);
+        }
     }
 
 }

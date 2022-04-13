@@ -4,10 +4,12 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HexFormat;
 
 public class HashAlgorithm {
     /**
      * Function hashes a given string with SHA-256 algorithm
+     *
      * @param string String to hash
      * @return A byte array containing the hash
      * @throws NoSuchAlgorithmException Exception if the hsh algorithm is not found
@@ -20,6 +22,7 @@ public class HashAlgorithm {
 
     /**
      * Given a byte array, this method generates a hash
+     *
      * @param hash The byte array containing the data
      * @return the hash in byte array
      * @throws NoSuchAlgorithmException Exception if the hash algorithm is not foud
@@ -32,6 +35,7 @@ public class HashAlgorithm {
 
     /**
      * This function combines two hash in to one and passes the hash algorithm again
+     *
      * @param hash0 The first hash
      * @param hash1 The second hash
      * @return The combined hash
@@ -49,6 +53,7 @@ public class HashAlgorithm {
 
     /**
      * Function will translate a byte array into a Hex format
+     *
      * @param byteArray byte array
      * @return String representation in hex of the byte array
      */
@@ -62,8 +67,13 @@ public class HashAlgorithm {
         return stringBuilder.toString();
     }
 
+    public static byte[] hexToByte(String string) {
+        return HexFormat.of().parseHex(string);
+    }
+
     /**
      * Converts a int into to a byte array
+     *
      * @param value the int value
      * @return the byte array
      */
@@ -78,6 +88,7 @@ public class HashAlgorithm {
 
     /**
      * converts a long into a byte array
+     *
      * @param value the long value
      * @return the corresponding byte array
      */
