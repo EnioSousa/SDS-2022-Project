@@ -1,1 +1,5 @@
 *.class
+tmp/*
+/dependency-reduced-pom.xml
+/target/*
+target/*
