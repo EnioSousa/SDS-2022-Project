@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.HexFormat;
 
 public class HashAlgorithm {
@@ -23,30 +24,46 @@ public class HashAlgorithm {
     /**
      * Given a byte array, this method generates a hash
      *
-     * @param hash The byte array containing the data
+     * @param byteArray The byte array containing the data
      * @return the hash in byte array
-     * @throws NoSuchAlgorithmException Exception if the hash algorithm is not foud
+     * @throws NoSuchAlgorithmException Exception if the hash algorithm is
+     *                                  not found
      */
-    public static byte[] generateHash(byte[] hash) throws NoSuchAlgorithmException {
+    public static byte[] generateHash(byte[] byteArray) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
-        return digest.digest(hash);
+        return digest.digest(byteArray);
+    }
+
+    /**
+     * Hash a given byte array to a specific size
+     *
+     * @param byteArray The byte array to hash
+     * @param size      The size in bits
+     * @return The hash
+     * @throws NoSuchAlgorithmException Exception if the hash algorithm is
+     *                                  not found
+     */
+    public static byte[] generateHash(byte[] byteArray, int size) throws NoSuchAlgorithmException {
+        byte[] hash = generateHash(byteArray);
+
+        return Arrays.copyOfRange(hash, 0, size / 8);
     }
 
     /**
      * This function combines two hash in to one and passes the hash algorithm again
      *
-     * @param hash0 The first hash
-     * @param hash1 The second hash
+     * @param byteArray0 The first hash
+     * @param byteArray1 The second hash
      * @return The combined hash
      * @throws NoSuchAlgorithmException Exception if hash algorithm is not found
      */
-    public static byte[] generateHash(byte[] hash0, byte[] hash1) throws NoSuchAlgorithmException {
-        byte[] byteArray = new byte[hash0.length + hash1.length];
+    public static byte[] generateHash(byte[] byteArray0, byte[] byteArray1) throws NoSuchAlgorithmException {
+        byte[] byteArray = new byte[byteArray0.length + byteArray1.length];
 
         ByteBuffer byteBuffer = ByteBuffer.wrap(byteArray);
-        byteBuffer.put(hash0);
-        byteBuffer.put(hash1);
+        byteBuffer.put(byteArray0);
+        byteBuffer.put(byteArray1);
 
         return generateHash(byteBuffer.array());
     }

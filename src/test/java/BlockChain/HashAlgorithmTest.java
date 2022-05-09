@@ -2,6 +2,7 @@ package BlockChain;
 
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
@@ -31,7 +32,18 @@ class HashAlgorithmTest {
                 () -> assertEquals("61B712BAB581A8F4F7478DA0E44A2AE559BFC5A36C1FAC0FD1F092EF25CAC573", hex2)
         );
 
+        byte[] hash0 =
+                HashAlgorithm.generateHash("Enio".getBytes(StandardCharsets.UTF_8), 1 * 8);
+        byte[] hash1 =
+                HashAlgorithm.generateHash("Enio".getBytes(StandardCharsets.UTF_8), 2 * 8);
+        byte[] hash2 =
+                HashAlgorithm.generateHash("Enio".getBytes(StandardCharsets.UTF_8), 30 * 8);
 
+        assertAll(
+                () -> assertEquals(1, hash0.length),
+                () -> assertEquals(2, hash1.length),
+                () -> assertEquals(30, hash2.length)
+        );
     }
 
     @Test

@@ -1,12 +1,17 @@
 package PeerToPeer;
 
+import BlockChain.HashAlgorithm;
 import grpcCode.PeerToPeerGrpc;
-import grpcCode.PeerToPeerOuterClass;
+import grpcCode.PeerToPeerOuterClass.FindNodeMSG;
+import grpcCode.PeerToPeerOuterClass.NodeInfoMSG;
+import grpcCode.PeerToPeerOuterClass.SaveMSG;
+import grpcCode.PeerToPeerOuterClass.SuccessMSG;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 
 /**
  * TODO: Change plain text mode to a secure one
@@ -23,9 +28,13 @@ public class NodeClient {
      */
     private ManagedChannel channel;
     /**
+     * sync stub
+     */
+    private PeerToPeerGrpc.PeerToPeerBlockingStub syncStub;
+    /**
      * Async stub
      */
-    private PeerToPeerGrpc.PeerToPeerStub stub;
+    private PeerToPeerGrpc.PeerToPeerStub asyncStub;
     /**
      * Node that's running this client
      */
@@ -42,71 +51,171 @@ public class NodeClient {
         openChannel(otherNodeInfo.getIp(), otherNodeInfo.getPort());
     }
 
+    /**
+     * Creates the grpc channel and respective stubs
+     *
+     * @param addressTo The address to connect to
+     * @param portTo    the port to connect to
+     */
     private void openChannel(String addressTo, int portTo) {
         this.channel = ManagedChannelBuilder.forAddress(addressTo, portTo)
                 .usePlaintext()
                 .build();
 
-        this.stub = PeerToPeerGrpc.newStub(channel);
+        this.asyncStub = PeerToPeerGrpc.newStub(channel);
+
+        this.syncStub = PeerToPeerGrpc.newBlockingStub(channel);
     }
 
-    /**
-     * This method is async and does a ping to a node.
-     *
-     * @param orig Sender node info
-     * @param dest Destination node info
-     */
-    void doPing(NodeInfo orig, NodeInfo dest) {
-        PeerToPeerOuterClass.NodeInfo nodeInfoOrig = orig.getServiceNodeInfo();
+    void doStore(byte[] key, byte[] value) {
+        LOGGER.info("Doing store to: " + connectedNodeInfo + ": key: "
+                + HashAlgorithm.byteToHex(key) + ": value: "
+                + HashAlgorithm.byteToHex(value));
 
-        PeerToPeerOuterClass.NodeInfo nodeInfoDest = dest.getServiceNodeInfo();
+        SaveMSG saveMSG =
+                PeerToPeerService.convertToSaveMSG(node.getNodeInfo(), key,
+                        value);
 
-        PeerToPeerOuterClass.PingInfo request =
-                PeerToPeerOuterClass.PingInfo.newBuilder()
-                        .setOrig(nodeInfoOrig)
-                        .setDest(nodeInfoDest)
-                        .build();
-
-        LOGGER.info("Do ping request: id: " + dest.getIdString());
-
-        stub.ping(request, new StreamObserver<>() {
+        asyncStub.store(saveMSG, new StreamObserver<SuccessMSG>() {
             @Override
-            public void onNext(PeerToPeerOuterClass.PingSuccess value) {
-                LOGGER.info("Response: " + value.getSuccess());
-
-                // If ping successful adds the nodeClient to our list, otherwise
-                // removes from the list
-                if (value.getSuccess()) {
-                    connectNodeClient();
-                } else {
-                    disconnectNodeClient();
-                }
+            public void onNext(SuccessMSG val) {
+                LOGGER.info("Got store response from: " + connectedNodeInfo +
+                        ": key: "
+                        + HashAlgorithm.byteToHex(key) + ": value: "
+                        + HashAlgorithm.byteToHex(value) + ": success: "
+                        + val.getSuccess());
             }
 
             @Override
             public void onError(Throwable t) {
-                LOGGER.error("CallBack error: " + t.getMessage());
-                disconnectNodeClient();
+                LOGGER.info("Error store to: " + connectedNodeInfo + ": key: "
+                        + HashAlgorithm.byteToHex(key) + ": value: "
+                        + HashAlgorithm.byteToHex(value));
             }
 
             @Override
             public void onCompleted() {
-                LOGGER.info("Stream Completed: ");
+                getNode().gotResponse(getConnectedNodeInfo());
             }
         });
+
     }
 
-    private void connectNodeClient() {
-        getNode().connectToNode(this);
+    /**
+     * Send a find node request. This method will also recursively do another
+     * session of find nodes, depending on the response, i.e. if the nodes
+     * from the response have been previously contacted or not. This
+     * method is async, so we need a list of nodes we have contacted for this
+     * request. The request group can be identified by the entry value
+     *
+     * @param wantedId The id we want to find
+     * @param alpha    the alpha value, i.e. the maximum depth of calls
+     * @param entry    the entry identifying
+     */
+    void doFindNode(byte[] wantedId, int alpha, byte[] entry) {
+        if (alpha >= getNode().getKBuckets().getAlpha()) {
+            return;
+        }
+
+        LOGGER.info("Doing find node: To: " + connectedNodeInfo);
+
+        FindNodeMSG findNodeMSG =
+                PeerToPeerService.convertToFindNodeMSG(node.getNodeInfo(),
+                        wantedId);
+
+        for (int i = 0; i < alpha; i++) {
+            asyncStub.findNode(findNodeMSG,
+                    new StreamObserver<NodeInfoMSG>() {
+                        @Override
+                        public void onNext(NodeInfoMSG value) {
+                            NodeInfo nodeInfo =
+                                    PeerToPeerService.convertToNodeInfo(value);
+
+                            LOGGER.info("Got find node response: " + nodeInfo);
+
+                            getNode().doFindNode(nodeInfo, wantedId, alpha + 1, entry);
+                        }
+
+                        @Override
+                        public void onError(Throwable t) {
+                            LOGGER.error("Find node error: " + connectedNodeInfo + ":" +
+                                    " " + HashAlgorithm.byteToHex(wantedId));
+                        }
+
+                        @Override
+                        public void onCompleted() {
+                            LOGGER.info("End of find node: " + connectedNodeInfo +
+                                    ": wantedId: " + HashAlgorithm.byteToHex(wantedId));
+
+                            getNode().gotResponse(getConnectedNodeInfo());
+                        }
+                    });
+
+        }
     }
 
-    private void disconnectNodeClient() {
+    /**
+     * Do an async ping call
+     */
+    void doPingAsync() {
+        LOGGER.info("Doing ping request: To: " + connectedNodeInfo);
+
+        NodeInfoMSG nodeInfoMsg =
+                PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
+
+        asyncStub.ping(nodeInfoMsg,
+                new StreamObserver<SuccessMSG>() {
+                    @Override
+                    public void onNext(SuccessMSG value) {
+                        LOGGER.info("Got Ping Response: from: " + connectedNodeInfo +
+                                ": Value: " + value.getSuccess());
+                    }
+
+                    @Override
+                    public void onError(Throwable t) {
+                        LOGGER.error("Ping error: From: " + connectedNodeInfo);
+                    }
+
+                    @Override
+                    public void onCompleted() {
+                        LOGGER.info("Stream completed: From: " + connectedNodeInfo);
+
+                        getNode().gotResponse(getConnectedNodeInfo());
+                    }
+                });
+    }
+
+    /**
+     * Do  sync ping, i.e. wait for the ping rpc call to return
+     *
+     * @return True if ping was successful otherwise false
+     */
+    boolean doPingSync() {
+        NodeInfoMSG nodeInfoMsg =
+                PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
+
+        LOGGER.info("Doing ping request: To: " + connectedNodeInfo);
+        SuccessMSG pingSuccessMSG = syncStub.ping(nodeInfoMsg);
+
+        LOGGER.info("Got Ping Response: from: " + connectedNodeInfo +
+                ": Value: " + pingSuccessMSG.getSuccess());
+
+        return pingSuccessMSG.getSuccess();
+    }
+
+    /**
+     * Close this client grpc channel
+     */
+    public void closeClient() {
+        LOGGER.info("Shutting down channel: " + getConnectedNodeInfo());
         channel.shutdownNow();
-        LOGGER.info("Closing channel from node: id: " + getConnectedNodeInfo().getIdString());
-
-        getNode().disconnectFromNode(getConnectedNodeInfo());
     }
 
+    /**
+     * Get node running this client
+     *
+     * @return the node running this client
+     */
     public Node getNode() {
         return node;
     }
@@ -120,9 +229,21 @@ public class NodeClient {
         if (other == this)
             return true;
 
-        if (other == null || !(other instanceof NodeClient))
+        if (other == null)
             return false;
 
-        return getConnectedNodeInfo().equals(((NodeClient) other).connectedNodeInfo);
+        if (other instanceof NodeClient) {
+            NodeClient nodeClient = (NodeClient) other;
+
+            return getConnectedNodeInfo().equals(nodeClient.getConnectedNodeInfo());
+        }
+
+        if (other instanceof NodeInfo) {
+            NodeInfo nodeInfo = (NodeInfo) other;
+
+            return getConnectedNodeInfo().equals(nodeInfo);
+        }
+
+        return false;
     }
 }

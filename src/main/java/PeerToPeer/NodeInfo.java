@@ -1,8 +1,6 @@
 package PeerToPeer;
 
 import BlockChain.HashAlgorithm;
-import com.google.protobuf.ByteString;
-import grpcCode.PeerToPeerOuterClass;
 
 import java.util.Arrays;
 
@@ -49,32 +47,6 @@ public class NodeInfo {
     }
 
     /**
-     * Given a grpc nodeInfo type, this constructor creates the {@link NodeInfo}
-     * object
-     *
-     * @param nodeInfo nodeInfo type object defined in the proto file
-     */
-    public NodeInfo(PeerToPeerOuterClass.NodeInfo nodeInfo) {
-        this.id = nodeInfo.getNodeId().toByteArray();
-        this.ip = nodeInfo.getNodeIp();
-        this.port = nodeInfo.getNodePort();
-    }
-
-    /**
-     * Given a NodeInfo, this method return the grpc type of the NodeInfo,
-     * defined in the proto file
-     *
-     * @return {@link grpcCode.PeerToPeerOuterClass.NodeInfo} object
-     */
-    public PeerToPeerOuterClass.NodeInfo getServiceNodeInfo() {
-        return PeerToPeerOuterClass.NodeInfo.newBuilder()
-                .setNodeId(ByteString.copyFrom(getId()))
-                .setNodeIp(getIp())
-                .setNodePort(getPort())
-                .build();
-    }
-
-    /**
      * Get the id of the node
      *
      * @return id of node
@@ -103,6 +75,13 @@ public class NodeInfo {
      */
     public int getPort() {
         return port;
+    }
+
+    @Override
+    public String toString() {
+        return " id = " + getIdString() +
+                " ip = " + getIp() +
+                " port = " + getPort();
     }
 
     @Override

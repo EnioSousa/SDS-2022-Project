@@ -3,18 +3,26 @@ syntax = "proto3";
 option java_package = "grpcCode";
 
 service PeerToPeer {
-  rpc Ping(PingInfo) returns (PingSuccess) {}
+  rpc Ping(NodeInfoMSG) returns (SuccessMSG) {}
+
+  rpc FindNode(FindNodeMSG) returns (stream NodeInfoMSG) {}
+
+  rpc Store(SaveMSG) returns (SuccessMSG) {}
+
+  rpc Find(FindMSG) returns ()
 }
 
-message PingInfo {
-  NodeInfo dest = 1;
-  NodeInfo orig = 2;
+/**
+  Empty message
+ */
+message EmptyMSG {
+
 }
 
 /**
   Message format for a basic info of a node
  */
-message NodeInfo {
+message NodeInfoMSG {
   // Node identification
   bytes nodeId = 1;
   // IP of node
@@ -23,10 +31,32 @@ message NodeInfo {
   int32 nodePort = 3;
 }
 
+message FindNodeMSG {
+  NodeInfoMSG requester = 1;
+
+  bytes wantedId = 2;
+}
+
 /**
-  Message format for a ping response
+  Message format for a save request
  */
-message PingSuccess {
-  // True if ping was received, otherwise false
+message SaveMSG {
+  NodeInfoMSG requester = 1;
+
+  bytes key = 2;
+
+  bytes value = 3;
+}
+
+/**
+  Message format for a find request
+ */
+message FindMSG {
+  NodeInfoMSG requester = 1;
+
+  bytes key = 2;
+}
+
+message SuccessMSG {
   bool success = 1;
 }
