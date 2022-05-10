@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
+// TODO: Improve the contact list. Maybe use a timer to erase useless entries
+
 public class Node {
     /**
      * Logger object to log stuff
@@ -31,14 +33,32 @@ public class Node {
      */
     private final K_Buckets kBuckets;
     /**
-     * This var will be used for the find node stuff
+     * This var will be used for the find node. We have async calls, so
+     * we need a way to check if we have contacted a given node
      */
-    private HashMap<byte[], LinkedList<NodeInfo>> contactedList =
+    private HashMap<byte[], LinkedList<NodeInfo>> findNodeContactedList =
+            new HashMap<>();
+    /**
+     * This var will be used for the finds. We have async calls, so we need a
+     * way to know if for a given find call we have already contacted a node
+     */
+    private HashMap<byte[], LinkedList<NodeInfo>> findContactedList =
+            new HashMap<>();
+    /**
+     * This var will be used to save the values that we find
+     */
+    private HashMap<byte[], byte[]> keyValuePair =
             new HashMap<>();
     /**
      * Holds the stored values
      */
     private final StoredValues storedValues;
+
+    /**
+     * Node known to all
+     */
+    public static NodeInfo knownNode =
+            new NodeInfo(new byte[]{0x00}, "localhost", 5000);
 
     public Node(NodeInfo nodeInfo) {
         this.nodeInfo = nodeInfo;
@@ -54,6 +74,9 @@ public class Node {
         kBuckets = new K_Buckets(nodeInfo, 8, 4);
         storedValues = new StoredValues(8, this);
 
+        if (!nodeInfo.equals(knownNode)) {
+            getKBuckets().addNodeInfo(knownNode);
+        }
     }
 
     /**
@@ -67,15 +90,45 @@ public class Node {
         return storedValues.storeValue(key, value);
     }
 
-    public void doFindValue(byte[] key) {
+    public byte[] getStoredValue(byte[] key) {
+        return storedValues.getStoredValue(key);
+    }
+
+    public HashMap<byte[], byte[]> getKeyValuePair() {
+        return keyValuePair;
+    }
+
+    public void doFind(byte[] key) {
         try {
             byte[] normalizedKey = HashAlgorithm.generateHash(key,
                     getKBuckets().getSpaceSize());
 
+            keyValuePair.remove(normalizedKey);
+
+            byte[] entry = HashAlgorithm.generateHash(normalizedKey);
+
+            LinkedList<NodeInfo> list =
+                    getKBuckets().getKClosest(normalizedKey);
+
+            for (NodeInfo nodeInfo : list) {
+                getNodeClient(nodeInfo).doFind(normalizedKey, 0, entry);
+            }
 
         } catch (Exception e) {
             LOGGER.error("Hash error: " + e);
         }
+    }
+
+    public void doFind(NodeInfo nodeInfo, byte[] normalizedKey, int alpha,
+                       byte[] entry) {
+        if (alpha >= 3 || (findContactedList.get(entry) != null &&
+                findContactedList.get(entry).contains(nodeInfo))) {
+            return;
+        }
+
+        findContactedList.get(entry).add(nodeInfo);
+
+        getNodeClient(nodeInfo).doFind(normalizedKey, alpha, entry);
     }
 
     public void doStore(byte[] key, byte[] value) {
@@ -98,13 +151,23 @@ public class Node {
     }
 
     /**
-     * Return the contacted list of nodes
+     * Return the contacted list of nodes from the find node call
      *
      * @param entry The entry identifying the contact group
      * @return A list of nodes already contacted
      */
-    public LinkedList<NodeInfo> getContactedList(byte[] entry) {
-        return contactedList.get(entry);
+    public LinkedList<NodeInfo> getFindNodeContactedList(byte[] entry) {
+        return findNodeContactedList.get(entry);
+    }
+
+    /**
+     * Return the contacted list of nodes from the find call
+     *
+     * @param entry The entry identifying the contact group
+     * @return A list of nodes already contacted
+     */
+    public LinkedList<NodeInfo> getFindContactedList(byte[] entry) {
+        return findContactedList.get(entry);
     }
 
     /**
@@ -113,8 +176,18 @@ public class Node {
      * @param entry The entry to remove
      * @return True if removed, otherwise false
      */
-    public boolean removeEntryFromContactList(byte[] entry) {
-        return contactedList.remove(entry) != null ? true : false;
+    public boolean removeEntryFromFindNodeContactList(byte[] entry) {
+        return findNodeContactedList.remove(entry) != null;
+    }
+
+    /**
+     * Remove a given entry from the contact list from the find call
+     *
+     * @param entry The entry identifying the call group
+     * @return True if removed, otherwise false
+     */
+    public boolean removeEntryFromFindContactList(byte[] entry) {
+        return findContactedList.remove(entry) != null;
     }
 
     /**
@@ -124,8 +197,28 @@ public class Node {
      * @param nodeInfo The node info to add
      * @return True if the contact was added, otherwise false
      */
-    public boolean addToContactList(byte[] entry, NodeInfo nodeInfo) {
-        return contactedList.get(entry).add(nodeInfo);
+    @SuppressWarnings("DuplicatedCode")
+    public boolean addToFindNodeContactList(byte[] entry, NodeInfo nodeInfo) {
+        if (findNodeContactedList.containsKey(entry)) {
+            return findNodeContactedList.get(entry).add(nodeInfo);
+        } else {
+            LinkedList<NodeInfo> list = new LinkedList<>();
+            list.add(nodeInfo);
+
+            return findNodeContactedList.put(entry, list) != null;
+        }
+    }
+
+    @SuppressWarnings("DuplicatedCode")
+    public boolean addToFindContactList(byte[] entry, NodeInfo nodeInfo) {
+        if (findContactedList.containsKey(entry)) {
+            return findContactedList.get(entry).add(nodeInfo);
+        } else {
+            LinkedList<NodeInfo> list = new LinkedList<>();
+            list.add(nodeInfo);
+
+            return findContactedList.put(entry, list) != null;
+        }
     }
 
     /**
@@ -140,20 +233,17 @@ public class Node {
     public void doFindNode(byte[] wantedId) throws NoSuchAlgorithmException {
         LinkedList<NodeInfo> contactList = getKBuckets().getKClosest(wantedId);
 
+        LOGGER.info(contactList);
+
         byte[] entry = HashAlgorithm.generateHash(wantedId);
 
         // TODO: Improve how we check the already contacted nodes
-        if (contactedList.containsKey(entry)) {
-            contactedList.remove(entry);
-        }
-        contactedList.put(entry, new LinkedList<>(contactList));
+        findNodeContactedList.remove(entry);
+
+        findNodeContactedList.put(entry, new LinkedList<>(contactList));
 
         for (NodeInfo nodeInfo : contactList) {
             NodeClient nodeClient = getNodeClient(nodeInfo);
-
-            if (nodeClient == null) {
-                connectToNode(nodeInfo);
-            }
 
             nodeClient.doFindNode(wantedId, 0, entry);
         }
@@ -169,10 +259,13 @@ public class Node {
      */
     void doFindNode(NodeInfo nodeInfo, byte[] wantedId, int alpha, byte[] entry) {
         // If the node hasn't been contacted, then..
-        if (contactedList.get(entry) != null && contactedList.get(entry).contains(nodeInfo)) {
+        if (nodeInfo.equals(getNodeInfo())) {
+            return;
+        } else if (findNodeContactedList.get(entry) != null &&
+                findNodeContactedList.get(entry).contains(nodeInfo)) {
             return;
         } else {
-            contactedList.get(entry).add(nodeInfo);
+            findNodeContactedList.get(entry).add(nodeInfo);
         }
 
         NodeClient nodeClient = getNodeClient(nodeInfo);
@@ -186,7 +279,9 @@ public class Node {
      * @param nodeInfo the node that made us a request
      */
     public void gotRequest(NodeInfo nodeInfo) {
-        getKBuckets().addNodeInfo(nodeInfo);
+        if (!nodeInfo.equals(getNodeInfo())) {
+            getKBuckets().addNodeInfo(nodeInfo);
+        }
     }
 
     /**
@@ -196,7 +291,62 @@ public class Node {
      * @param nodeInfo The node that answered us
      */
     public void gotResponse(NodeInfo nodeInfo) {
-        getKBuckets().addNodeInfo(nodeInfo);
+        gotRequest(nodeInfo);
+    }
+
+    /**
+     * Do a sync ping to a node. If ping fails we will try to remove the
+     * connection from our database
+     *
+     * @param nodeInfo The respective node info
+     * @return True if ping successful, otherwise false
+     */
+    boolean doPingSync(NodeInfo nodeInfo) {
+        NodeClient nodeClient = getNodeClient(nodeInfo);
+
+        boolean success = nodeClient.doPingSync();
+
+        if (!success) {
+            nodeClient.closeClient();
+            nodeClients.remove(nodeClient);
+        }
+
+        return success;
+    }
+
+    /**
+     * Add new node client to our clients list
+     *
+     * @param nodeClient New object to add
+     * @return True if successfully added
+     */
+    private boolean addNodeClient(NodeClient nodeClient) {
+        boolean success = nodeClients.add(nodeClient);
+
+        if (success) {
+            LOGGER.info("Adding new node to list: " + nodeClient);
+        } else {
+            LOGGER.info("Failed to add new node to list: " + nodeClient);
+        }
+
+        return success;
+    }
+
+    /**
+     * Get Node client from the info of a node. If the client already exist,
+     * then it return the respective nodeclient, otherwise a new NodeClient
+     *
+     * @param nodeInfo the info of a node
+     * @return The node client, if it exists, otherwise creates a new one
+     */
+    private NodeClient getNodeClient(NodeInfo nodeInfo) {
+        for (NodeClient nodeClient : nodeClients) {
+            if (nodeClient.getConnectedNodeInfo().equals(nodeInfo)) {
+                return nodeClient;
+            }
+        }
+
+        return connectToNodeWithoutPing(nodeInfo);
     }
 
     /**
@@ -246,64 +396,6 @@ public class Node {
     }
 
     /**
-     * Do a sync ping to a node. If ping fails we will try to remove the
-     * connection from our database
-     *
-     * @param nodeInfo The respective node info
-     * @return True if ping successful, otherwise false
-     */
-    boolean doPingSync(NodeInfo nodeInfo) {
-        NodeClient nodeClient = getNodeClient(nodeInfo);
-
-        if (nodeClient == null) {
-            return connectToNode(nodeInfo);
-        } else {
-            boolean success = nodeClient.doPingSync();
-
-            if (!success) {
-                nodeClients.remove(nodeClient);
-            }
-
-            return success;
-        }
-    }
-
-    /**
-     * Add new node client to our clients list
-     *
-     * @param nodeClient New object to add
-     * @return True if successfully added
-     */
-    private boolean addNodeClient(NodeClient nodeClient) {
-        boolean success = nodeClients.add(nodeClient);
-
-        if (success) {
-            LOGGER.info("Adding new node to list: " + nodeClient);
-        } else {
-            LOGGER.info("Failed to add new node to list: " + nodeClient);
-        }
-
-        return success;
-    }
-
-    /**
-     * Get Node client from the info of a node. If the client already exist,
-     * then it return the respective nodeclient, otherwise a new NodeClient
-     *
-     * @param nodeInfo the info of a node
-     * @return The node client, if it exists, otherwise creates a new one
-     */
-    private NodeClient getNodeClient(NodeInfo nodeInfo) {
-        for (NodeClient nodeClient : nodeClients) {
-            if (nodeClient.getConnectedNodeInfo().equals(nodeInfo)) {
-                return nodeClient;
-            }
-        }
-
-        return connectToNodeWithoutPing(nodeInfo);
-    }
-
-    /**
      * Get the current node info
      *
      * @return NodeInfo object containing the info of the node running
@@ -328,5 +420,10 @@ public class Node {
      */
     public K_Buckets getKBuckets() {
         return kBuckets;
+    }
+
+    @Override
+    public String toString() {
+        return getNodeInfo().toString();
     }
 }

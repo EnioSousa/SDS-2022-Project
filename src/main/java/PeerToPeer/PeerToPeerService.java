@@ -3,10 +3,7 @@ package PeerToPeer;
 import BlockChain.HashAlgorithm;
 import com.google.protobuf.ByteString;
 import grpcCode.PeerToPeerGrpc;
-import grpcCode.PeerToPeerOuterClass.FindNodeMSG;
-import grpcCode.PeerToPeerOuterClass.NodeInfoMSG;
-import grpcCode.PeerToPeerOuterClass.SaveMSG;
-import grpcCode.PeerToPeerOuterClass.SuccessMSG;
+import grpcCode.PeerToPeerOuterClass.*;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,11 +27,39 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
     }
 
     @Override
+    public void find(FindMSG request, StreamObserver<FindResponseMSG> responseObserver) {
+        NodeInfo nodeInfo = convertToNodeInfo(request.getRequester());
+        byte[] key = request.getKey().toByteArray();
+
+        LOGGER.info("Got find request from: " + nodeInfo + ": key: "
+                + HashAlgorithm.byteToHex(key));
+
+        byte[] storedValue = getRunningNode().getStoredValue(key);
+
+        if (storedValue == null) {
+            LinkedList<NodeInfo> list =
+                    getRunningNode().getKBuckets().getKClosest(key);
+
+            LOGGER.info("Don't have the key: " + HashAlgorithm.byteToHex(key));
+
+            for (NodeInfo info : list) {
+                responseObserver.onNext(convertToFindNodeResponseMSG(info,
+                        null));
+            }
+
+            responseObserver.onCompleted();
+        } else {
+            LOGGER.info("Have the key: " + HashAlgorithm.byteToHex(key));
+
+            responseObserver.onNext(convertToFindNodeResponseMSG(null, storedValue));
+
+            responseObserver.onCompleted();
+        }
+    }
+
+    @Override
     public void store(SaveMSG request, StreamObserver<SuccessMSG> responseObserver) {
-        NodeInfo nodeInfo =
-                new NodeInfo(request.getRequester().getNodeId().toByteArray(),
-                        request.getRequester().getNodeIp(),
-                        request.getRequester().getNodePort());
+        NodeInfo nodeInfo = convertToNodeInfo(request.getRequester());
 
         LOGGER.info("Got store request: From: " + nodeInfo);
 
@@ -53,13 +78,13 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
     @Override
     public void findNode(FindNodeMSG request,
                          StreamObserver<NodeInfoMSG> responseObserver) {
-        NodeInfo nodeInfo =
-                new NodeInfo(request.getRequester().getNodeId().toByteArray(),
-                        request.getRequester().getNodeIp(),
-                        request.getRequester().getNodePort());
+        NodeInfo nodeInfo = convertToNodeInfo(request.getRequester());
 
         LOGGER.info("Got findNode request: From: " + nodeInfo + ": id: " +
                 HashAlgorithm.byteToHex(request.getWantedId().toByteArray()));
+
+        // Try to add the requester info into our k bucket list
+        getRunningNode().gotRequest(nodeInfo);
 
         LinkedList<NodeInfo> list =
                 getRunningNode().getKBuckets().getKClosest(request.getWantedId().toByteArray());
@@ -72,9 +97,6 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
         }
 
         responseObserver.onCompleted();
-
-        // Try to add the requester info into our k bucket list
-        getRunningNode().gotRequest(nodeInfo);
     }
 
     @Override
@@ -128,6 +150,27 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
         return FindNodeMSG.newBuilder()
                 .setRequester(convertToNodeInfoMSG(nodeInfo))
                 .setWantedId(ByteString.copyFrom(wantedId))
+                .build();
+    }
+
+    public static FindResponseMSG convertToFindNodeResponseMSG(NodeInfo nodeInfo, byte[] value) {
+        FindResponseMSG.Builder builder = FindResponseMSG.newBuilder();
+
+        if (nodeInfo != null) {
+            builder.setResponder(convertToNodeInfoMSG(nodeInfo));
+        }
+
+        if (value != null) {
+            builder.setValue(ByteString.copyFrom(value));
+        }
+
+        return builder.build();
+    }
+
+    public static FindMSG convertToFindMSG(NodeInfo nodeInfo, byte[] key) {
+        return FindMSG.newBuilder()
+                .setRequester(convertToNodeInfoMSG(getRunningNode().getNodeInfo()))
+                .setKey(ByteString.copyFrom(key))
                 .build();
     }
 }

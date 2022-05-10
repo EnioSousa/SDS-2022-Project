@@ -2,10 +2,7 @@ package PeerToPeer;
 
 import BlockChain.HashAlgorithm;
 import grpcCode.PeerToPeerGrpc;
-import grpcCode.PeerToPeerOuterClass.FindNodeMSG;
-import grpcCode.PeerToPeerOuterClass.NodeInfoMSG;
-import grpcCode.PeerToPeerOuterClass.SaveMSG;
-import grpcCode.PeerToPeerOuterClass.SuccessMSG;
+import grpcCode.PeerToPeerOuterClass.*;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
@@ -67,6 +64,43 @@ public class NodeClient {
         this.syncStub = PeerToPeerGrpc.newBlockingStub(channel);
     }
 
+    void doFind(byte[] key, int alpha, byte[] entry) {
+        LOGGER.info("Doing find to: " + connectedNodeInfo + ": key: "
+                + HashAlgorithm.byteToHex(key));
+
+        FindMSG findMSG =
+                PeerToPeerService.convertToFindMSG(getConnectedNodeInfo(), key);
+
+        asyncStub.find(findMSG, new StreamObserver<FindResponseMSG>() {
+            @Override
+            public void onNext(FindResponseMSG value) {
+                if (value.hasResponder()) {
+                    NodeInfo nodeInfo =
+                            PeerToPeerService.convertToNodeInfo(value.getResponder());
+
+                    LOGGER.info("Got node from find request: " + nodeInfo);
+
+                    getNode().doFind(nodeInfo, key, alpha + 1, entry);
+                } else {
+                    LOGGER.info("Got value from key: " + HashAlgorithm.byteToHex(key));
+                    getNode().getKeyValuePair().put(key,
+                            value.getValue().toByteArray());
+                }
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+
+            @Override
+            public void onCompleted() {
+                getNode().gotResponse(getConnectedNodeInfo());
+            }
+        });
+
+    }
+
     void doStore(byte[] key, byte[] value) {
         LOGGER.info("Doing store to: " + connectedNodeInfo + ": key: "
                 + HashAlgorithm.byteToHex(key) + ": value: "
@@ -123,7 +157,7 @@ public class NodeClient {
                 PeerToPeerService.convertToFindNodeMSG(node.getNodeInfo(),
                         wantedId);
 
-        for (int i = 0; i < alpha; i++) {
+        try {
             asyncStub.findNode(findNodeMSG,
                     new StreamObserver<NodeInfoMSG>() {
                         @Override
@@ -132,6 +166,8 @@ public class NodeClient {
                                     PeerToPeerService.convertToNodeInfo(value);
 
                             LOGGER.info("Got find node response: " + nodeInfo);
+
+                            getNode().getKBuckets().addNodeInfo(nodeInfo);
 
                             getNode().doFindNode(nodeInfo, wantedId, alpha + 1, entry);
                         }
@@ -150,7 +186,8 @@ public class NodeClient {
                             getNode().gotResponse(getConnectedNodeInfo());
                         }
                     });
-
+        } catch (Exception e) {
+            LOGGER.error("Find node: Unavailable connection: " + connectedNodeInfo);
         }
     }
 
@@ -163,26 +200,31 @@ public class NodeClient {
         NodeInfoMSG nodeInfoMsg =
                 PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
 
-        asyncStub.ping(nodeInfoMsg,
-                new StreamObserver<SuccessMSG>() {
-                    @Override
-                    public void onNext(SuccessMSG value) {
-                        LOGGER.info("Got Ping Response: from: " + connectedNodeInfo +
-                                ": Value: " + value.getSuccess());
-                    }
+        try {
+            asyncStub.ping(nodeInfoMsg,
+                    new StreamObserver<SuccessMSG>() {
+                        @Override
+                        public void onNext(SuccessMSG value) {
+                            LOGGER.info("Got Ping Response: from: " + connectedNodeInfo +
+                                    ": Value: " + value.getSuccess());
+                        }
 
-                    @Override
-                    public void onError(Throwable t) {
-                        LOGGER.error("Ping error: From: " + connectedNodeInfo);
-                    }
+                        @Override
+                        public void onError(Throwable t) {
+                            LOGGER.error("Ping error: From: " + connectedNodeInfo);
+                        }
 
-                    @Override
-                    public void onCompleted() {
-                        LOGGER.info("Stream completed: From: " + connectedNodeInfo);
+                        @Override
+                        public void onCompleted() {
+                            LOGGER.info("Stream completed: From: " + connectedNodeInfo);
 
-                        getNode().gotResponse(getConnectedNodeInfo());
-                    }
-                });
+                            getNode().gotResponse(getConnectedNodeInfo());
+                        }
+                    });
+        } catch (Exception e) {
+            LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
+                    + ": error: " + e);
+        }
     }
 
     /**
@@ -195,12 +237,20 @@ public class NodeClient {
                 PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
 
         LOGGER.info("Doing ping request: To: " + connectedNodeInfo);
-        SuccessMSG pingSuccessMSG = syncStub.ping(nodeInfoMsg);
 
-        LOGGER.info("Got Ping Response: from: " + connectedNodeInfo +
-                ": Value: " + pingSuccessMSG.getSuccess());
+        try {
+            SuccessMSG pingSuccessMSG = syncStub.ping(nodeInfoMsg);
 
-        return pingSuccessMSG.getSuccess();
+            LOGGER.info("Got Ping Response: from: " + connectedNodeInfo +
+                    ": Value: " + pingSuccessMSG.getSuccess());
+
+            return pingSuccessMSG.getSuccess();
+        } catch (Exception e) {
+            LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
+                    + ": error: " + e);
+
+            return false;
+        }
     }
 
     /**
@@ -245,5 +295,10 @@ public class NodeClient {
         }
 
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return getConnectedNodeInfo().toString();
     }
 }

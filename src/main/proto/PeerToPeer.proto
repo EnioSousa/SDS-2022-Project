@@ -9,7 +9,7 @@ service PeerToPeer {
 
   rpc Store(SaveMSG) returns (SuccessMSG) {}
 
-  rpc Find(FindMSG) returns ()
+  rpc Find(FindMSG) returns (FindResponseMSG) {}
 }
 
 /**
@@ -55,6 +55,12 @@ message FindMSG {
   NodeInfoMSG requester = 1;
 
   bytes key = 2;
+}
+
+message FindResponseMSG {
+  NodeInfoMSG responder = 1;
+
+  bytes value = 2;
 }
 
 message SuccessMSG {

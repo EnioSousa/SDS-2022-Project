@@ -123,6 +123,38 @@ public final class PeerToPeerGrpc {
      return getStoreMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.FindMSG,
+      grpcCode.PeerToPeerOuterClass.FindResponseMSG> getFindMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "Find",
+      requestType = grpcCode.PeerToPeerOuterClass.FindMSG.class,
+      responseType = grpcCode.PeerToPeerOuterClass.FindResponseMSG.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.FindMSG,
+      grpcCode.PeerToPeerOuterClass.FindResponseMSG> getFindMethod() {
+    io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.FindMSG, grpcCode.PeerToPeerOuterClass.FindResponseMSG> getFindMethod;
+    if ((getFindMethod = PeerToPeerGrpc.getFindMethod) == null) {
+      synchronized (PeerToPeerGrpc.class) {
+        if ((getFindMethod = PeerToPeerGrpc.getFindMethod) == null) {
+          PeerToPeerGrpc.getFindMethod = getFindMethod = 
+              io.grpc.MethodDescriptor.<grpcCode.PeerToPeerOuterClass.FindMSG, grpcCode.PeerToPeerOuterClass.FindResponseMSG>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "PeerToPeer", "Find"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.FindMSG.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.FindResponseMSG.getDefaultInstance()))
+                  .setSchemaDescriptor(new PeerToPeerMethodDescriptorSupplier("Find"))
+                  .build();
+          }
+        }
+     }
+     return getFindMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -171,6 +203,13 @@ public final class PeerToPeerGrpc {
       asyncUnimplementedUnaryCall(getStoreMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void find(grpcCode.PeerToPeerOuterClass.FindMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.FindResponseMSG> responseObserver) {
+      asyncUnimplementedUnaryCall(getFindMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -194,6 +233,13 @@ public final class PeerToPeerGrpc {
                 grpcCode.PeerToPeerOuterClass.SaveMSG,
                 grpcCode.PeerToPeerOuterClass.SuccessMSG>(
                   this, METHODID_STORE)))
+          .addMethod(
+            getFindMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                grpcCode.PeerToPeerOuterClass.FindMSG,
+                grpcCode.PeerToPeerOuterClass.FindResponseMSG>(
+                  this, METHODID_FIND)))
           .build();
     }
   }
@@ -239,6 +285,14 @@ public final class PeerToPeerGrpc {
       asyncUnaryCall(
           getChannel().newCall(getStoreMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void find(grpcCode.PeerToPeerOuterClass.FindMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.FindResponseMSG> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getFindMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -280,6 +334,13 @@ public final class PeerToPeerGrpc {
       return blockingUnaryCall(
           getChannel(), getStoreMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public grpcCode.PeerToPeerOuterClass.FindResponseMSG find(grpcCode.PeerToPeerOuterClass.FindMSG request) {
+      return blockingUnaryCall(
+          getChannel(), getFindMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -315,11 +376,20 @@ public final class PeerToPeerGrpc {
       return futureUnaryCall(
           getChannel().newCall(getStoreMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<grpcCode.PeerToPeerOuterClass.FindResponseMSG> find(
+        grpcCode.PeerToPeerOuterClass.FindMSG request) {
+      return futureUnaryCall(
+          getChannel().newCall(getFindMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_PING = 0;
   private static final int METHODID_FIND_NODE = 1;
   private static final int METHODID_STORE = 2;
+  private static final int METHODID_FIND = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -349,6 +419,10 @@ public final class PeerToPeerGrpc {
         case METHODID_STORE:
           serviceImpl.store((grpcCode.PeerToPeerOuterClass.SaveMSG) request,
               (io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.SuccessMSG>) responseObserver);
+          break;
+        case METHODID_FIND:
+          serviceImpl.find((grpcCode.PeerToPeerOuterClass.FindMSG) request,
+              (io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.FindResponseMSG>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -414,6 +488,7 @@ public final class PeerToPeerGrpc {
               .addMethod(getPingMethod())
               .addMethod(getFindNodeMethod())
               .addMethod(getStoreMethod())
+              .addMethod(getFindMethod())
               .build();
         }
       }

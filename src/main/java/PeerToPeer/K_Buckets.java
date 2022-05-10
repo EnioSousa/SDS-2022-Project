@@ -114,6 +114,10 @@ public class K_Buckets {
      * @return true if successfully added, otherwise false
      */
     public boolean addNodeInfo(NodeInfo nodeInfo) {
+        if (nodeInfo.equals(getRunningNodeInfo())) {
+            return false;
+        }
+
         return buckets.get(closestBucket(nodeInfo.getId())).add(nodeInfo);
     }
 
@@ -125,12 +129,6 @@ public class K_Buckets {
      */
     public LinkedList<NodeInfo> getKClosest(byte[] wantedId) {
         LinkedList<NodeInfo> list = new LinkedList<>();
-
-        // We don't save our own node info in the k-bucket, so if the wanted
-        // is the same as our node, we need to add by "hand"
-        if (Arrays.compareUnsigned(wantedId, getId()) == 0) {
-            list.add(getRunningNodeInfo());
-        }
 
         int closestBucket = closestBucket(wantedId);
 
