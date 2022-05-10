@@ -262,9 +262,11 @@ public class Node {
      * @param oldInfo The node candidate to be replaced
      */
     void kBucketFullDoPing(NodeInfo newInfo, NodeInfo oldInfo) {
-        NodeClient nodeClient = getNodeClient(oldInfo);
+        if (!newInfo.equals(oldInfo)) {
+            NodeClient nodeClient = getNodeClient(oldInfo);
 
-        nodeClient.kBucketFullDoPing(newInfo, oldInfo);
+            nodeClient.kBucketFullDoPing(newInfo, oldInfo);
+        }
     }
 
     /**

@@ -10,8 +10,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.LinkedList;
 
-// TODO: Check if we want the server to open a connection to the other node
-
 public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
     public static Logger LOGGER =
             LogManager.getLogger(PeerToPeerService.class);

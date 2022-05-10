@@ -318,18 +318,18 @@ public class K_Buckets {
          * @param nodeInfo The node info to add
          */
         private void add(NodeInfo nodeInfo) {
-            if (numElem() >= getK()) {
-                LOGGER.info("K bucket: " + prefixSize + ": is full: id: " +
-                        HashAlgorithm.byteToHex(nodeInfo.getId()));
-
-                getNode().kBucketFullDoPing(nodeInfo, getBucket().get(0));
-            } else if (bucket.contains(nodeInfo)) {
+            if (bucket.contains(nodeInfo)) {
                 LOGGER.info("K bucket: Moving node to the end of the list: " +
                         nodeInfo);
 
                 getBucket().remove(nodeInfo);
                 getBucket().add(nodeInfo);
 
+            } else if (numElem() >= getK()) {
+                LOGGER.info("K bucket: " + prefixSize + ": is full: id: " +
+                        HashAlgorithm.byteToHex(nodeInfo.getId()));
+
+                getNode().kBucketFullDoPing(nodeInfo, getBucket().get(0));
             } else {
                 boolean success = bucket.add(nodeInfo);
 

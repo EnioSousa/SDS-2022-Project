@@ -158,7 +158,8 @@ public class NodeClient {
             return;
         }
 
-        LOGGER.info("Doing find node: To: " + connectedNodeInfo);
+        LOGGER.info("Doing find node: To: " + connectedNodeInfo + ": id:" +
+                HashAlgorithm.byteToHex(wantedId));
 
         FindNodeMSG findNodeMSG =
                 PeerToPeerService.convertToFindNodeMSG(node.getNodeInfo(),
@@ -206,6 +207,7 @@ public class NodeClient {
      * @param oldInfo The candidate to be replaced
      */
     void kBucketFullDoPing(NodeInfo newInfo, NodeInfo oldInfo) {
+        // Note oldInfo == runningNodeInfo
         LOGGER.info("Doing ping request: To: " + connectedNodeInfo);
 
         NodeInfoMSG nodeInfoMsg =
@@ -224,12 +226,12 @@ public class NodeClient {
                                 LOGGER.info("Got Late Ping Response: from: " + connectedNodeInfo +
                                         ": Value: " + value.getSuccess() + ":" +
                                         " " + "delay: " + (curTimer - oldTimer));
+
+                                getNode().getKBuckets().replace(newInfo, oldInfo);
                             } else {
                                 LOGGER.info("Got Ping Response: from: " + connectedNodeInfo +
                                         ": Value: " + value.getSuccess() + ":" +
                                         " delay: " + (curTimer - oldTimer));
-
-                                getNode().getKBuckets().replace(newInfo, oldInfo);
                             }
                         }
 
