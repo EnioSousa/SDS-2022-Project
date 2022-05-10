@@ -2,6 +2,7 @@ package PeerToPeer;
 
 import BlockChain.HashAlgorithm;
 
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 
 public class run {
@@ -10,12 +11,26 @@ public class run {
                 new Node(new NodeInfo(HashAlgorithm.hexToByte(args[0]),
                         "localhost", Integer.parseInt(args[1])));
 
-        test1(node);
+        test3(node);
+    }
+
+    public static void test3(Node node) throws NoSuchAlgorithmException, InterruptedException {
+        test2(node);
+
+        if (node.getNodeInfo().getPort() == 5003) {
+            Thread.sleep(5000);
+            node.doFind("Enio".getBytes(StandardCharsets.UTF_8));
+        }
     }
 
     public static void test2(Node node) throws NoSuchAlgorithmException, InterruptedException {
         test1(node);
 
+
+        if (node.getNodeInfo().getPort() == 5003) {
+            node.doStore("Enio".getBytes(StandardCharsets.UTF_8),
+                    "Fuck".getBytes(StandardCharsets.UTF_8));
+        }
 
     }
 

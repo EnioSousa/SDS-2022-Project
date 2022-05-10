@@ -1,5 +1,6 @@
 package PeerToPeer;
 
+import BlockChain.HashAlgorithm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,6 +13,10 @@ public class K_Buckets {
      * Logger
      */
     public static Logger LOGGER = LogManager.getLogger(K_Buckets.class);
+    /**
+     * Node that is running this k bucket
+     */
+    private final Node node;
     /**
      * Info of the node that's running this k-bucket class
      */
@@ -38,15 +43,16 @@ public class K_Buckets {
      * This constructor creates an appropriate k-bucket to use for kadamlia
      * protocol
      *
-     * @param runningNodeInfo The info of the node, that is going to run this
-     *                        k-bucket
-     * @param spaceSize       The number of bits used for the node's id
-     * @param k               The number of node's info to keep in each k-bucket
+     * @param node      The node that is running this k bucket
+     *                  k-bucket
+     * @param spaceSize The number of bits used for the node's id
+     * @param k         The number of node's info to keep in each k-bucket
      */
-    public K_Buckets(NodeInfo runningNodeInfo, int spaceSize, int k) {
-        this.runningNodeInfo = runningNodeInfo;
+    public K_Buckets(Node node, int spaceSize, int k) {
+        this.runningNodeInfo = node.getNodeInfo();
         this.spaceSize = spaceSize;
         this.k = k;
+        this.node = node;
 
         // + 1 is because we are saving our own node info
         this.buckets = new ArrayList<>(spaceSize + 1);
@@ -64,6 +70,10 @@ public class K_Buckets {
         } else {
             return buckets.get(nBucket).getBucket();
         }
+    }
+
+    public Node getNode() {
+        return node;
     }
 
     public int getAlpha() {
@@ -111,14 +121,11 @@ public class K_Buckets {
      * Add node info to our k bucket
      *
      * @param nodeInfo the node info to add
-     * @return true if successfully added, otherwise false
      */
-    public boolean addNodeInfo(NodeInfo nodeInfo) {
-        if (nodeInfo.equals(getRunningNodeInfo())) {
-            return false;
+    public void addNodeInfo(NodeInfo nodeInfo) {
+        if (!nodeInfo.equals(getRunningNodeInfo())) {
+            buckets.get(closestBucket(nodeInfo.getId())).add(nodeInfo);
         }
-
-        return buckets.get(closestBucket(nodeInfo.getId())).add(nodeInfo);
     }
 
     /**
@@ -134,7 +141,6 @@ public class K_Buckets {
 
         if (closestBucket == spaceSize) {
             list.add(getRunningNodeInfo());
-            return list;
         } else {
             for (int i = closestBucket; i < spaceSize && list.size() != getK(); i++) {
                 getClosestFromBucket(list, i, wantedId);
@@ -144,7 +150,25 @@ public class K_Buckets {
                 getClosestFromBucket(list, i, wantedId);
             }
 
-            return list;
+        }
+        return list;
+    }
+
+    /**
+     * This method will try to replace a node info with another
+     *
+     * @param newInfo The info to replace with
+     * @param oldInfo The one being replaced
+     */
+    public void replace(NodeInfo newInfo, NodeInfo oldInfo) {
+        int nb = closestBucket(newInfo.getId());
+        int ob = closestBucket(newInfo.getId());
+
+        if (nb != ob) {
+            LOGGER.error("Replace error: Cant replace nodes of different " +
+                    "buckets: old: " + oldInfo + ": new: " + newInfo);
+        } else {
+            buckets.get(nb).replace(newInfo, oldInfo);
         }
     }
 
@@ -292,29 +316,41 @@ public class K_Buckets {
          * Add a given node to our bucket
          *
          * @param nodeInfo The node info to add
-         * @return true if successfully added, otherwise false
          */
-        private boolean add(NodeInfo nodeInfo) {
-            boolean success = false;
-
+        private void add(NodeInfo nodeInfo) {
             if (numElem() >= getK()) {
-                // TODO: See if first node is still active, i.e. send ping
-                LOGGER.info("K bucket: " + prefixSize + ": is full");
+                LOGGER.info("K bucket: " + prefixSize + ": is full: id: " +
+                        HashAlgorithm.byteToHex(nodeInfo.getId()));
+
+                getNode().kBucketFullDoPing(nodeInfo, getBucket().get(0));
             } else if (bucket.contains(nodeInfo)) {
-                LOGGER.info("K bucket: " + prefixSize + ": already contains " +
-                        "node: " + nodeInfo);
+                LOGGER.info("K bucket: Moving node to the end of the list: " +
+                        nodeInfo);
+
+                getBucket().remove(nodeInfo);
+                getBucket().add(nodeInfo);
+
             } else {
-                success = bucket.add(nodeInfo);
+                boolean success = bucket.add(nodeInfo);
 
                 if (success) {
-                    LOGGER.info("Added node: " + nodeInfo + ": to k bucket: " + prefixSize);
+                    LOGGER.info("K bucket: Added node: " + nodeInfo + ": to k" +
+                            " bucket: " + prefixSize);
                 } else {
-                    LOGGER.error("Failed to add node: " + nodeInfo + ": " +
+                    LOGGER.error("K bucket: Failed to add node: " + nodeInfo +
+                            ": " +
                             "to k bucket: " + prefixSize);
                 }
             }
+        }
 
-            return success;
+        public void replace(NodeInfo newInfo, NodeInfo oldInfo) {
+            if (getBucket().get(0).equals(oldInfo)) {
+                getBucket().remove(oldInfo);
+                getBucket().add(newInfo);
+
+                LOGGER.info("Replaced: " + oldInfo + ": with: " + newInfo);
+            }
         }
 
         /**

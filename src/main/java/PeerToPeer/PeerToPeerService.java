@@ -46,26 +46,31 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
                 responseObserver.onNext(convertToFindNodeResponseMSG(info,
                         null));
             }
-
-            responseObserver.onCompleted();
         } else {
             LOGGER.info("Have the key: " + HashAlgorithm.byteToHex(key));
 
             responseObserver.onNext(convertToFindNodeResponseMSG(null, storedValue));
-
-            responseObserver.onCompleted();
         }
+
+        responseObserver.onCompleted();
     }
 
     @Override
     public void store(SaveMSG request, StreamObserver<SuccessMSG> responseObserver) {
         NodeInfo nodeInfo = convertToNodeInfo(request.getRequester());
 
-        LOGGER.info("Got store request: From: " + nodeInfo);
+        LOGGER.info("Got store request: From: " + nodeInfo + ": key: " +
+                HashAlgorithm.byteToHex(request.getKey().toByteArray()) +
+                ": value: " +
+                HashAlgorithm.byteToHex(request.getValue().toByteArray()));
 
         boolean success =
                 getRunningNode().storeValue(request.getKey().toByteArray(),
                         request.getValue().toByteArray());
+
+        LOGGER.info("keyPair success: " + success + ": " +
+                HashAlgorithm.byteToHex(request.getKey().toByteArray()) + ": " +
+                HashAlgorithm.byteToHex(request.getValue().toByteArray()));
 
         responseObserver.onNext(convertToSuccessMsg(success));
 

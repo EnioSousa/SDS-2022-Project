@@ -12,7 +12,6 @@ import org.apache.logging.log4j.Logger;
 
 /**
  * TODO: Change plain text mode to a secure one
- * TODO: Write locks
  */
 
 public class NodeClient {
@@ -71,33 +70,37 @@ public class NodeClient {
         FindMSG findMSG =
                 PeerToPeerService.convertToFindMSG(getConnectedNodeInfo(), key);
 
-        asyncStub.find(findMSG, new StreamObserver<FindResponseMSG>() {
-            @Override
-            public void onNext(FindResponseMSG value) {
-                if (value.hasResponder()) {
-                    NodeInfo nodeInfo =
-                            PeerToPeerService.convertToNodeInfo(value.getResponder());
+        try {
+            asyncStub.find(findMSG, new StreamObserver<>() {
+                @Override
+                public void onNext(FindResponseMSG value) {
+                    if (value.hasResponder()) {
+                        NodeInfo nodeInfo =
+                                PeerToPeerService.convertToNodeInfo(value.getResponder());
 
-                    LOGGER.info("Got node from find request: " + nodeInfo);
+                        LOGGER.info("Got node from find request: " + nodeInfo);
 
-                    getNode().doFind(nodeInfo, key, alpha + 1, entry);
-                } else {
-                    LOGGER.info("Got value from key: " + HashAlgorithm.byteToHex(key));
-                    getNode().getKeyValuePair().put(key,
-                            value.getValue().toByteArray());
+                        getNode().doFind(nodeInfo, key, alpha + 1, entry);
+                    } else {
+                        LOGGER.info("Got value from key: " + HashAlgorithm.byteToHex(key));
+                        getNode().storeValue(key,
+                                value.getValue().toByteArray());
+                    }
                 }
-            }
 
-            @Override
-            public void onError(Throwable t) {
+                @Override
+                public void onError(Throwable t) {
 
-            }
+                }
 
-            @Override
-            public void onCompleted() {
-                getNode().gotResponse(getConnectedNodeInfo());
-            }
-        });
+                @Override
+                public void onCompleted() {
+                    getNode().gotResponse(getConnectedNodeInfo());
+                }
+            });
+        } catch (Exception e) {
+            LOGGER.error("Connection unavailable: " + connectedNodeInfo + ": " + e);
+        }
 
     }
 
@@ -110,28 +113,32 @@ public class NodeClient {
                 PeerToPeerService.convertToSaveMSG(node.getNodeInfo(), key,
                         value);
 
-        asyncStub.store(saveMSG, new StreamObserver<SuccessMSG>() {
-            @Override
-            public void onNext(SuccessMSG val) {
-                LOGGER.info("Got store response from: " + connectedNodeInfo +
-                        ": key: "
-                        + HashAlgorithm.byteToHex(key) + ": value: "
-                        + HashAlgorithm.byteToHex(value) + ": success: "
-                        + val.getSuccess());
-            }
+        try {
+            asyncStub.store(saveMSG, new StreamObserver<>() {
+                @Override
+                public void onNext(SuccessMSG val) {
+                    LOGGER.info("Got store response from: " + connectedNodeInfo +
+                            ": key: "
+                            + HashAlgorithm.byteToHex(key) + ": value: "
+                            + HashAlgorithm.byteToHex(value) + ": success: "
+                            + val.getSuccess());
+                }
 
-            @Override
-            public void onError(Throwable t) {
-                LOGGER.info("Error store to: " + connectedNodeInfo + ": key: "
-                        + HashAlgorithm.byteToHex(key) + ": value: "
-                        + HashAlgorithm.byteToHex(value));
-            }
+                @Override
+                public void onError(Throwable t) {
+                    LOGGER.info("Error store to: " + connectedNodeInfo + ": key: "
+                            + HashAlgorithm.byteToHex(key) + ": value: "
+                            + HashAlgorithm.byteToHex(value));
+                }
 
-            @Override
-            public void onCompleted() {
-                getNode().gotResponse(getConnectedNodeInfo());
-            }
-        });
+                @Override
+                public void onCompleted() {
+                    getNode().gotResponse(getConnectedNodeInfo());
+                }
+            });
+        } catch (Exception e) {
+            LOGGER.error("Unavailable connection: " + getConnectedNodeInfo());
+        }
 
     }
 
@@ -159,7 +166,7 @@ public class NodeClient {
 
         try {
             asyncStub.findNode(findNodeMSG,
-                    new StreamObserver<NodeInfoMSG>() {
+                    new StreamObserver<>() {
                         @Override
                         public void onNext(NodeInfoMSG value) {
                             NodeInfo nodeInfo =
@@ -192,6 +199,63 @@ public class NodeClient {
     }
 
     /**
+     * This client will try to ping a node (the old one), to see if he's still
+     * on, in case it isn't, then we will replace the old node with a new one
+     *
+     * @param newInfo The candidate to replace
+     * @param oldInfo The candidate to be replaced
+     */
+    void kBucketFullDoPing(NodeInfo newInfo, NodeInfo oldInfo) {
+        LOGGER.info("Doing ping request: To: " + connectedNodeInfo);
+
+        NodeInfoMSG nodeInfoMsg =
+                PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
+
+        final long oldTimer = System.currentTimeMillis();
+
+        try {
+            asyncStub.ping(nodeInfoMsg,
+                    new StreamObserver<>() {
+                        @Override
+                        public void onNext(SuccessMSG value) {
+                            long curTimer = System.currentTimeMillis();
+
+                            if (curTimer - oldTimer >= 1500) {
+                                LOGGER.info("Got Late Ping Response: from: " + connectedNodeInfo +
+                                        ": Value: " + value.getSuccess() + ":" +
+                                        " " + "delay: " + (curTimer - oldTimer));
+                            } else {
+                                LOGGER.info("Got Ping Response: from: " + connectedNodeInfo +
+                                        ": Value: " + value.getSuccess() + ":" +
+                                        " delay: " + (curTimer - oldTimer));
+
+                                getNode().getKBuckets().replace(newInfo, oldInfo);
+                            }
+                        }
+
+                        @Override
+                        public void onError(Throwable t) {
+                            LOGGER.error("Ping error: From: " + connectedNodeInfo);
+
+                            getNode().getKBuckets().replace(newInfo, oldInfo);
+                        }
+
+                        @Override
+                        public void onCompleted() {
+                            LOGGER.info("Stream completed: From: " + connectedNodeInfo);
+
+                            getNode().gotResponse(getConnectedNodeInfo());
+                        }
+                    });
+        } catch (Exception e) {
+            LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
+                    + ": error: " + e);
+
+            getNode().getKBuckets().replace(newInfo, oldInfo);
+        }
+    }
+
+    /**
      * Do an async ping call
      */
     void doPingAsync() {
@@ -202,7 +266,7 @@ public class NodeClient {
 
         try {
             asyncStub.ping(nodeInfoMsg,
-                    new StreamObserver<SuccessMSG>() {
+                    new StreamObserver<>() {
                         @Override
                         public void onNext(SuccessMSG value) {
                             LOGGER.info("Got Ping Response: from: " + connectedNodeInfo +
@@ -282,14 +346,12 @@ public class NodeClient {
         if (other == null)
             return false;
 
-        if (other instanceof NodeClient) {
-            NodeClient nodeClient = (NodeClient) other;
+        if (other instanceof NodeClient nodeClient) {
 
             return getConnectedNodeInfo().equals(nodeClient.getConnectedNodeInfo());
         }
 
-        if (other instanceof NodeInfo) {
-            NodeInfo nodeInfo = (NodeInfo) other;
+        if (other instanceof NodeInfo nodeInfo) {
 
             return getConnectedNodeInfo().equals(nodeInfo);
         }

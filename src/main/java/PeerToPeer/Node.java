@@ -36,18 +36,18 @@ public class Node {
      * This var will be used for the find node. We have async calls, so
      * we need a way to check if we have contacted a given node
      */
-    private HashMap<byte[], LinkedList<NodeInfo>> findNodeContactedList =
+    private final HashMap<byte[], LinkedList<NodeInfo>> findNodeContactedList =
             new HashMap<>();
     /**
      * This var will be used for the finds. We have async calls, so we need a
      * way to know if for a given find call we have already contacted a node
      */
-    private HashMap<byte[], LinkedList<NodeInfo>> findContactedList =
+    private final HashMap<byte[], LinkedList<NodeInfo>> findContactedList =
             new HashMap<>();
     /**
      * This var will be used to save the values that we find
      */
-    private HashMap<byte[], byte[]> keyValuePair =
+    private final HashMap<byte[], byte[]> keyValuePair =
             new HashMap<>();
     /**
      * Holds the stored values
@@ -71,7 +71,7 @@ public class Node {
         nodeClients = new ConcurrentLinkedQueue<>();
 
         //TODO: Change id and key size. They have to be the same
-        kBuckets = new K_Buckets(nodeInfo, 8, 4);
+        kBuckets = new K_Buckets(this, 8, 4);
         storedValues = new StoredValues(8, this);
 
         if (!nodeInfo.equals(knownNode)) {
@@ -80,7 +80,7 @@ public class Node {
     }
 
     /**
-     * Store given value in our node
+     * Store a keyPair in our node
      *
      * @param key   The key
      * @param value The value
@@ -90,14 +90,21 @@ public class Node {
         return storedValues.storeValue(key, value);
     }
 
+    /**
+     * Get a value from a keyPair from our node
+     *
+     * @param key The key
+     * @return The value if it exists, otherwise null
+     */
     public byte[] getStoredValue(byte[] key) {
         return storedValues.getStoredValue(key);
     }
 
-    public HashMap<byte[], byte[]> getKeyValuePair() {
-        return keyValuePair;
-    }
-
+    /**
+     * This method starts the find call. The find call is async
+     *
+     * @param key The key we want to search
+     */
     public void doFind(byte[] key) {
         try {
             byte[] normalizedKey = HashAlgorithm.generateHash(key,
@@ -106,6 +113,9 @@ public class Node {
             keyValuePair.remove(normalizedKey);
 
             byte[] entry = HashAlgorithm.generateHash(normalizedKey);
+
+            findContactedList.remove(entry);
+            findContactedList.put(entry, new LinkedList<>());
 
             LinkedList<NodeInfo> list =
                     getKBuckets().getKClosest(normalizedKey);
@@ -119,8 +129,21 @@ public class Node {
         }
     }
 
-    public void doFind(NodeInfo nodeInfo, byte[] normalizedKey, int alpha,
-                       byte[] entry) {
+    /**
+     * This method does a find to a specific node. Because by definition the
+     * find call is recursive, i.e. it will continue to do finds until a
+     * searched value is found, we need to set a limit to the number of
+     * calls, with alpha, and a way to know if we already contacted a given
+     * node, we can do this by having a list of contacts, identified by the
+     * entry parameter
+     *
+     * @param nodeInfo      The node to contact
+     * @param normalizedKey The normalized key. See kadamlia for more info
+     * @param alpha         The maximum number of recursion depth
+     * @param entry         The entry identifying the already contacted group
+     */
+    void doFind(NodeInfo nodeInfo, byte[] normalizedKey, int alpha,
+                byte[] entry) {
         if (alpha >= 3 || (findContactedList.get(entry) != null &&
                 findContactedList.get(entry).contains(nodeInfo))) {
             return;
@@ -131,6 +154,13 @@ public class Node {
         getNodeClient(nodeInfo).doFind(normalizedKey, alpha, entry);
     }
 
+    /**
+     * This method does the store. It will get the k closest nodes, and try
+     * to store a keyValue pair in those nodes.
+     *
+     * @param key   The key
+     * @param value The value
+     */
     public void doStore(byte[] key, byte[] value) {
         try {
             byte[] normalizedKey = HashAlgorithm.generateHash(key,
@@ -151,84 +181,13 @@ public class Node {
     }
 
     /**
-     * Return the contacted list of nodes from the find node call
-     *
-     * @param entry The entry identifying the contact group
-     * @return A list of nodes already contacted
-     */
-    public LinkedList<NodeInfo> getFindNodeContactedList(byte[] entry) {
-        return findNodeContactedList.get(entry);
-    }
-
-    /**
-     * Return the contacted list of nodes from the find call
-     *
-     * @param entry The entry identifying the contact group
-     * @return A list of nodes already contacted
-     */
-    public LinkedList<NodeInfo> getFindContactedList(byte[] entry) {
-        return findContactedList.get(entry);
-    }
-
-    /**
-     * Remove entry from the contacted list
-     *
-     * @param entry The entry to remove
-     * @return True if removed, otherwise false
-     */
-    public boolean removeEntryFromFindNodeContactList(byte[] entry) {
-        return findNodeContactedList.remove(entry) != null;
-    }
-
-    /**
-     * Remove a given entry from the contact list from the find call
-     *
-     * @param entry The entry identifying the call group
-     * @return True if removed, otherwise false
-     */
-    public boolean removeEntryFromFindContactList(byte[] entry) {
-        return findContactedList.remove(entry) != null;
-    }
-
-    /**
-     * Add new contact to our contacted list.
-     *
-     * @param entry    The entry identifying the contact group
-     * @param nodeInfo The node info to add
-     * @return True if the contact was added, otherwise false
-     */
-    @SuppressWarnings("DuplicatedCode")
-    public boolean addToFindNodeContactList(byte[] entry, NodeInfo nodeInfo) {
-        if (findNodeContactedList.containsKey(entry)) {
-            return findNodeContactedList.get(entry).add(nodeInfo);
-        } else {
-            LinkedList<NodeInfo> list = new LinkedList<>();
-            list.add(nodeInfo);
-
-            return findNodeContactedList.put(entry, list) != null;
-        }
-    }
-
-    @SuppressWarnings("DuplicatedCode")
-    public boolean addToFindContactList(byte[] entry, NodeInfo nodeInfo) {
-        if (findContactedList.containsKey(entry)) {
-            return findContactedList.get(entry).add(nodeInfo);
-        } else {
-            LinkedList<NodeInfo> list = new LinkedList<>();
-            list.add(nodeInfo);
-
-            return findContactedList.put(entry, list) != null;
-        }
-    }
-
-    /**
      * This method will start a find node request. The find node request,
      * will start by getting the k closest nodes to a given id, and for each
-     * subsequent response, we will try to contact the new nodes for the
+     * subsequent response, will try to contact the new nodes for the
      * wanted id
      *
      * @param wantedId the id we want to find
-     * @throws NoSuchAlgorithmException
+     * @throws NoSuchAlgorithmException If hash algorithm is not found
      */
     public void doFindNode(byte[] wantedId) throws NoSuchAlgorithmException {
         LinkedList<NodeInfo> contactList = getKBuckets().getKClosest(wantedId);
@@ -250,7 +209,7 @@ public class Node {
     }
 
     /**
-     * Do find request to a given node.
+     * Do find request to a given node. Similar idea to doFind/3
      *
      * @param nodeInfo The node to do the request
      * @param wantedId The wanted id
@@ -274,7 +233,8 @@ public class Node {
     }
 
     /**
-     * This method is responsible for adding the requester info to the k buckets
+     * This method is responsible for adding the requester info to the k
+     * buckets, or in case it's already there, put him at the end of the list
      *
      * @param nodeInfo the node that made us a request
      */
@@ -286,12 +246,25 @@ public class Node {
 
     /**
      * The method is responsible for adding the node that responded to us,
-     * to the k buckets list
+     * to the k buckets list, or to the end of the list
      *
      * @param nodeInfo The node that answered us
      */
     public void gotResponse(NodeInfo nodeInfo) {
         gotRequest(nodeInfo);
+    }
+
+    /**
+     * When a given k bucket is full, we will try to replace the oldest non-speaking
+     * node, by trying to ping him. If he doesn't respond we eliminate him
+     *
+     * @param newInfo THe node candidate to be the replacement
+     * @param oldInfo The node candidate to be replaced
+     */
+    void kBucketFullDoPing(NodeInfo newInfo, NodeInfo oldInfo) {
+        NodeClient nodeClient = getNodeClient(oldInfo);
+
+        nodeClient.kBucketFullDoPing(newInfo, oldInfo);
     }
 
     /**
@@ -317,7 +290,7 @@ public class Node {
     /**
      * Add new node client to our clients list
      *
-     * @param nodeClient New object to add
+     * @param nodeClient New node client to add
      * @return True if successfully added
      */
     private boolean addNodeClient(NodeClient nodeClient) {
@@ -334,7 +307,7 @@ public class Node {
 
     /**
      * Get Node client from the info of a node. If the client already exist,
-     * then it return the respective nodeclient, otherwise a new NodeClient
+     * then it returns the respective node client, otherwise a new NodeClient
      *
      * @param nodeInfo the info of a node
      * @return The node client, if it exists, otherwise creates a new one
@@ -347,31 +320,6 @@ public class Node {
         }
 
         return connectToNodeWithoutPing(nodeInfo);
-    }
-
-    /**
-     * Try to connect to node. First we try to create the rpc channels, and
-     * then try to ping the node. If everything is successful then we add
-     * the node to our node list
-     *
-     * @param nodeInfo The info of the node we want to connect
-     * @return True if we successfully connected to the node
-     */
-    boolean connectToNode(NodeInfo nodeInfo) {
-        if (nodeClients.contains(nodeInfo)) {
-            LOGGER.info("Already connected: " + nodeInfo);
-            return true;
-        } else {
-            NodeClient nodeClient = new NodeClient(this, nodeInfo);
-
-            boolean success = nodeClient.doPingSync();
-
-            if (success) {
-                success = addNodeClient(nodeClient);
-            }
-
-            return success;
-        }
     }
 
     /**

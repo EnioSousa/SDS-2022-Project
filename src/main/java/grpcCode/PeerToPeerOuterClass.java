@@ -4509,12 +4509,12 @@ public final class PeerToPeerOuterClass {
       "dMSG\022\037\n\trequester\030\001 \001(\0132\014.NodeInfoMSG\022\013\n" +
       "\003key\030\002 \001(\014\"A\n\017FindResponseMSG\022\037\n\trespond" +
       "er\030\001 \001(\0132\014.NodeInfoMSG\022\r\n\005value\030\002 \001(\014\"\035\n" +
-      "\nSuccessMSG\022\017\n\007success\030\001 \001(\0102\245\001\n\nPeerToP" +
+      "\nSuccessMSG\022\017\n\007success\030\001 \001(\0102\247\001\n\nPeerToP" +
       "eer\022#\n\004Ping\022\014.NodeInfoMSG\032\013.SuccessMSG\"\000" +
       "\022*\n\010FindNode\022\014.FindNodeMSG\032\014.NodeInfoMSG" +
-      "\"\0000\001\022 \n\005Store\022\010.SaveMSG\032\013.SuccessMSG\"\000\022$" +
-      "\n\004Find\022\010.FindMSG\032\020.FindResponseMSG\"\000B\n\n\010" +
-      "grpcCodeb\006proto3"
+      "\"\0000\001\022 \n\005Store\022\010.SaveMSG\032\013.SuccessMSG\"\000\022&" +
+      "\n\004Find\022\010.FindMSG\032\020.FindResponseMSG\"\0000\001B\n" +
+      "\n\010grpcCodeb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
