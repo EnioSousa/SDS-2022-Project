@@ -1,12 +1,16 @@
 package PeerToPeer;
 
 import BlockChain.HashAlgorithm;
+import BlockChain.Transaction;
 import com.google.protobuf.ByteString;
 import grpcCode.PeerToPeerGrpc;
 import grpcCode.PeerToPeerOuterClass.*;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import Utils.*;
+
+import java.util.Random;
 
 import java.util.LinkedList;
 
@@ -118,6 +122,93 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
 
         // Try to add the requester info into our k bucket list
         getRunningNode().gotRequest(nodeInfo);
+    }
+
+    @Override
+    public void join(JoinMSG request,StreamObserver<JoinResponseMSG> responseObserver){
+
+        if(!getRunningNode().isBootstrap()){
+            LOGGER.info("This node is not bootstrap node");
+            return;
+        }
+
+        LOGGER.info("Got join request: From: IP: " + request.getNodeIp() + " PORT: " + request.getNodePort());
+
+        // Check if the client has made the initial work
+        try {
+            new HashCash(request.getWork());
+        } catch (Exception ignored) {
+            LOGGER.info("A client hasn't made the necessary work to join the network...");
+            return;
+        }
+
+            /*
+             * Generate random id for the node
+             */
+            Random rd = new Random();
+            byte[] id = new byte[7];
+
+            int c = 1;
+            while(c==1){
+                rd.nextBytes(id);
+
+                if(!runningNode.findId(id)){
+                    break;
+                }
+                id = new byte[7];
+            }
+
+
+            NodeInfo nodeInfo = new NodeInfo(id, request.getNodeIp(), request.getNodePort());
+
+            LOGGER.info("Sending ID response to new Node: " + nodeInfo);
+            responseObserver.onNext(convertToJoinResponseMSG(id));
+            responseObserver.onCompleted();
+
+            // Add node to connectedList
+            getRunningNode().addNodeInfoConnected(nodeInfo);
+
+            // Try to add the requester info into our k bucket list
+            getRunningNode().gotRequest(nodeInfo);
+
+    }
+
+    @Override
+    public void findMiner(NodeInfoMSG request, StreamObserver<NodeInfoMSG> responseObserver){
+        NodeInfo nodeInfo = new NodeInfo(request.getNodeId().toByteArray(),
+                request.getNodeIp(), request.getNodePort());
+
+        LOGGER.info("Got request to get miner: From: " + nodeInfo);
+
+
+        NodeInfo miner = getRunningNode().findMiner();
+
+        LOGGER.info("Sending the miner to: " + nodeInfo);
+        responseObserver.onNext(convertToNodeInfoMSG(miner));
+        responseObserver.onCompleted();
+    }
+
+    public static TransactionMSG convertToTransactionMSG(byte[] sourceEnt, byte[] destEnt, byte[] productId, int bits){
+        return TransactionMSG.newBuilder()
+                .setSourceEnt(ByteString.copyFrom(sourceEnt))
+                .setDestEnt(ByteString.copyFrom(destEnt))
+                .setProductId(ByteString.copyFrom(productId))
+                .setBits(bits)
+                .build();
+    }
+
+    public static JoinMSG convertToJoinMSG(String nodeIp, int nodePort, String work){
+        return JoinMSG.newBuilder()
+                .setNodeIp(nodeIp)
+                .setNodePort(nodePort)
+                .setWork(work)
+                .build();
+    }
+
+    public static JoinResponseMSG convertToJoinResponseMSG(byte[] id){
+        return JoinResponseMSG.newBuilder()
+                .setId(ByteString.copyFrom(id))
+                .build();
     }
 
     public static SuccessMSG convertToSuccessMsg(boolean bool) {

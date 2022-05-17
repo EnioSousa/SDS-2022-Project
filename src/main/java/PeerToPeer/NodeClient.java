@@ -8,6 +8,10 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import Utils.*;
+
+import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 
 
 /**
@@ -100,6 +104,86 @@ public class NodeClient {
             });
         } catch (Exception e) {
             LOGGER.error("Connection unavailable: " + connectedNodeInfo + ": " + e);
+        }
+
+    }
+    void doJoin(String nodeIp, int nodePort){
+        LOGGER.info("Doing join to Bootstrap: ID: " + Bootstrap.bootstrapId +
+                " IP: " + Bootstrap.bootstrapIp +
+                " PORT: " +  Bootstrap.bootstrapPort);
+        String work;
+        try {
+            work = computation();
+        }catch (NoSuchAlgorithmException e){
+            LOGGER.info("Couldnt perform the initial computation. Exiting");
+            return;
+        }
+
+        JoinMSG joinMSG = PeerToPeerService.convertToJoinMSG(nodeIp,nodePort,work);
+
+        try {
+            asyncStub.join(joinMSG, new StreamObserver<>() {
+                @Override
+                public void onNext(JoinResponseMSG response) {
+                    LOGGER.info("Got this ID: " + response.getId().toString());
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    LOGGER.info("Error doing join...");
+                }
+
+                @Override
+                public void onCompleted() {
+                    getNode().gotResponse(getConnectedNodeInfo());
+                }
+            });
+        } catch (Exception e) {
+            LOGGER.error("Unavailable connection: " + getConnectedNodeInfo());
+        }
+
+        LOGGER.info("Try to get the closest nodes from the network");
+        getNode().doFind(Bootstrap.bootstrapId);
+    }
+
+    /**
+     * Force the new node to perform a initial computation.
+     * This computation has no objective other than making it harder to perform an Eclipse Attack.
+     * @throws NoSuchAlgorithmException SHA-1 not supported
+     */
+    private static String computation() throws NoSuchAlgorithmException {
+        return HashCash.mintCash(UUID.randomUUID().toString(), 24).toString();
+    }
+
+    void doFindMiner(){
+        NodeInfoMSG nodeInfoMsg =
+                PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
+
+
+        try {
+            asyncStub.findMiner(nodeInfoMsg,
+                    new StreamObserver<>() {
+                        @Override
+                        public void onNext(NodeInfoMSG response) {
+                            LOGGER.info("Got miner Response: from: " + connectedNodeInfo +
+                                    ": Response: " + response);
+                        }
+
+                        @Override
+                        public void onError(Throwable t) {
+                            LOGGER.error("FindMiner error: From: " + connectedNodeInfo);
+                        }
+
+                        @Override
+                        public void onCompleted() {
+                            LOGGER.info("Stream completed: From: " + connectedNodeInfo);
+
+                            getNode().gotResponse(getConnectedNodeInfo());
+                        }
+                    });
+        } catch (Exception e) {
+            LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
+                    + ": error: " + e);
         }
 
     }

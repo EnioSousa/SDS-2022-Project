@@ -54,11 +54,22 @@ public class Node {
      */
     private final StoredValues storedValues;
 
+
+
+
+
+    /**
+     * List of all nodes known by the SUPER node
+     */
+    private final LinkedList<NodeInfo> nodesConnected = new LinkedList<>();
+
+
     /**
      * Node known to all
      */
     public static NodeInfo knownNode =
             new NodeInfo(new byte[]{0x00}, "localhost", 5000);
+
 
     public Node(NodeInfo nodeInfo) {
         this.nodeInfo = nodeInfo;
@@ -375,5 +386,43 @@ public class Node {
     @Override
     public String toString() {
         return getNodeInfo().toString();
+    }
+
+    public void setBootstrap(){
+        this.nodeInfo.setBootstrap();
+    }
+
+    public void getBootstrap() {this.nodeInfo.isBootstrap();}
+
+    public Boolean isBootstrap(){ return this.nodeInfo.isBootstrap();}
+
+    public void addNodeInfoConnected(NodeInfo nodeInfo) {
+        nodesConnected.add(nodeInfo);
+    }
+
+    public Boolean findId(byte[] id){
+        for(NodeInfo n: nodesConnected){
+            if(n.getId().equals(id)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void setMiner(){
+        this.nodeInfo.setMiner();
+    }
+
+
+    public Boolean isMiner(){ return this.nodeInfo.isMiner();}
+
+    public NodeInfo findMiner(){
+
+        for(NodeInfo n: nodesConnected){
+            if(n.isMiner()){
+                return n;
+            }
+        }
+        return null;
     }
 }

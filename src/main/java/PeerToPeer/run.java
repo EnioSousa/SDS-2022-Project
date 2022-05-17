@@ -10,7 +10,7 @@ public class run {
         Node node =
                 new Node(new NodeInfo(HashAlgorithm.hexToByte(args[0]),
                         "localhost", Integer.parseInt(args[1])));
-
+        node.setBootstrap();
         test3(node);
     }
 

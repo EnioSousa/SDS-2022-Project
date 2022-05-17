@@ -10,6 +10,37 @@ service PeerToPeer {
   rpc Store(SaveMSG) returns (SuccessMSG) {}
 
   rpc Find(FindMSG) returns (stream FindResponseMSG) {}
+
+  rpc Join(JoinMSG) returns (stream JoinResponseMSG) {}
+
+  rpc FindMiner(NodeInfoMSG) returns (stream NodeInfoMSG) {}
+
+  rpc SendTransaction(TransactionMSG) returns (SuccessMSG) {}
+}
+/**
+Message format for Sendtransaction request
+ */
+message TransactionMSG {
+  bytes sourceEnt = 1;
+  bytes destEnt = 2;
+  bytes productId = 3;
+  int32 bits = 4;
+}
+
+/**
+Message format for join request
+ */
+message JoinMSG {
+  string nodeIp = 1;
+  int32 nodePort = 2;
+  string work = 3;
+}
+
+/**
+  Message format for join response
+ */
+message JoinResponseMSG {
+  bytes id = 4;
 }
 
 /**

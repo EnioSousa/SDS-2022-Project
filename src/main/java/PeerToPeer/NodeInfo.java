@@ -18,6 +18,11 @@ public class NodeInfo {
      */
     private final int port;
 
+
+    private Boolean bootstrap = false;
+
+    private Boolean miner = false;
+
     /**
      * Given a set a parameters this constructor creates a {@link NodeInfo}
      * object
@@ -107,4 +112,13 @@ public class NodeInfo {
         return true;
     }
 
+    public void setBootstrap() {
+        this.bootstrap=true;
+    }
+    public Boolean isBootstrap(){ return this.bootstrap;}
+
+    public void setMiner() {
+        this.miner=true;
+    }
+    public Boolean isMiner(){ return this.miner;}
 }
