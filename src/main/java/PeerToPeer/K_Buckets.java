@@ -207,6 +207,36 @@ public class K_Buckets {
     }
 
     /**
+     * Get the closest miner from the given id
+     * @param id id of node
+     * @return closest miner if exists otherwise null
+     */
+    public NodeInfo getClosestMiner(byte[] id){
+        int mBucket = closestBucket(id);
+        for (int i = mBucket; i <= getSpaceSize(); i++){
+            LinkedList<NodeInfo> list = getNodesFromBucket(i);
+            if (!list.isEmpty()){
+                for (NodeInfo nodeInfo: list){
+                    if (nodeInfo.isMiner()){
+                        return nodeInfo;
+                    }
+                }
+            }
+        }
+        for (int i = mBucket - 1; i >= 0; i--){
+            LinkedList<NodeInfo> list = getNodesFromBucket(i);
+            if (!list.isEmpty()){
+                for (NodeInfo nodeInfo: list){
+                    if (nodeInfo.isMiner()){
+                        return nodeInfo;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    /**
      * This method does XOR operation between two byte arrays. Attention both
      * arrays need to have the same size, otherwise return null
      *
@@ -268,6 +298,7 @@ public class K_Buckets {
 
         return prefixBitCount;
     }
+
 
 
     private class Bucket {
@@ -385,6 +416,15 @@ public class K_Buckets {
 
                 return builder.toString();
             }
+        }
+
+        public NodeInfo findMinerInBucket(){
+            for (NodeInfo nodeInfo : bucket) {
+                if (nodeInfo.isMiner()){
+                    return nodeInfo;
+                }
+            }
+            return null;
         }
     }
 }

@@ -1,10 +1,13 @@
 package PeerToPeer;
 
 import BlockChain.HashAlgorithm;
+import Utils.Bootstrap;
+import Utils.InfoJoin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -55,20 +58,21 @@ public class Node {
     private final StoredValues storedValues;
 
 
-
-
-
     /**
      * List of all nodes known by the SUPER node
      */
-    private final LinkedList<NodeInfo> nodesConnected = new LinkedList<>();
+    private final LinkedList<byte[]> usedIds = new LinkedList<>();
+
+    private LinkedList<InfoJoin> tableJoin = new LinkedList<>();
 
 
     /**
      * Node known to all
      */
+    /*public static NodeInfo knownNode =
+            new NodeInfo(new byte[]{0x00}, "localhost", 5000);*/
     public static NodeInfo knownNode =
-            new NodeInfo(new byte[]{0x00}, "localhost", 5000);
+            new NodeInfo(Bootstrap.bootstrapId,Bootstrap.bootstrapIp,Bootstrap.bootstrapPort);
 
 
     public Node(NodeInfo nodeInfo) {
@@ -90,6 +94,10 @@ public class Node {
         }
     }
 
+
+    public void doJoin(NodeInfo nodeInfo){
+        getNodeClient(nodeInfo).doJoin();
+    }
     /**
      * Store a keyPair in our node
      *
@@ -396,33 +404,32 @@ public class Node {
 
     public Boolean isBootstrap(){ return this.nodeInfo.isBootstrap();}
 
-    public void addNodeInfoConnected(NodeInfo nodeInfo) {
-        nodesConnected.add(nodeInfo);
-    }
-
     public Boolean findId(byte[] id){
-        for(NodeInfo n: nodesConnected){
-            if(n.getId().equals(id)){
+
+        for(byte[] n: usedIds){
+            if(Arrays.equals(id,n)){
                 return true;
             }
         }
         return false;
     }
 
-    public void setMiner(){
-        this.nodeInfo.setMiner();
+    public void addToUsedIds(byte[] id){
+        this.usedIds.add(id);
     }
 
+    public void addIpTimeStamp(String ip, long timeStamp) {
+        InfoJoin info = new InfoJoin(ip,timeStamp);
+        tableJoin.add(info);
+    }
 
-    public Boolean isMiner(){ return this.nodeInfo.isMiner();}
-
-    public NodeInfo findMiner(){
-
-        for(NodeInfo n: nodesConnected){
-            if(n.isMiner()){
-                return n;
+    public boolean verifyIpTime(String ip, long timeStamp){
+        for( InfoJoin n: tableJoin){
+            if(n.getIp().equals(ip) && n.getTimeStamp() == timeStamp){
+                tableJoin.remove(n);
+                return true;
             }
         }
-        return null;
+        return false;
     }
 }

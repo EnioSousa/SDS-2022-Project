@@ -2,6 +2,7 @@ package PeerToPeer;
 
 import BlockChain.HashAlgorithm;
 import BlockChain.Transaction;
+import com.google.common.primitives.Longs;
 import com.google.protobuf.ByteString;
 import grpcCode.PeerToPeerGrpc;
 import grpcCode.PeerToPeerOuterClass.*;
@@ -10,6 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import Utils.*;
 
+import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.HexFormat;
 import java.util.Random;
 
 import java.util.LinkedList;
@@ -124,69 +129,66 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
         getRunningNode().gotRequest(nodeInfo);
     }
 
-    @Override
-    public void join(JoinMSG request,StreamObserver<JoinResponseMSG> responseObserver){
-
-        if(!getRunningNode().isBootstrap()){
-            LOGGER.info("This node is not bootstrap node");
-            return;
-        }
-
-        LOGGER.info("Got join request: From: IP: " + request.getNodeIp() + " PORT: " + request.getNodePort());
-
-        // Check if the client has made the initial work
-        try {
-            new HashCash(request.getWork());
-        } catch (Exception ignored) {
-            LOGGER.info("A client hasn't made the necessary work to join the network...");
-            return;
-        }
-
-            /*
-             * Generate random id for the node
-             */
-            Random rd = new Random();
-            byte[] id = new byte[7];
-
-            int c = 1;
-            while(c==1){
-                rd.nextBytes(id);
-
-                if(!runningNode.findId(id)){
-                    break;
-                }
-                id = new byte[7];
-            }
-
-
-            NodeInfo nodeInfo = new NodeInfo(id, request.getNodeIp(), request.getNodePort());
-
-            LOGGER.info("Sending ID response to new Node: " + nodeInfo);
-            responseObserver.onNext(convertToJoinResponseMSG(id));
-            responseObserver.onCompleted();
-
-            // Add node to connectedList
-            getRunningNode().addNodeInfoConnected(nodeInfo);
-
-            // Try to add the requester info into our k bucket list
-            getRunningNode().gotRequest(nodeInfo);
-
-    }
 
     @Override
-    public void findMiner(NodeInfoMSG request, StreamObserver<NodeInfoMSG> responseObserver){
-        NodeInfo nodeInfo = new NodeInfo(request.getNodeId().toByteArray(),
-                request.getNodeIp(), request.getNodePort());
+    public void firstConn(InitMSG request, StreamObserver<InitResponse> responseObserver){
+        String ip = request.getIp();
+        long timeStamp = Instant.now().toEpochMilli();
 
-        LOGGER.info("Got request to get miner: From: " + nodeInfo);
+        getRunningNode().addIpTimeStamp(ip,timeStamp);
 
-
-        NodeInfo miner = getRunningNode().findMiner();
-
-        LOGGER.info("Sending the miner to: " + nodeInfo);
-        responseObserver.onNext(convertToNodeInfoMSG(miner));
+        responseObserver.onNext(convertToInitResponse(timeStamp));
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void getID(GetIdMSG request, StreamObserver<GetIdResponse> responseObserver){
+
+        if (getRunningNode().verifyIpTime(request.getIp(), request.getTimeStamp())){
+            LOGGER.info("Check if client has made the initial connection");
+
+
+            byte[] challenge = request.getChallenge().toByteArray();
+
+            LOGGER.info("Check if client has made the work");
+
+            if(HashAlgorithm.validHash(challenge,InfoJoin.DIFFICULTY)){
+                long time = request.getTimeStamp();
+                int nonce = request.getNonce();
+
+                byte[] work = null;
+
+                try{
+                    work = HashAlgorithm.generateHash(Longs.toByteArray(time), HashAlgorithm.intToByte(nonce));
+                }catch (NoSuchAlgorithmException e){
+                    LOGGER.info("Didnt do the initial computation");
+                }
+
+                if(Arrays.equals(challenge,work)){
+                    /*
+                     * Generate random id for the node
+                     */
+
+                    int randomId = generateRandomDigits(NodeInfo.SIZE_OF_ID);
+
+                    byte[] nodeId = new byte[]{(byte)randomId};
+
+                    LOGGER.info("Sending the new ID to the node");
+                    responseObserver.onNext(convertToGetIdResponse(nodeId));
+                    getRunningNode().addToUsedIds(nodeId);
+
+                }
+
+            }else{
+                LOGGER.info("The sender didnt do the work");
+            }
+        }
+        else{
+            LOGGER.info("The sender is not in the list");
+        }
+        responseObserver.onCompleted();
+    }
+
 
     public static TransactionMSG convertToTransactionMSG(byte[] sourceEnt, byte[] destEnt, byte[] productId, int bits){
         return TransactionMSG.newBuilder()
@@ -197,16 +199,29 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
                 .build();
     }
 
-    public static JoinMSG convertToJoinMSG(String nodeIp, int nodePort, String work){
-        return JoinMSG.newBuilder()
-                .setNodeIp(nodeIp)
-                .setNodePort(nodePort)
-                .setWork(work)
+    public static InitMSG convertToInitMSG(String nodeIp){
+        return InitMSG.newBuilder()
+                .setIp(nodeIp)
                 .build();
     }
 
-    public static JoinResponseMSG convertToJoinResponseMSG(byte[] id){
-        return JoinResponseMSG.newBuilder()
+    public static InitResponse convertToInitResponse(long timeStamp){
+        return InitResponse.newBuilder()
+                .setTimeStamp(timeStamp)
+                .build();
+    }
+
+    public static GetIdMSG convertToGetIdMSG(String ip, byte[] challenge, long timeStamp, int nonce){
+        return GetIdMSG.newBuilder()
+                .setIp(ip)
+                .setChallenge(ByteString.copyFrom(challenge))
+                .setTimeStamp(timeStamp)
+                .setNonce(nonce)
+                .build();
+    }
+
+    public static GetIdResponse convertToGetIdResponse(byte[] id){
+        return GetIdResponse.newBuilder()
                 .setId(ByteString.copyFrom(id))
                 .build();
     }
@@ -266,5 +281,10 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
                 .setRequester(convertToNodeInfoMSG(getRunningNode().getNodeInfo()))
                 .setKey(ByteString.copyFrom(key))
                 .build();
+    }
+    // Generates a random int with n digits
+    public static int generateRandomDigits(int n) {
+        int m = (int) Math.pow(10, n - 1);
+        return m + new Random().nextInt(9 * m);
     }
 }

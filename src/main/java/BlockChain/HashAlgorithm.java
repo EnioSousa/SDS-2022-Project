@@ -120,4 +120,36 @@ public class HashAlgorithm {
                 (byte) ((value >> 8) & 0xff),
                 (byte) ((value >> 0) & 0xff)};
     }
+
+    public static boolean validHash(byte[] hash, int difficulty) {
+        int numZero = difficulty;
+        int numByteZero = numZero / 8;
+
+        int i;
+
+        // Here we check if the byte is 0
+        for( i = 0; i<numByteZero && i<hash.length; i++ ) {
+            if ( hash[i] != 0x0) {
+                return false;
+            }
+        }
+
+        // Check if we still have to check more of the byte array, aka hash
+        if ( i >= hash.length )
+            return true;
+
+        // Here we check the number of zero bits in a byte
+        byte value = switch (numZero % 8) {
+            case 7 -> (byte) 0xFE;
+            case 6 -> (byte) 0xFC;
+            case 5 -> (byte) 0xF8;
+            case 4 -> (byte) 0xF0;
+            case 3 -> (byte) 0xE0;
+            case 2 -> (byte) 0xC0;
+            case 1 -> (byte) 0x80;
+            default -> (byte) 0xFF;
+        };
+
+        return (hash[i] & value) == 0x00;
+    }
 }

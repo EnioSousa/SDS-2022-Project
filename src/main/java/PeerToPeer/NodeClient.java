@@ -1,6 +1,7 @@
 package PeerToPeer;
 
 import BlockChain.HashAlgorithm;
+import com.google.common.primitives.Longs;
 import grpcCode.PeerToPeerGrpc;
 import grpcCode.PeerToPeerOuterClass.*;
 import io.grpc.ManagedChannel;
@@ -9,13 +10,13 @@ import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import Utils.*;
-
 import java.security.NoSuchAlgorithmException;
-import java.util.UUID;
+import java.util.LinkedList;
 
 
 /**
  * TODO: Change plain text mode to a secure one
+ * TODO: Add comments of functions
  */
 
 public class NodeClient {
@@ -107,86 +108,69 @@ public class NodeClient {
         }
 
     }
-    void doJoin(String nodeIp, int nodePort){
-        LOGGER.info("Doing join to Bootstrap: ID: " + Bootstrap.bootstrapId +
-                " IP: " + Bootstrap.bootstrapIp +
-                " PORT: " +  Bootstrap.bootstrapPort);
-        String work;
-        try {
-            work = computation();
-        }catch (NoSuchAlgorithmException e){
-            LOGGER.info("Couldnt perform the initial computation. Exiting");
-            return;
-        }
-
-        JoinMSG joinMSG = PeerToPeerService.convertToJoinMSG(nodeIp,nodePort,work);
-
-        try {
-            asyncStub.join(joinMSG, new StreamObserver<>() {
-                @Override
-                public void onNext(JoinResponseMSG response) {
-                    LOGGER.info("Got this ID: " + response.getId().toString());
-                }
-
-                @Override
-                public void onError(Throwable t) {
-                    LOGGER.info("Error doing join...");
-                }
-
-                @Override
-                public void onCompleted() {
-                    getNode().gotResponse(getConnectedNodeInfo());
-                }
-            });
-        } catch (Exception e) {
-            LOGGER.error("Unavailable connection: " + getConnectedNodeInfo());
-        }
-
-        LOGGER.info("Try to get the closest nodes from the network");
-        getNode().doFind(Bootstrap.bootstrapId);
-    }
 
     /**
-     * Force the new node to perform a initial computation.
-     * This computation has no objective other than making it harder to perform an Eclipse Attack.
-     * @throws NoSuchAlgorithmException SHA-1 not supported
+     * Get the timeStamp from the bootstrap node
+     *
+     * @param ip
+     * @return timeStamp
      */
-    private static String computation() throws NoSuchAlgorithmException {
-        return HashCash.mintCash(UUID.randomUUID().toString(), 24).toString();
-    }
-
-    void doFindMiner(){
-        NodeInfoMSG nodeInfoMsg =
-                PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
-
+    long doInit(String ip){
+        LOGGER.info("Getting challenge from Bootstrap: ID: " + HashAlgorithm.byteToHex(Bootstrap.bootstrapId) +
+                " IP: " + Bootstrap.bootstrapIp +
+                " PORT: " +  Bootstrap.bootstrapPort);
+        InitMSG initMSG = PeerToPeerService.convertToInitMSG(ip);
 
         try {
-            asyncStub.findMiner(nodeInfoMsg,
-                    new StreamObserver<>() {
-                        @Override
-                        public void onNext(NodeInfoMSG response) {
-                            LOGGER.info("Got miner Response: from: " + connectedNodeInfo +
-                                    ": Response: " + response);
-                        }
+            InitResponse initResponse = syncStub.firstConn(initMSG);
 
-                        @Override
-                        public void onError(Throwable t) {
-                            LOGGER.error("FindMiner error: From: " + connectedNodeInfo);
-                        }
-
-                        @Override
-                        public void onCompleted() {
-                            LOGGER.info("Stream completed: From: " + connectedNodeInfo);
-
-                            getNode().gotResponse(getConnectedNodeInfo());
-                        }
-                    });
+            long timeStamp = initResponse.getTimeStamp();
+            return timeStamp;
         } catch (Exception e) {
             LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
                     + ": error: " + e);
         }
+        return -1;
+    }
+    void doGetInitID(long timeStamp){
+        byte[] sol=null;
+        int nonce=-1;
+        do {
+                nonce++;
+                try {
+                    sol = HashAlgorithm.generateHash(Longs.toByteArray(timeStamp), HashAlgorithm.intToByte(nonce));
+                }catch (NoSuchAlgorithmException e){
+
+                }
+
+        }while(!HashAlgorithm.validHash(sol,InfoJoin.DIFFICULTY));
+
+        GetIdMSG idMSG = PeerToPeerService.convertToGetIdMSG(getNode().getNodeInfo().getIp(), sol, timeStamp, nonce);
+
+        try{
+            GetIdResponse idResponse = syncStub.getID(idMSG);
+            getNode().getNodeInfo().setId(idResponse.getId().toByteArray());
+            LOGGER.info("Got my ID: " + HashAlgorithm.byteToHex(idResponse.getId().toByteArray()));
+        }catch (Exception e){
+            LOGGER.error("Unavailable connection: " + getConnectedNodeInfo());
+        }
 
     }
+
+    void doJoin(){
+        LOGGER.info("Doing join to Bootstrap: ID: " + HashAlgorithm.byteToHex(Bootstrap.bootstrapId) +
+                " IP: " + Bootstrap.bootstrapIp);
+        String ip = getNode().getNodeInfo().getIp();
+        long timeStamp = doInit(ip);
+        doGetInitID(timeStamp);
+
+        try{
+            getNode().doFindNode(getNode().getNodeInfo().getId());
+        }catch (NoSuchAlgorithmException e){
+            LOGGER.error("Unavailable connection: " + getConnectedNodeInfo());
+        }
+    }
+
 
     void doStore(byte[] key, byte[] value) {
         LOGGER.info("Doing store to: " + connectedNodeInfo + ": key: "

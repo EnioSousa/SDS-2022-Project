@@ -14,6 +14,2255 @@ public final class PeerToPeerOuterClass {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
+  public interface InitMSGOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:InitMSG)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string ip = 1;</code>
+     */
+    java.lang.String getIp();
+    /**
+     * <code>string ip = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getIpBytes();
+  }
+  /**
+   * Protobuf type {@code InitMSG}
+   */
+  public  static final class InitMSG extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:InitMSG)
+      InitMSGOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use InitMSG.newBuilder() to construct.
+    private InitMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private InitMSG() {
+      ip_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private InitMSG(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              ip_ = s;
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_InitMSG_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_InitMSG_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpcCode.PeerToPeerOuterClass.InitMSG.class, grpcCode.PeerToPeerOuterClass.InitMSG.Builder.class);
+    }
+
+    public static final int IP_FIELD_NUMBER = 1;
+    private volatile java.lang.Object ip_;
+    /**
+     * <code>string ip = 1;</code>
+     */
+    public java.lang.String getIp() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ip_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ip = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIpBytes() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ip_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIpBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ip_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIpBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ip_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpcCode.PeerToPeerOuterClass.InitMSG)) {
+        return super.equals(obj);
+      }
+      grpcCode.PeerToPeerOuterClass.InitMSG other = (grpcCode.PeerToPeerOuterClass.InitMSG) obj;
+
+      boolean result = true;
+      result = result && getIp()
+          .equals(other.getIp());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + IP_FIELD_NUMBER;
+      hash = (53 * hash) + getIp().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.InitMSG parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitMSG parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitMSG parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitMSG parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitMSG parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitMSG parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitMSG parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitMSG parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitMSG parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitMSG parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitMSG parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitMSG parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpcCode.PeerToPeerOuterClass.InitMSG prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code InitMSG}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:InitMSG)
+        grpcCode.PeerToPeerOuterClass.InitMSGOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_InitMSG_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_InitMSG_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpcCode.PeerToPeerOuterClass.InitMSG.class, grpcCode.PeerToPeerOuterClass.InitMSG.Builder.class);
+      }
+
+      // Construct using grpcCode.PeerToPeerOuterClass.InitMSG.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        ip_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_InitMSG_descriptor;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.InitMSG getDefaultInstanceForType() {
+        return grpcCode.PeerToPeerOuterClass.InitMSG.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.InitMSG build() {
+        grpcCode.PeerToPeerOuterClass.InitMSG result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.InitMSG buildPartial() {
+        grpcCode.PeerToPeerOuterClass.InitMSG result = new grpcCode.PeerToPeerOuterClass.InitMSG(this);
+        result.ip_ = ip_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpcCode.PeerToPeerOuterClass.InitMSG) {
+          return mergeFrom((grpcCode.PeerToPeerOuterClass.InitMSG)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpcCode.PeerToPeerOuterClass.InitMSG other) {
+        if (other == grpcCode.PeerToPeerOuterClass.InitMSG.getDefaultInstance()) return this;
+        if (!other.getIp().isEmpty()) {
+          ip_ = other.ip_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpcCode.PeerToPeerOuterClass.InitMSG parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpcCode.PeerToPeerOuterClass.InitMSG) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object ip_ = "";
+      /**
+       * <code>string ip = 1;</code>
+       */
+      public java.lang.String getIp() {
+        java.lang.Object ref = ip_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ip_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ip = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIpBytes() {
+        java.lang.Object ref = ip_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ip_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ip = 1;</code>
+       */
+      public Builder setIp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ip = 1;</code>
+       */
+      public Builder clearIp() {
+        
+        ip_ = getDefaultInstance().getIp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ip = 1;</code>
+       */
+      public Builder setIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:InitMSG)
+    }
+
+    // @@protoc_insertion_point(class_scope:InitMSG)
+    private static final grpcCode.PeerToPeerOuterClass.InitMSG DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpcCode.PeerToPeerOuterClass.InitMSG();
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.InitMSG getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<InitMSG>
+        PARSER = new com.google.protobuf.AbstractParser<InitMSG>() {
+      @java.lang.Override
+      public InitMSG parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new InitMSG(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<InitMSG> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<InitMSG> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpcCode.PeerToPeerOuterClass.InitMSG getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface InitResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:InitResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 timeStamp = 1;</code>
+     */
+    long getTimeStamp();
+  }
+  /**
+   * Protobuf type {@code InitResponse}
+   */
+  public  static final class InitResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:InitResponse)
+      InitResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use InitResponse.newBuilder() to construct.
+    private InitResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private InitResponse() {
+      timeStamp_ = 0L;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private InitResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              timeStamp_ = input.readInt64();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_InitResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_InitResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpcCode.PeerToPeerOuterClass.InitResponse.class, grpcCode.PeerToPeerOuterClass.InitResponse.Builder.class);
+    }
+
+    public static final int TIMESTAMP_FIELD_NUMBER = 1;
+    private long timeStamp_;
+    /**
+     * <code>int64 timeStamp = 1;</code>
+     */
+    public long getTimeStamp() {
+      return timeStamp_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (timeStamp_ != 0L) {
+        output.writeInt64(1, timeStamp_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (timeStamp_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, timeStamp_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpcCode.PeerToPeerOuterClass.InitResponse)) {
+        return super.equals(obj);
+      }
+      grpcCode.PeerToPeerOuterClass.InitResponse other = (grpcCode.PeerToPeerOuterClass.InitResponse) obj;
+
+      boolean result = true;
+      result = result && (getTimeStamp()
+          == other.getTimeStamp());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTimeStamp());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.InitResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.InitResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpcCode.PeerToPeerOuterClass.InitResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code InitResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:InitResponse)
+        grpcCode.PeerToPeerOuterClass.InitResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_InitResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_InitResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpcCode.PeerToPeerOuterClass.InitResponse.class, grpcCode.PeerToPeerOuterClass.InitResponse.Builder.class);
+      }
+
+      // Construct using grpcCode.PeerToPeerOuterClass.InitResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        timeStamp_ = 0L;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_InitResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.InitResponse getDefaultInstanceForType() {
+        return grpcCode.PeerToPeerOuterClass.InitResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.InitResponse build() {
+        grpcCode.PeerToPeerOuterClass.InitResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.InitResponse buildPartial() {
+        grpcCode.PeerToPeerOuterClass.InitResponse result = new grpcCode.PeerToPeerOuterClass.InitResponse(this);
+        result.timeStamp_ = timeStamp_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpcCode.PeerToPeerOuterClass.InitResponse) {
+          return mergeFrom((grpcCode.PeerToPeerOuterClass.InitResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpcCode.PeerToPeerOuterClass.InitResponse other) {
+        if (other == grpcCode.PeerToPeerOuterClass.InitResponse.getDefaultInstance()) return this;
+        if (other.getTimeStamp() != 0L) {
+          setTimeStamp(other.getTimeStamp());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpcCode.PeerToPeerOuterClass.InitResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpcCode.PeerToPeerOuterClass.InitResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private long timeStamp_ ;
+      /**
+       * <code>int64 timeStamp = 1;</code>
+       */
+      public long getTimeStamp() {
+        return timeStamp_;
+      }
+      /**
+       * <code>int64 timeStamp = 1;</code>
+       */
+      public Builder setTimeStamp(long value) {
+        
+        timeStamp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 timeStamp = 1;</code>
+       */
+      public Builder clearTimeStamp() {
+        
+        timeStamp_ = 0L;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:InitResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:InitResponse)
+    private static final grpcCode.PeerToPeerOuterClass.InitResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpcCode.PeerToPeerOuterClass.InitResponse();
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.InitResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<InitResponse>
+        PARSER = new com.google.protobuf.AbstractParser<InitResponse>() {
+      @java.lang.Override
+      public InitResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new InitResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<InitResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<InitResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpcCode.PeerToPeerOuterClass.InitResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetIdMSGOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:GetIdMSG)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>string ip = 1;</code>
+     */
+    java.lang.String getIp();
+    /**
+     * <code>string ip = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getIpBytes();
+
+    /**
+     * <code>bytes challenge = 2;</code>
+     */
+    com.google.protobuf.ByteString getChallenge();
+
+    /**
+     * <code>int64 timeStamp = 3;</code>
+     */
+    long getTimeStamp();
+
+    /**
+     * <code>int32 nonce = 4;</code>
+     */
+    int getNonce();
+  }
+  /**
+   * Protobuf type {@code GetIdMSG}
+   */
+  public  static final class GetIdMSG extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:GetIdMSG)
+      GetIdMSGOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetIdMSG.newBuilder() to construct.
+    private GetIdMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetIdMSG() {
+      ip_ = "";
+      challenge_ = com.google.protobuf.ByteString.EMPTY;
+      timeStamp_ = 0L;
+      nonce_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetIdMSG(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              ip_ = s;
+              break;
+            }
+            case 18: {
+
+              challenge_ = input.readBytes();
+              break;
+            }
+            case 24: {
+
+              timeStamp_ = input.readInt64();
+              break;
+            }
+            case 32: {
+
+              nonce_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_GetIdMSG_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_GetIdMSG_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpcCode.PeerToPeerOuterClass.GetIdMSG.class, grpcCode.PeerToPeerOuterClass.GetIdMSG.Builder.class);
+    }
+
+    public static final int IP_FIELD_NUMBER = 1;
+    private volatile java.lang.Object ip_;
+    /**
+     * <code>string ip = 1;</code>
+     */
+    public java.lang.String getIp() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ip_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ip = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getIpBytes() {
+      java.lang.Object ref = ip_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ip_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int CHALLENGE_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString challenge_;
+    /**
+     * <code>bytes challenge = 2;</code>
+     */
+    public com.google.protobuf.ByteString getChallenge() {
+      return challenge_;
+    }
+
+    public static final int TIMESTAMP_FIELD_NUMBER = 3;
+    private long timeStamp_;
+    /**
+     * <code>int64 timeStamp = 3;</code>
+     */
+    public long getTimeStamp() {
+      return timeStamp_;
+    }
+
+    public static final int NONCE_FIELD_NUMBER = 4;
+    private int nonce_;
+    /**
+     * <code>int32 nonce = 4;</code>
+     */
+    public int getNonce() {
+      return nonce_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getIpBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, ip_);
+      }
+      if (!challenge_.isEmpty()) {
+        output.writeBytes(2, challenge_);
+      }
+      if (timeStamp_ != 0L) {
+        output.writeInt64(3, timeStamp_);
+      }
+      if (nonce_ != 0) {
+        output.writeInt32(4, nonce_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getIpBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, ip_);
+      }
+      if (!challenge_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, challenge_);
+      }
+      if (timeStamp_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(3, timeStamp_);
+      }
+      if (nonce_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, nonce_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpcCode.PeerToPeerOuterClass.GetIdMSG)) {
+        return super.equals(obj);
+      }
+      grpcCode.PeerToPeerOuterClass.GetIdMSG other = (grpcCode.PeerToPeerOuterClass.GetIdMSG) obj;
+
+      boolean result = true;
+      result = result && getIp()
+          .equals(other.getIp());
+      result = result && getChallenge()
+          .equals(other.getChallenge());
+      result = result && (getTimeStamp()
+          == other.getTimeStamp());
+      result = result && (getNonce()
+          == other.getNonce());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + IP_FIELD_NUMBER;
+      hash = (53 * hash) + getIp().hashCode();
+      hash = (37 * hash) + CHALLENGE_FIELD_NUMBER;
+      hash = (53 * hash) + getChallenge().hashCode();
+      hash = (37 * hash) + TIMESTAMP_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTimeStamp());
+      hash = (37 * hash) + NONCE_FIELD_NUMBER;
+      hash = (53 * hash) + getNonce();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.GetIdMSG parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdMSG parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdMSG parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdMSG parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdMSG parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdMSG parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdMSG parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdMSG parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdMSG parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdMSG parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdMSG parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdMSG parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpcCode.PeerToPeerOuterClass.GetIdMSG prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code GetIdMSG}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:GetIdMSG)
+        grpcCode.PeerToPeerOuterClass.GetIdMSGOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_GetIdMSG_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_GetIdMSG_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpcCode.PeerToPeerOuterClass.GetIdMSG.class, grpcCode.PeerToPeerOuterClass.GetIdMSG.Builder.class);
+      }
+
+      // Construct using grpcCode.PeerToPeerOuterClass.GetIdMSG.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        ip_ = "";
+
+        challenge_ = com.google.protobuf.ByteString.EMPTY;
+
+        timeStamp_ = 0L;
+
+        nonce_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_GetIdMSG_descriptor;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.GetIdMSG getDefaultInstanceForType() {
+        return grpcCode.PeerToPeerOuterClass.GetIdMSG.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.GetIdMSG build() {
+        grpcCode.PeerToPeerOuterClass.GetIdMSG result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.GetIdMSG buildPartial() {
+        grpcCode.PeerToPeerOuterClass.GetIdMSG result = new grpcCode.PeerToPeerOuterClass.GetIdMSG(this);
+        result.ip_ = ip_;
+        result.challenge_ = challenge_;
+        result.timeStamp_ = timeStamp_;
+        result.nonce_ = nonce_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpcCode.PeerToPeerOuterClass.GetIdMSG) {
+          return mergeFrom((grpcCode.PeerToPeerOuterClass.GetIdMSG)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpcCode.PeerToPeerOuterClass.GetIdMSG other) {
+        if (other == grpcCode.PeerToPeerOuterClass.GetIdMSG.getDefaultInstance()) return this;
+        if (!other.getIp().isEmpty()) {
+          ip_ = other.ip_;
+          onChanged();
+        }
+        if (other.getChallenge() != com.google.protobuf.ByteString.EMPTY) {
+          setChallenge(other.getChallenge());
+        }
+        if (other.getTimeStamp() != 0L) {
+          setTimeStamp(other.getTimeStamp());
+        }
+        if (other.getNonce() != 0) {
+          setNonce(other.getNonce());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpcCode.PeerToPeerOuterClass.GetIdMSG parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpcCode.PeerToPeerOuterClass.GetIdMSG) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object ip_ = "";
+      /**
+       * <code>string ip = 1;</code>
+       */
+      public java.lang.String getIp() {
+        java.lang.Object ref = ip_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ip_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ip = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getIpBytes() {
+        java.lang.Object ref = ip_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ip_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ip = 1;</code>
+       */
+      public Builder setIp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ip = 1;</code>
+       */
+      public Builder clearIp() {
+        
+        ip_ = getDefaultInstance().getIp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ip = 1;</code>
+       */
+      public Builder setIpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ip_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString challenge_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes challenge = 2;</code>
+       */
+      public com.google.protobuf.ByteString getChallenge() {
+        return challenge_;
+      }
+      /**
+       * <code>bytes challenge = 2;</code>
+       */
+      public Builder setChallenge(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        challenge_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes challenge = 2;</code>
+       */
+      public Builder clearChallenge() {
+        
+        challenge_ = getDefaultInstance().getChallenge();
+        onChanged();
+        return this;
+      }
+
+      private long timeStamp_ ;
+      /**
+       * <code>int64 timeStamp = 3;</code>
+       */
+      public long getTimeStamp() {
+        return timeStamp_;
+      }
+      /**
+       * <code>int64 timeStamp = 3;</code>
+       */
+      public Builder setTimeStamp(long value) {
+        
+        timeStamp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 timeStamp = 3;</code>
+       */
+      public Builder clearTimeStamp() {
+        
+        timeStamp_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int nonce_ ;
+      /**
+       * <code>int32 nonce = 4;</code>
+       */
+      public int getNonce() {
+        return nonce_;
+      }
+      /**
+       * <code>int32 nonce = 4;</code>
+       */
+      public Builder setNonce(int value) {
+        
+        nonce_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 nonce = 4;</code>
+       */
+      public Builder clearNonce() {
+        
+        nonce_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:GetIdMSG)
+    }
+
+    // @@protoc_insertion_point(class_scope:GetIdMSG)
+    private static final grpcCode.PeerToPeerOuterClass.GetIdMSG DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpcCode.PeerToPeerOuterClass.GetIdMSG();
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.GetIdMSG getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetIdMSG>
+        PARSER = new com.google.protobuf.AbstractParser<GetIdMSG>() {
+      @java.lang.Override
+      public GetIdMSG parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetIdMSG(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetIdMSG> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetIdMSG> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpcCode.PeerToPeerOuterClass.GetIdMSG getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface GetIdResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:GetIdResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bytes id = 1;</code>
+     */
+    com.google.protobuf.ByteString getId();
+  }
+  /**
+   * Protobuf type {@code GetIdResponse}
+   */
+  public  static final class GetIdResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:GetIdResponse)
+      GetIdResponseOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use GetIdResponse.newBuilder() to construct.
+    private GetIdResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private GetIdResponse() {
+      id_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private GetIdResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+
+              id_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_GetIdResponse_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_GetIdResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpcCode.PeerToPeerOuterClass.GetIdResponse.class, grpcCode.PeerToPeerOuterClass.GetIdResponse.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString id_;
+    /**
+     * <code>bytes id = 1;</code>
+     */
+    public com.google.protobuf.ByteString getId() {
+      return id_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!id_.isEmpty()) {
+        output.writeBytes(1, id_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!id_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, id_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpcCode.PeerToPeerOuterClass.GetIdResponse)) {
+        return super.equals(obj);
+      }
+      grpcCode.PeerToPeerOuterClass.GetIdResponse other = (grpcCode.PeerToPeerOuterClass.GetIdResponse) obj;
+
+      boolean result = true;
+      result = result && getId()
+          .equals(other.getId());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.GetIdResponse parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdResponse parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.GetIdResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpcCode.PeerToPeerOuterClass.GetIdResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code GetIdResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:GetIdResponse)
+        grpcCode.PeerToPeerOuterClass.GetIdResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_GetIdResponse_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_GetIdResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpcCode.PeerToPeerOuterClass.GetIdResponse.class, grpcCode.PeerToPeerOuterClass.GetIdResponse.Builder.class);
+      }
+
+      // Construct using grpcCode.PeerToPeerOuterClass.GetIdResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        id_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_GetIdResponse_descriptor;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.GetIdResponse getDefaultInstanceForType() {
+        return grpcCode.PeerToPeerOuterClass.GetIdResponse.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.GetIdResponse build() {
+        grpcCode.PeerToPeerOuterClass.GetIdResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.GetIdResponse buildPartial() {
+        grpcCode.PeerToPeerOuterClass.GetIdResponse result = new grpcCode.PeerToPeerOuterClass.GetIdResponse(this);
+        result.id_ = id_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpcCode.PeerToPeerOuterClass.GetIdResponse) {
+          return mergeFrom((grpcCode.PeerToPeerOuterClass.GetIdResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpcCode.PeerToPeerOuterClass.GetIdResponse other) {
+        if (other == grpcCode.PeerToPeerOuterClass.GetIdResponse.getDefaultInstance()) return this;
+        if (other.getId() != com.google.protobuf.ByteString.EMPTY) {
+          setId(other.getId());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpcCode.PeerToPeerOuterClass.GetIdResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpcCode.PeerToPeerOuterClass.GetIdResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private com.google.protobuf.ByteString id_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes id = 1;</code>
+       */
+      public com.google.protobuf.ByteString getId() {
+        return id_;
+      }
+      /**
+       * <code>bytes id = 1;</code>
+       */
+      public Builder setId(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        id_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes id = 1;</code>
+       */
+      public Builder clearId() {
+        
+        id_ = getDefaultInstance().getId();
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:GetIdResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:GetIdResponse)
+    private static final grpcCode.PeerToPeerOuterClass.GetIdResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpcCode.PeerToPeerOuterClass.GetIdResponse();
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.GetIdResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<GetIdResponse>
+        PARSER = new com.google.protobuf.AbstractParser<GetIdResponse>() {
+      @java.lang.Override
+      public GetIdResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new GetIdResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<GetIdResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<GetIdResponse> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpcCode.PeerToPeerOuterClass.GetIdResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface TransactionMSGOrBuilder extends
       // @@protoc_insertion_point(interface_extends:TransactionMSG)
       com.google.protobuf.MessageOrBuilder {
@@ -693,1255 +2942,6 @@ public final class PeerToPeerOuterClass {
 
     @java.lang.Override
     public grpcCode.PeerToPeerOuterClass.TransactionMSG getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface JoinMSGOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:JoinMSG)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>string nodeIp = 1;</code>
-     */
-    java.lang.String getNodeIp();
-    /**
-     * <code>string nodeIp = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getNodeIpBytes();
-
-    /**
-     * <code>int32 nodePort = 2;</code>
-     */
-    int getNodePort();
-
-    /**
-     * <code>string work = 3;</code>
-     */
-    java.lang.String getWork();
-    /**
-     * <code>string work = 3;</code>
-     */
-    com.google.protobuf.ByteString
-        getWorkBytes();
-  }
-  /**
-   * <pre>
-   **
-   *Message format for join request
-   * </pre>
-   *
-   * Protobuf type {@code JoinMSG}
-   */
-  public  static final class JoinMSG extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:JoinMSG)
-      JoinMSGOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use JoinMSG.newBuilder() to construct.
-    private JoinMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private JoinMSG() {
-      nodeIp_ = "";
-      nodePort_ = 0;
-      work_ = "";
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private JoinMSG(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              nodeIp_ = s;
-              break;
-            }
-            case 16: {
-
-              nodePort_ = input.readInt32();
-              break;
-            }
-            case 26: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              work_ = s;
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return grpcCode.PeerToPeerOuterClass.internal_static_JoinMSG_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return grpcCode.PeerToPeerOuterClass.internal_static_JoinMSG_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              grpcCode.PeerToPeerOuterClass.JoinMSG.class, grpcCode.PeerToPeerOuterClass.JoinMSG.Builder.class);
-    }
-
-    public static final int NODEIP_FIELD_NUMBER = 1;
-    private volatile java.lang.Object nodeIp_;
-    /**
-     * <code>string nodeIp = 1;</code>
-     */
-    public java.lang.String getNodeIp() {
-      java.lang.Object ref = nodeIp_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        nodeIp_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string nodeIp = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNodeIpBytes() {
-      java.lang.Object ref = nodeIp_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        nodeIp_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int NODEPORT_FIELD_NUMBER = 2;
-    private int nodePort_;
-    /**
-     * <code>int32 nodePort = 2;</code>
-     */
-    public int getNodePort() {
-      return nodePort_;
-    }
-
-    public static final int WORK_FIELD_NUMBER = 3;
-    private volatile java.lang.Object work_;
-    /**
-     * <code>string work = 3;</code>
-     */
-    public java.lang.String getWork() {
-      java.lang.Object ref = work_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        work_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>string work = 3;</code>
-     */
-    public com.google.protobuf.ByteString
-        getWorkBytes() {
-      java.lang.Object ref = work_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        work_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!getNodeIpBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, nodeIp_);
-      }
-      if (nodePort_ != 0) {
-        output.writeInt32(2, nodePort_);
-      }
-      if (!getWorkBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, work_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!getNodeIpBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, nodeIp_);
-      }
-      if (nodePort_ != 0) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(2, nodePort_);
-      }
-      if (!getWorkBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, work_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof grpcCode.PeerToPeerOuterClass.JoinMSG)) {
-        return super.equals(obj);
-      }
-      grpcCode.PeerToPeerOuterClass.JoinMSG other = (grpcCode.PeerToPeerOuterClass.JoinMSG) obj;
-
-      boolean result = true;
-      result = result && getNodeIp()
-          .equals(other.getNodeIp());
-      result = result && (getNodePort()
-          == other.getNodePort());
-      result = result && getWork()
-          .equals(other.getWork());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + NODEIP_FIELD_NUMBER;
-      hash = (53 * hash) + getNodeIp().hashCode();
-      hash = (37 * hash) + NODEPORT_FIELD_NUMBER;
-      hash = (53 * hash) + getNodePort();
-      hash = (37 * hash) + WORK_FIELD_NUMBER;
-      hash = (53 * hash) + getWork().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static grpcCode.PeerToPeerOuterClass.JoinMSG parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinMSG parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinMSG parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinMSG parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinMSG parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinMSG parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinMSG parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinMSG parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinMSG parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinMSG parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinMSG parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinMSG parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(grpcCode.PeerToPeerOuterClass.JoinMSG prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     **
-     *Message format for join request
-     * </pre>
-     *
-     * Protobuf type {@code JoinMSG}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:JoinMSG)
-        grpcCode.PeerToPeerOuterClass.JoinMSGOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return grpcCode.PeerToPeerOuterClass.internal_static_JoinMSG_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return grpcCode.PeerToPeerOuterClass.internal_static_JoinMSG_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                grpcCode.PeerToPeerOuterClass.JoinMSG.class, grpcCode.PeerToPeerOuterClass.JoinMSG.Builder.class);
-      }
-
-      // Construct using grpcCode.PeerToPeerOuterClass.JoinMSG.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        nodeIp_ = "";
-
-        nodePort_ = 0;
-
-        work_ = "";
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return grpcCode.PeerToPeerOuterClass.internal_static_JoinMSG_descriptor;
-      }
-
-      @java.lang.Override
-      public grpcCode.PeerToPeerOuterClass.JoinMSG getDefaultInstanceForType() {
-        return grpcCode.PeerToPeerOuterClass.JoinMSG.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public grpcCode.PeerToPeerOuterClass.JoinMSG build() {
-        grpcCode.PeerToPeerOuterClass.JoinMSG result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public grpcCode.PeerToPeerOuterClass.JoinMSG buildPartial() {
-        grpcCode.PeerToPeerOuterClass.JoinMSG result = new grpcCode.PeerToPeerOuterClass.JoinMSG(this);
-        result.nodeIp_ = nodeIp_;
-        result.nodePort_ = nodePort_;
-        result.work_ = work_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof grpcCode.PeerToPeerOuterClass.JoinMSG) {
-          return mergeFrom((grpcCode.PeerToPeerOuterClass.JoinMSG)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(grpcCode.PeerToPeerOuterClass.JoinMSG other) {
-        if (other == grpcCode.PeerToPeerOuterClass.JoinMSG.getDefaultInstance()) return this;
-        if (!other.getNodeIp().isEmpty()) {
-          nodeIp_ = other.nodeIp_;
-          onChanged();
-        }
-        if (other.getNodePort() != 0) {
-          setNodePort(other.getNodePort());
-        }
-        if (!other.getWork().isEmpty()) {
-          work_ = other.work_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        grpcCode.PeerToPeerOuterClass.JoinMSG parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (grpcCode.PeerToPeerOuterClass.JoinMSG) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private java.lang.Object nodeIp_ = "";
-      /**
-       * <code>string nodeIp = 1;</code>
-       */
-      public java.lang.String getNodeIp() {
-        java.lang.Object ref = nodeIp_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          nodeIp_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string nodeIp = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNodeIpBytes() {
-        java.lang.Object ref = nodeIp_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          nodeIp_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string nodeIp = 1;</code>
-       */
-      public Builder setNodeIp(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        nodeIp_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string nodeIp = 1;</code>
-       */
-      public Builder clearNodeIp() {
-        
-        nodeIp_ = getDefaultInstance().getNodeIp();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string nodeIp = 1;</code>
-       */
-      public Builder setNodeIpBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        nodeIp_ = value;
-        onChanged();
-        return this;
-      }
-
-      private int nodePort_ ;
-      /**
-       * <code>int32 nodePort = 2;</code>
-       */
-      public int getNodePort() {
-        return nodePort_;
-      }
-      /**
-       * <code>int32 nodePort = 2;</code>
-       */
-      public Builder setNodePort(int value) {
-        
-        nodePort_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>int32 nodePort = 2;</code>
-       */
-      public Builder clearNodePort() {
-        
-        nodePort_ = 0;
-        onChanged();
-        return this;
-      }
-
-      private java.lang.Object work_ = "";
-      /**
-       * <code>string work = 3;</code>
-       */
-      public java.lang.String getWork() {
-        java.lang.Object ref = work_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          work_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>string work = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getWorkBytes() {
-        java.lang.Object ref = work_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          work_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>string work = 3;</code>
-       */
-      public Builder setWork(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        work_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string work = 3;</code>
-       */
-      public Builder clearWork() {
-        
-        work_ = getDefaultInstance().getWork();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>string work = 3;</code>
-       */
-      public Builder setWorkBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        work_ = value;
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:JoinMSG)
-    }
-
-    // @@protoc_insertion_point(class_scope:JoinMSG)
-    private static final grpcCode.PeerToPeerOuterClass.JoinMSG DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new grpcCode.PeerToPeerOuterClass.JoinMSG();
-    }
-
-    public static grpcCode.PeerToPeerOuterClass.JoinMSG getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<JoinMSG>
-        PARSER = new com.google.protobuf.AbstractParser<JoinMSG>() {
-      @java.lang.Override
-      public JoinMSG parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new JoinMSG(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<JoinMSG> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<JoinMSG> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public grpcCode.PeerToPeerOuterClass.JoinMSG getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface JoinResponseMSGOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:JoinResponseMSG)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>bytes id = 4;</code>
-     */
-    com.google.protobuf.ByteString getId();
-  }
-  /**
-   * <pre>
-   **
-   *Message format for join response
-   * </pre>
-   *
-   * Protobuf type {@code JoinResponseMSG}
-   */
-  public  static final class JoinResponseMSG extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:JoinResponseMSG)
-      JoinResponseMSGOrBuilder {
-  private static final long serialVersionUID = 0L;
-    // Use JoinResponseMSG.newBuilder() to construct.
-    private JoinResponseMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private JoinResponseMSG() {
-      id_ = com.google.protobuf.ByteString.EMPTY;
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return this.unknownFields;
-    }
-    private JoinResponseMSG(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      if (extensionRegistry == null) {
-        throw new java.lang.NullPointerException();
-      }
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            case 34: {
-
-              id_ = input.readBytes();
-              break;
-            }
-            default: {
-              if (!parseUnknownFieldProto3(
-                  input, unknownFields, extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return grpcCode.PeerToPeerOuterClass.internal_static_JoinResponseMSG_descriptor;
-    }
-
-    @java.lang.Override
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return grpcCode.PeerToPeerOuterClass.internal_static_JoinResponseMSG_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              grpcCode.PeerToPeerOuterClass.JoinResponseMSG.class, grpcCode.PeerToPeerOuterClass.JoinResponseMSG.Builder.class);
-    }
-
-    public static final int ID_FIELD_NUMBER = 4;
-    private com.google.protobuf.ByteString id_;
-    /**
-     * <code>bytes id = 4;</code>
-     */
-    public com.google.protobuf.ByteString getId() {
-      return id_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    @java.lang.Override
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    @java.lang.Override
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (!id_.isEmpty()) {
-        output.writeBytes(4, id_);
-      }
-      unknownFields.writeTo(output);
-    }
-
-    @java.lang.Override
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (!id_.isEmpty()) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, id_);
-      }
-      size += unknownFields.getSerializedSize();
-      memoizedSize = size;
-      return size;
-    }
-
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof grpcCode.PeerToPeerOuterClass.JoinResponseMSG)) {
-        return super.equals(obj);
-      }
-      grpcCode.PeerToPeerOuterClass.JoinResponseMSG other = (grpcCode.PeerToPeerOuterClass.JoinResponseMSG) obj;
-
-      boolean result = true;
-      result = result && getId()
-          .equals(other.getId());
-      result = result && unknownFields.equals(other.unknownFields);
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static grpcCode.PeerToPeerOuterClass.JoinResponseMSG parseFrom(
-        java.nio.ByteBuffer data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinResponseMSG parseFrom(
-        java.nio.ByteBuffer data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinResponseMSG parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinResponseMSG parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinResponseMSG parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinResponseMSG parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinResponseMSG parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinResponseMSG parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinResponseMSG parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinResponseMSG parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinResponseMSG parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static grpcCode.PeerToPeerOuterClass.JoinResponseMSG parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    @java.lang.Override
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(grpcCode.PeerToPeerOuterClass.JoinResponseMSG prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    @java.lang.Override
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * <pre>
-     **
-     *Message format for join response
-     * </pre>
-     *
-     * Protobuf type {@code JoinResponseMSG}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:JoinResponseMSG)
-        grpcCode.PeerToPeerOuterClass.JoinResponseMSGOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return grpcCode.PeerToPeerOuterClass.internal_static_JoinResponseMSG_descriptor;
-      }
-
-      @java.lang.Override
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return grpcCode.PeerToPeerOuterClass.internal_static_JoinResponseMSG_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                grpcCode.PeerToPeerOuterClass.JoinResponseMSG.class, grpcCode.PeerToPeerOuterClass.JoinResponseMSG.Builder.class);
-      }
-
-      // Construct using grpcCode.PeerToPeerOuterClass.JoinResponseMSG.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      @java.lang.Override
-      public Builder clear() {
-        super.clear();
-        id_ = com.google.protobuf.ByteString.EMPTY;
-
-        return this;
-      }
-
-      @java.lang.Override
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return grpcCode.PeerToPeerOuterClass.internal_static_JoinResponseMSG_descriptor;
-      }
-
-      @java.lang.Override
-      public grpcCode.PeerToPeerOuterClass.JoinResponseMSG getDefaultInstanceForType() {
-        return grpcCode.PeerToPeerOuterClass.JoinResponseMSG.getDefaultInstance();
-      }
-
-      @java.lang.Override
-      public grpcCode.PeerToPeerOuterClass.JoinResponseMSG build() {
-        grpcCode.PeerToPeerOuterClass.JoinResponseMSG result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      @java.lang.Override
-      public grpcCode.PeerToPeerOuterClass.JoinResponseMSG buildPartial() {
-        grpcCode.PeerToPeerOuterClass.JoinResponseMSG result = new grpcCode.PeerToPeerOuterClass.JoinResponseMSG(this);
-        result.id_ = id_;
-        onBuilt();
-        return result;
-      }
-
-      @java.lang.Override
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      @java.lang.Override
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      @java.lang.Override
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      @java.lang.Override
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      @java.lang.Override
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, java.lang.Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      @java.lang.Override
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          java.lang.Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      @java.lang.Override
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof grpcCode.PeerToPeerOuterClass.JoinResponseMSG) {
-          return mergeFrom((grpcCode.PeerToPeerOuterClass.JoinResponseMSG)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(grpcCode.PeerToPeerOuterClass.JoinResponseMSG other) {
-        if (other == grpcCode.PeerToPeerOuterClass.JoinResponseMSG.getDefaultInstance()) return this;
-        if (other.getId() != com.google.protobuf.ByteString.EMPTY) {
-          setId(other.getId());
-        }
-        this.mergeUnknownFields(other.unknownFields);
-        onChanged();
-        return this;
-      }
-
-      @java.lang.Override
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      @java.lang.Override
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        grpcCode.PeerToPeerOuterClass.JoinResponseMSG parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (grpcCode.PeerToPeerOuterClass.JoinResponseMSG) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private com.google.protobuf.ByteString id_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>bytes id = 4;</code>
-       */
-      public com.google.protobuf.ByteString getId() {
-        return id_;
-      }
-      /**
-       * <code>bytes id = 4;</code>
-       */
-      public Builder setId(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        id_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bytes id = 4;</code>
-       */
-      public Builder clearId() {
-        
-        id_ = getDefaultInstance().getId();
-        onChanged();
-        return this;
-      }
-      @java.lang.Override
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.setUnknownFieldsProto3(unknownFields);
-      }
-
-      @java.lang.Override
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return super.mergeUnknownFields(unknownFields);
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:JoinResponseMSG)
-    }
-
-    // @@protoc_insertion_point(class_scope:JoinResponseMSG)
-    private static final grpcCode.PeerToPeerOuterClass.JoinResponseMSG DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new grpcCode.PeerToPeerOuterClass.JoinResponseMSG();
-    }
-
-    public static grpcCode.PeerToPeerOuterClass.JoinResponseMSG getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<JoinResponseMSG>
-        PARSER = new com.google.protobuf.AbstractParser<JoinResponseMSG>() {
-      @java.lang.Override
-      public JoinResponseMSG parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new JoinResponseMSG(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<JoinResponseMSG> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<JoinResponseMSG> getParserForType() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public grpcCode.PeerToPeerOuterClass.JoinResponseMSG getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -6390,20 +7390,30 @@ public final class PeerToPeerOuterClass {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_InitMSG_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_InitMSG_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_InitResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_InitResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_GetIdMSG_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_GetIdMSG_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_GetIdResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_GetIdResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_TransactionMSG_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_TransactionMSG_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_JoinMSG_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_JoinMSG_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_JoinResponseMSG_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_JoinResponseMSG_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_EmptyMSG_descriptor;
   private static final 
@@ -6448,29 +7458,30 @@ public final class PeerToPeerOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020PeerToPeer.proto\"U\n\016TransactionMSG\022\021\n\t" +
-      "sourceEnt\030\001 \001(\014\022\017\n\007destEnt\030\002 \001(\014\022\021\n\tprod" +
-      "uctId\030\003 \001(\014\022\014\n\004bits\030\004 \001(\005\"9\n\007JoinMSG\022\016\n\006" +
-      "nodeIp\030\001 \001(\t\022\020\n\010nodePort\030\002 \001(\005\022\014\n\004work\030\003" +
-      " \001(\t\"\035\n\017JoinResponseMSG\022\n\n\002id\030\004 \001(\014\"\n\n\010E" +
-      "mptyMSG\"?\n\013NodeInfoMSG\022\016\n\006nodeId\030\001 \001(\014\022\016" +
-      "\n\006nodeIp\030\002 \001(\t\022\020\n\010nodePort\030\003 \001(\005\"@\n\013Find" +
-      "NodeMSG\022\037\n\trequester\030\001 \001(\0132\014.NodeInfoMSG" +
-      "\022\020\n\010wantedId\030\002 \001(\014\"F\n\007SaveMSG\022\037\n\trequest" +
-      "er\030\001 \001(\0132\014.NodeInfoMSG\022\013\n\003key\030\002 \001(\014\022\r\n\005v" +
-      "alue\030\003 \001(\014\"7\n\007FindMSG\022\037\n\trequester\030\001 \001(\013" +
-      "2\014.NodeInfoMSG\022\013\n\003key\030\002 \001(\014\"A\n\017FindRespo" +
-      "nseMSG\022\037\n\tresponder\030\001 \001(\0132\014.NodeInfoMSG\022" +
-      "\r\n\005value\030\002 \001(\014\"\035\n\nSuccessMSG\022\017\n\007success\030" +
-      "\001 \001(\0102\257\002\n\nPeerToPeer\022#\n\004Ping\022\014.NodeInfoM" +
-      "SG\032\013.SuccessMSG\"\000\022*\n\010FindNode\022\014.FindNode" +
-      "MSG\032\014.NodeInfoMSG\"\0000\001\022 \n\005Store\022\010.SaveMSG" +
-      "\032\013.SuccessMSG\"\000\022&\n\004Find\022\010.FindMSG\032\020.Find" +
-      "ResponseMSG\"\0000\001\022&\n\004Join\022\010.JoinMSG\032\020.Join" +
-      "ResponseMSG\"\0000\001\022+\n\tFindMiner\022\014.NodeInfoM" +
-      "SG\032\014.NodeInfoMSG\"\0000\001\0221\n\017SendTransaction\022" +
-      "\017.TransactionMSG\032\013.SuccessMSG\"\000B\n\n\010grpcC" +
-      "odeb\006proto3"
+      "\n\020PeerToPeer.proto\"\025\n\007InitMSG\022\n\n\002ip\030\001 \001(" +
+      "\t\"!\n\014InitResponse\022\021\n\ttimeStamp\030\001 \001(\003\"K\n\010" +
+      "GetIdMSG\022\n\n\002ip\030\001 \001(\t\022\021\n\tchallenge\030\002 \001(\014\022" +
+      "\021\n\ttimeStamp\030\003 \001(\003\022\r\n\005nonce\030\004 \001(\005\"\033\n\rGet" +
+      "IdResponse\022\n\n\002id\030\001 \001(\014\"U\n\016TransactionMSG" +
+      "\022\021\n\tsourceEnt\030\001 \001(\014\022\017\n\007destEnt\030\002 \001(\014\022\021\n\t" +
+      "productId\030\003 \001(\014\022\014\n\004bits\030\004 \001(\005\"\n\n\010EmptyMS" +
+      "G\"?\n\013NodeInfoMSG\022\016\n\006nodeId\030\001 \001(\014\022\016\n\006node" +
+      "Ip\030\002 \001(\t\022\020\n\010nodePort\030\003 \001(\005\"@\n\013FindNodeMS" +
+      "G\022\037\n\trequester\030\001 \001(\0132\014.NodeInfoMSG\022\020\n\010wa" +
+      "ntedId\030\002 \001(\014\"F\n\007SaveMSG\022\037\n\trequester\030\001 \001" +
+      "(\0132\014.NodeInfoMSG\022\013\n\003key\030\002 \001(\014\022\r\n\005value\030\003" +
+      " \001(\014\"7\n\007FindMSG\022\037\n\trequester\030\001 \001(\0132\014.Nod" +
+      "eInfoMSG\022\013\n\003key\030\002 \001(\014\"A\n\017FindResponseMSG" +
+      "\022\037\n\tresponder\030\001 \001(\0132\014.NodeInfoMSG\022\r\n\005val" +
+      "ue\030\002 \001(\014\"\035\n\nSuccessMSG\022\017\n\007success\030\001 \001(\0102" +
+      "\250\002\n\nPeerToPeer\022#\n\004Ping\022\014.NodeInfoMSG\032\013.S" +
+      "uccessMSG\"\000\022*\n\010FindNode\022\014.FindNodeMSG\032\014." +
+      "NodeInfoMSG\"\0000\001\022 \n\005Store\022\010.SaveMSG\032\013.Suc" +
+      "cessMSG\"\000\022&\n\004Find\022\010.FindMSG\032\020.FindRespon" +
+      "seMSG\"\0000\001\0221\n\017SendTransaction\022\017.Transacti" +
+      "onMSG\032\013.SuccessMSG\"\000\022&\n\tFirstConn\022\010.Init" +
+      "MSG\032\r.InitResponse\"\000\022$\n\005GetID\022\t.GetIdMSG" +
+      "\032\016.GetIdResponse\"\000B\n\n\010grpcCodeb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6484,62 +7495,74 @@ public final class PeerToPeerOuterClass {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_TransactionMSG_descriptor =
+    internal_static_InitMSG_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_InitMSG_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_InitMSG_descriptor,
+        new java.lang.String[] { "Ip", });
+    internal_static_InitResponse_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_InitResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_InitResponse_descriptor,
+        new java.lang.String[] { "TimeStamp", });
+    internal_static_GetIdMSG_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_GetIdMSG_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_GetIdMSG_descriptor,
+        new java.lang.String[] { "Ip", "Challenge", "TimeStamp", "Nonce", });
+    internal_static_GetIdResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_GetIdResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_GetIdResponse_descriptor,
+        new java.lang.String[] { "Id", });
+    internal_static_TransactionMSG_descriptor =
+      getDescriptor().getMessageTypes().get(4);
     internal_static_TransactionMSG_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TransactionMSG_descriptor,
         new java.lang.String[] { "SourceEnt", "DestEnt", "ProductId", "Bits", });
-    internal_static_JoinMSG_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_JoinMSG_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_JoinMSG_descriptor,
-        new java.lang.String[] { "NodeIp", "NodePort", "Work", });
-    internal_static_JoinResponseMSG_descriptor =
-      getDescriptor().getMessageTypes().get(2);
-    internal_static_JoinResponseMSG_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_JoinResponseMSG_descriptor,
-        new java.lang.String[] { "Id", });
     internal_static_EmptyMSG_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_EmptyMSG_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_EmptyMSG_descriptor,
         new java.lang.String[] { });
     internal_static_NodeInfoMSG_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_NodeInfoMSG_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_NodeInfoMSG_descriptor,
         new java.lang.String[] { "NodeId", "NodeIp", "NodePort", });
     internal_static_FindNodeMSG_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_FindNodeMSG_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FindNodeMSG_descriptor,
         new java.lang.String[] { "Requester", "WantedId", });
     internal_static_SaveMSG_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_SaveMSG_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SaveMSG_descriptor,
         new java.lang.String[] { "Requester", "Key", "Value", });
     internal_static_FindMSG_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_FindMSG_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FindMSG_descriptor,
         new java.lang.String[] { "Requester", "Key", });
     internal_static_FindResponseMSG_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_FindResponseMSG_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_FindResponseMSG_descriptor,
         new java.lang.String[] { "Responder", "Value", });
     internal_static_SuccessMSG_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_SuccessMSG_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SuccessMSG_descriptor,

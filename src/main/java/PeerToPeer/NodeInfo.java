@@ -8,20 +8,22 @@ public class NodeInfo {
     /**
      * id of the node
      */
-    private final byte[] id;
+    private byte[] id;
     /**
      * ip of the node
      */
-    private final String ip;
+    private String ip;
     /**
      * port of the node
      */
-    private final int port;
+    private int port;
 
 
     private Boolean bootstrap = false;
 
     private Boolean miner = false;
+
+    public static int SIZE_OF_ID = 2;
 
     /**
      * Given a set a parameters this constructor creates a {@link NodeInfo}
@@ -121,4 +123,8 @@ public class NodeInfo {
         this.miner=true;
     }
     public Boolean isMiner(){ return this.miner;}
+
+    public void setId(byte[] id){
+        this.id = id;
+    }
 }

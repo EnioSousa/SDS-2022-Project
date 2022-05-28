@@ -1,18 +1,23 @@
 package PeerToPeer;
 
 import BlockChain.HashAlgorithm;
+import Utils.Bootstrap;
 
 import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 
-public class run {
+public class run2 {
     public static void main(String[] args) throws InterruptedException, NoSuchAlgorithmException {
-        Node node =
-                new Node(new NodeInfo(HashAlgorithm.hexToByte(args[0]),
-                        "localhost", Integer.parseInt(args[1])));
-        test3(node);
+        //Node node = new Node(new NodeInfo(new byte[]{0x01}, Bootstrap.bootstrapIp, 6000));
+        Node node2 = new Node(new NodeInfo(new byte[]{0x02},Bootstrap.bootstrapIp, 7000));
+
+        //node.doJoin(node.getNodeInfo());
+        //System.out.println(HashAlgorithm.byteToHex(node.getNodeInfo().getId()));
+        //Thread.sleep(5000);
+        node2.doJoin(node2.getNodeInfo());
     }
 
+    /*
     public static void test3(Node node) throws NoSuchAlgorithmException, InterruptedException {
         test2(node);
 
@@ -63,5 +68,5 @@ public class run {
 
             Thread.sleep(1000);
         }
-    }
+    }*/
 }
