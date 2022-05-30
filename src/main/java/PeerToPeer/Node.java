@@ -34,7 +34,7 @@ public class Node {
     /**
      * K buckets that is running this node
      */
-    private final K_Buckets kBuckets;
+    private K_Buckets kBuckets = null;
     /**
      * This var will be used for the find node. We have async calls, so
      * we need a way to check if we have contacted a given node
@@ -86,12 +86,16 @@ public class Node {
         nodeClients = new ConcurrentLinkedQueue<>();
 
         //TODO: Change id and key size. They have to be the same
-        kBuckets = new K_Buckets(this, 8, 4);
+        //kBuckets = new K_Buckets(this, 8, 4);
         storedValues = new StoredValues(8, this);
 
-        if (!nodeInfo.equals(knownNode)) {
-            getKBuckets().addNodeInfo(knownNode);
+        if(nodeInfo.equals(knownNode)){
+            kBuckets = new K_Buckets(this, 8, 4);
         }
+
+        /*if (!nodeInfo.equals(knownNode)) {
+            getKBuckets().addNodeInfo(knownNode);
+        }*/
     }
 
 
@@ -431,5 +435,13 @@ public class Node {
             }
         }
         return false;
+    }
+
+    public void initializeKbuckets(){
+        kBuckets = new K_Buckets(this,8, 4);
+
+        if (!nodeInfo.equals(knownNode)) {
+            getKBuckets().addNodeInfo(knownNode);
+        }
     }
 }

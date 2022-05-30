@@ -13,6 +13,8 @@ import Utils.*;
 import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
 
+import static PeerToPeer.PeerToPeerService.generateRandomDigits;
+
 
 /**
  * TODO: Change plain text mode to a secure one
@@ -150,7 +152,9 @@ public class NodeClient {
         try{
             GetIdResponse idResponse = syncStub.getID(idMSG);
             getNode().getNodeInfo().setId(idResponse.getId().toByteArray());
+
             LOGGER.info("Got my ID: " + HashAlgorithm.byteToHex(idResponse.getId().toByteArray()));
+
         }catch (Exception e){
             LOGGER.error("Unavailable connection: " + getConnectedNodeInfo());
         }
@@ -163,12 +167,22 @@ public class NodeClient {
         String ip = getNode().getNodeInfo().getIp();
         long timeStamp = doInit(ip);
         doGetInitID(timeStamp);
-
+        getNode().initializeKbuckets();
         try{
             getNode().doFindNode(getNode().getNodeInfo().getId());
         }catch (NoSuchAlgorithmException e){
             LOGGER.error("Unavailable connection: " + getConnectedNodeInfo());
         }
+        int randomId = generateRandomDigits(NodeInfo.SIZE_OF_ID);
+
+        byte[] nodeId = new byte[]{(byte)randomId};
+
+        try{
+            getRandomBucket(nodeId);
+        }catch (Exception e){
+
+        }
+
     }
 
 
@@ -251,7 +265,7 @@ public class NodeClient {
                         @Override
                         public void onError(Throwable t) {
                             LOGGER.error("Find node error: " + connectedNodeInfo + ":" +
-                                    " " + HashAlgorithm.byteToHex(wantedId));
+                                    " " + HashAlgorithm.byteToHex(wantedId) + ": " + t);
                         }
 
                         @Override
@@ -432,5 +446,26 @@ public class NodeClient {
     @Override
     public String toString() {
         return getConnectedNodeInfo().toString();
+    }
+
+    public void getRandomBucket(byte[] id){
+
+        LOGGER.info("Try to get nodes from another zone");
+        LinkedList<NodeInfo> list = new LinkedList<>();
+        LinkedList<NodeInfo> ourList = new LinkedList<>();
+
+        list = getNode().getKBuckets().getKClosest(id);
+        ourList = getNode().getKBuckets().getKClosest(getNode().getNodeInfo().getId());
+
+        for(NodeInfo n : list){
+            try{
+                if(!ourList.contains(n)) {
+                    getNode().doFindNode(n.getId());
+                }
+            }catch (NoSuchAlgorithmException e){
+                LOGGER.info("Error: Cant contact node");
+            }
+
+        }
     }
 }

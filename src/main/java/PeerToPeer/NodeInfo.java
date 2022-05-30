@@ -25,6 +25,7 @@ public class NodeInfo {
 
     public static int SIZE_OF_ID = 2;
 
+
     /**
      * Given a set a parameters this constructor creates a {@link NodeInfo}
      * object

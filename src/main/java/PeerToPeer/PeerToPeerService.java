@@ -132,10 +132,16 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
 
     @Override
     public void firstConn(InitMSG request, StreamObserver<InitResponse> responseObserver){
+
         String ip = request.getIp();
+
+        LOGGER.info("First message of join");
+
         long timeStamp = Instant.now().toEpochMilli();
 
         getRunningNode().addIpTimeStamp(ip,timeStamp);
+
+        LOGGER.info("Get timestamp");
 
         responseObserver.onNext(convertToInitResponse(timeStamp));
         responseObserver.onCompleted();
@@ -144,9 +150,11 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
     @Override
     public void getID(GetIdMSG request, StreamObserver<GetIdResponse> responseObserver){
 
-        if (getRunningNode().verifyIpTime(request.getIp(), request.getTimeStamp())){
-            LOGGER.info("Check if client has made the initial connection");
+        LOGGER.info("Second message of join");
 
+        if (getRunningNode().verifyIpTime(request.getIp(), request.getTimeStamp())){
+
+            LOGGER.info("Check if client has made the initial connection");
 
             byte[] challenge = request.getChallenge().toByteArray();
 
@@ -161,7 +169,7 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
                 try{
                     work = HashAlgorithm.generateHash(Longs.toByteArray(time), HashAlgorithm.intToByte(nonce));
                 }catch (NoSuchAlgorithmException e){
-                    LOGGER.info("Didnt do the initial computation");
+                    LOGGER.info("Error generating the hash");
                 }
 
                 if(Arrays.equals(challenge,work)){
