@@ -65,6 +65,8 @@ public class Node {
 
     private LinkedList<InfoJoin> tableJoin = new LinkedList<>();
 
+    private LinkedList<NodeInfo> listOfMiners = new LinkedList<>();
+
 
     /**
      * Node known to all
@@ -91,6 +93,11 @@ public class Node {
 
         if(nodeInfo.equals(knownNode)){
             kBuckets = new K_Buckets(this, 8, 4);
+        }
+
+        //DEBUG
+        if(nodeInfo.isMiner()){
+            LOGGER.info("IM MINER!!!!!!");
         }
 
         /*if (!nodeInfo.equals(knownNode)) {
@@ -444,4 +451,10 @@ public class Node {
             getKBuckets().addNodeInfo(knownNode);
         }
     }
+
+    public void addMinerList(NodeInfo miner){
+        listOfMiners.add(miner);
+    }
+
+
 }

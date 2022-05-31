@@ -251,6 +251,70 @@ public final class PeerToPeerGrpc {
      return getGetIDMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.NodeInfoMSG,
+      grpcCode.PeerToPeerOuterClass.SuccessMSG> getPingMinerMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "PingMiner",
+      requestType = grpcCode.PeerToPeerOuterClass.NodeInfoMSG.class,
+      responseType = grpcCode.PeerToPeerOuterClass.SuccessMSG.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.NodeInfoMSG,
+      grpcCode.PeerToPeerOuterClass.SuccessMSG> getPingMinerMethod() {
+    io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.NodeInfoMSG, grpcCode.PeerToPeerOuterClass.SuccessMSG> getPingMinerMethod;
+    if ((getPingMinerMethod = PeerToPeerGrpc.getPingMinerMethod) == null) {
+      synchronized (PeerToPeerGrpc.class) {
+        if ((getPingMinerMethod = PeerToPeerGrpc.getPingMinerMethod) == null) {
+          PeerToPeerGrpc.getPingMinerMethod = getPingMinerMethod = 
+              io.grpc.MethodDescriptor.<grpcCode.PeerToPeerOuterClass.NodeInfoMSG, grpcCode.PeerToPeerOuterClass.SuccessMSG>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "PeerToPeer", "PingMiner"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.NodeInfoMSG.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.SuccessMSG.getDefaultInstance()))
+                  .setSchemaDescriptor(new PeerToPeerMethodDescriptorSupplier("PingMiner"))
+                  .build();
+          }
+        }
+     }
+     return getPingMinerMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.EmptyMSG,
+      grpcCode.PeerToPeerOuterClass.NodeInfoMSG> getGetMinersListMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetMinersList",
+      requestType = grpcCode.PeerToPeerOuterClass.EmptyMSG.class,
+      responseType = grpcCode.PeerToPeerOuterClass.NodeInfoMSG.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.EmptyMSG,
+      grpcCode.PeerToPeerOuterClass.NodeInfoMSG> getGetMinersListMethod() {
+    io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.EmptyMSG, grpcCode.PeerToPeerOuterClass.NodeInfoMSG> getGetMinersListMethod;
+    if ((getGetMinersListMethod = PeerToPeerGrpc.getGetMinersListMethod) == null) {
+      synchronized (PeerToPeerGrpc.class) {
+        if ((getGetMinersListMethod = PeerToPeerGrpc.getGetMinersListMethod) == null) {
+          PeerToPeerGrpc.getGetMinersListMethod = getGetMinersListMethod = 
+              io.grpc.MethodDescriptor.<grpcCode.PeerToPeerOuterClass.EmptyMSG, grpcCode.PeerToPeerOuterClass.NodeInfoMSG>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "PeerToPeer", "GetMinersList"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.EmptyMSG.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.NodeInfoMSG.getDefaultInstance()))
+                  .setSchemaDescriptor(new PeerToPeerMethodDescriptorSupplier("GetMinersList"))
+                  .build();
+          }
+        }
+     }
+     return getGetMinersListMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -327,6 +391,20 @@ public final class PeerToPeerGrpc {
       asyncUnimplementedUnaryCall(getGetIDMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void pingMiner(grpcCode.PeerToPeerOuterClass.NodeInfoMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.SuccessMSG> responseObserver) {
+      asyncUnimplementedUnaryCall(getPingMinerMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void getMinersList(grpcCode.PeerToPeerOuterClass.EmptyMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.NodeInfoMSG> responseObserver) {
+      asyncUnimplementedUnaryCall(getGetMinersListMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -378,6 +456,20 @@ public final class PeerToPeerGrpc {
                 grpcCode.PeerToPeerOuterClass.GetIdMSG,
                 grpcCode.PeerToPeerOuterClass.GetIdResponse>(
                   this, METHODID_GET_ID)))
+          .addMethod(
+            getPingMinerMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                grpcCode.PeerToPeerOuterClass.NodeInfoMSG,
+                grpcCode.PeerToPeerOuterClass.SuccessMSG>(
+                  this, METHODID_PING_MINER)))
+          .addMethod(
+            getGetMinersListMethod(),
+            asyncServerStreamingCall(
+              new MethodHandlers<
+                grpcCode.PeerToPeerOuterClass.EmptyMSG,
+                grpcCode.PeerToPeerOuterClass.NodeInfoMSG>(
+                  this, METHODID_GET_MINERS_LIST)))
           .build();
     }
   }
@@ -455,6 +547,22 @@ public final class PeerToPeerGrpc {
       asyncUnaryCall(
           getChannel().newCall(getGetIDMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void pingMiner(grpcCode.PeerToPeerOuterClass.NodeInfoMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.SuccessMSG> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getPingMinerMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void getMinersList(grpcCode.PeerToPeerOuterClass.EmptyMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.NodeInfoMSG> responseObserver) {
+      asyncServerStreamingCall(
+          getChannel().newCall(getGetMinersListMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -525,6 +633,21 @@ public final class PeerToPeerGrpc {
       return blockingUnaryCall(
           getChannel(), getGetIDMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public grpcCode.PeerToPeerOuterClass.SuccessMSG pingMiner(grpcCode.PeerToPeerOuterClass.NodeInfoMSG request) {
+      return blockingUnaryCall(
+          getChannel(), getPingMinerMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public java.util.Iterator<grpcCode.PeerToPeerOuterClass.NodeInfoMSG> getMinersList(
+        grpcCode.PeerToPeerOuterClass.EmptyMSG request) {
+      return blockingServerStreamingCall(
+          getChannel(), getGetMinersListMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -584,6 +707,14 @@ public final class PeerToPeerGrpc {
       return futureUnaryCall(
           getChannel().newCall(getGetIDMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<grpcCode.PeerToPeerOuterClass.SuccessMSG> pingMiner(
+        grpcCode.PeerToPeerOuterClass.NodeInfoMSG request) {
+      return futureUnaryCall(
+          getChannel().newCall(getPingMinerMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_PING = 0;
@@ -593,6 +724,8 @@ public final class PeerToPeerGrpc {
   private static final int METHODID_SEND_TRANSACTION = 4;
   private static final int METHODID_FIRST_CONN = 5;
   private static final int METHODID_GET_ID = 6;
+  private static final int METHODID_PING_MINER = 7;
+  private static final int METHODID_GET_MINERS_LIST = 8;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -638,6 +771,14 @@ public final class PeerToPeerGrpc {
         case METHODID_GET_ID:
           serviceImpl.getID((grpcCode.PeerToPeerOuterClass.GetIdMSG) request,
               (io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.GetIdResponse>) responseObserver);
+          break;
+        case METHODID_PING_MINER:
+          serviceImpl.pingMiner((grpcCode.PeerToPeerOuterClass.NodeInfoMSG) request,
+              (io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.SuccessMSG>) responseObserver);
+          break;
+        case METHODID_GET_MINERS_LIST:
+          serviceImpl.getMinersList((grpcCode.PeerToPeerOuterClass.EmptyMSG) request,
+              (io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.NodeInfoMSG>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -707,6 +848,8 @@ public final class PeerToPeerGrpc {
               .addMethod(getSendTransactionMethod())
               .addMethod(getFirstConnMethod())
               .addMethod(getGetIDMethod())
+              .addMethod(getPingMinerMethod())
+              .addMethod(getGetMinersListMethod())
               .build();
         }
       }

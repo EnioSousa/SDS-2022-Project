@@ -34,6 +34,21 @@ public class NodeInfo {
      * @param ip   ip of the node is listening
      * @param port port the node is listening
      */
+    public NodeInfo(byte[] id, String ip, int port, boolean miner) {
+        this.id = id;
+        this.ip = ip;
+        this.port = port;
+        this.miner = miner;
+    }
+
+    /**
+     * Given a set a parameters this constructor creates a {@link NodeInfo}
+     * object
+     *
+     * @param id   id of the node, in byte[] format
+     * @param ip   ip of the node is listening
+     * @param port port the node is listening
+     */
     public NodeInfo(byte[] id, String ip, int port) {
         this.id = id;
         this.ip = ip;

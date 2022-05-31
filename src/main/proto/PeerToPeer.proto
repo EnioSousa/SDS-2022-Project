@@ -16,7 +16,12 @@ service PeerToPeer {
   rpc FirstConn(InitMSG) returns (InitResponse) {}
 
   rpc GetID(GetIdMSG) returns (GetIdResponse) {}
+
+  rpc PingMiner(NodeInfoMSG) returns (SuccessMSG) {}
+
+  rpc GetMinersList(EmptyMSG) returns (stream NodeInfoMSG) {}
 }
+
 
 message InitMSG{
   string ip = 1;

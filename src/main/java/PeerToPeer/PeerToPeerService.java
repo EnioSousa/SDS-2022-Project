@@ -197,6 +197,20 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
         responseObserver.onCompleted();
     }
 
+    @Override
+    public void pingMiner(NodeInfoMSG request, StreamObserver<SuccessMSG> responseObserver){
+        NodeInfo nodeInfo = new NodeInfo(request.getNodeId().toByteArray(),
+                request.getNodeIp(), request.getNodePort());
+
+        LOGGER.info("Got pingMiner request: From: " + nodeInfo);
+
+        getRunningNode().addMinerList(nodeInfo);
+
+        responseObserver.onNext(convertToSuccessMsg(true));
+
+        responseObserver.onCompleted();
+    }
+
 
     public static TransactionMSG convertToTransactionMSG(byte[] sourceEnt, byte[] destEnt, byte[] productId, int bits){
         return TransactionMSG.newBuilder()

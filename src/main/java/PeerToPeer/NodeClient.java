@@ -180,11 +180,32 @@ public class NodeClient {
         try{
             getRandomBucket(nodeId);
         }catch (Exception e){
+            LOGGER.info("Error" + e);
+        }
 
+        if(getNode().getNodeInfo().isMiner()){
+            //getListofMiners();
         }
 
     }
+    //HERE
+    void doPingMiner(){
 
+        NodeInfoMSG nodeInfoMsg =
+                PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
+
+        LOGGER.info("Im a new miner, add me to the list");
+
+        try {
+            SuccessMSG pingSuccessMSG = syncStub.pingMiner(nodeInfoMsg);
+
+            LOGGER.info("Got PingMiner Response: from: " + connectedNodeInfo +
+                    ": Value: " + pingSuccessMSG.getSuccess());
+        } catch (Exception e) {
+            LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
+                    + ": error: " + e);
+        }
+    }
 
     void doStore(byte[] key, byte[] value) {
         LOGGER.info("Doing store to: " + connectedNodeInfo + ": key: "

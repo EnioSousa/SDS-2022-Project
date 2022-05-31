@@ -7474,14 +7474,17 @@ public final class PeerToPeerOuterClass {
       "eInfoMSG\022\013\n\003key\030\002 \001(\014\"A\n\017FindResponseMSG" +
       "\022\037\n\tresponder\030\001 \001(\0132\014.NodeInfoMSG\022\r\n\005val" +
       "ue\030\002 \001(\014\"\035\n\nSuccessMSG\022\017\n\007success\030\001 \001(\0102" +
-      "\250\002\n\nPeerToPeer\022#\n\004Ping\022\014.NodeInfoMSG\032\013.S" +
+      "\200\003\n\nPeerToPeer\022#\n\004Ping\022\014.NodeInfoMSG\032\013.S" +
       "uccessMSG\"\000\022*\n\010FindNode\022\014.FindNodeMSG\032\014." +
       "NodeInfoMSG\"\0000\001\022 \n\005Store\022\010.SaveMSG\032\013.Suc" +
       "cessMSG\"\000\022&\n\004Find\022\010.FindMSG\032\020.FindRespon" +
       "seMSG\"\0000\001\0221\n\017SendTransaction\022\017.Transacti" +
       "onMSG\032\013.SuccessMSG\"\000\022&\n\tFirstConn\022\010.Init" +
       "MSG\032\r.InitResponse\"\000\022$\n\005GetID\022\t.GetIdMSG" +
-      "\032\016.GetIdResponse\"\000B\n\n\010grpcCodeb\006proto3"
+      "\032\016.GetIdResponse\"\000\022(\n\tPingMiner\022\014.NodeIn" +
+      "foMSG\032\013.SuccessMSG\"\000\022,\n\rGetMinersList\022\t." +
+      "EmptyMSG\032\014.NodeInfoMSG\"\0000\001B\n\n\010grpcCodeb\006" +
+      "proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
