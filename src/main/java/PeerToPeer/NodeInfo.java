@@ -23,9 +23,6 @@ public class NodeInfo {
 
     private Boolean miner = false;
 
-    public static int SIZE_OF_ID = 2;
-
-
     /**
      * Given a set a parameters this constructor creates a {@link NodeInfo}
      * object
@@ -131,16 +128,22 @@ public class NodeInfo {
     }
 
     public void setBootstrap() {
-        this.bootstrap=true;
+        this.bootstrap = true;
     }
-    public Boolean isBootstrap(){ return this.bootstrap;}
+
+    public Boolean isBootstrap() {
+        return this.bootstrap;
+    }
 
     public void setMiner() {
-        this.miner=true;
+        this.miner = true;
     }
-    public Boolean isMiner(){ return this.miner;}
 
-    public void setId(byte[] id){
+    public Boolean isMiner() {
+        return this.miner;
+    }
+
+    public void setId(byte[] id) {
         this.id = id;
     }
 }

@@ -208,26 +208,27 @@ public class K_Buckets {
 
     /**
      * Get the closest miner from the given id
+     *
      * @param id id of node
      * @return closest miner if exists otherwise null
      */
-    public NodeInfo getClosestMiner(byte[] id){
+    public NodeInfo getClosestMiner(byte[] id) {
         int mBucket = closestBucket(id);
-        for (int i = mBucket; i <= getSpaceSize(); i++){
+        for (int i = mBucket; i <= getSpaceSize(); i++) {
             LinkedList<NodeInfo> list = getNodesFromBucket(i);
-            if (!list.isEmpty()){
-                for (NodeInfo nodeInfo: list){
-                    if (nodeInfo.isMiner()){
+            if (!list.isEmpty()) {
+                for (NodeInfo nodeInfo : list) {
+                    if (nodeInfo.isMiner()) {
                         return nodeInfo;
                     }
                 }
             }
         }
-        for (int i = mBucket - 1; i >= 0; i--){
+        for (int i = mBucket - 1; i >= 0; i--) {
             LinkedList<NodeInfo> list = getNodesFromBucket(i);
-            if (!list.isEmpty()){
-                for (NodeInfo nodeInfo: list){
-                    if (nodeInfo.isMiner()){
+            if (!list.isEmpty()) {
+                for (NodeInfo nodeInfo : list) {
+                    if (nodeInfo.isMiner()) {
                         return nodeInfo;
                     }
                 }
@@ -246,6 +247,9 @@ public class K_Buckets {
      */
     public byte[] doXOR(byte[] arr0, byte[] arr1) {
         if (arr0.length != arr1.length || arr0.length * 8 != spaceSize) {
+            LOGGER.error("doXOR fail: first array: " +
+                    HashAlgorithm.byteToHex(arr0) +
+                    ": second array: " + HashAlgorithm.byteToHex(arr1));
             return null;
         } else {
             byte[] result = new byte[arr0.length];
@@ -298,7 +302,6 @@ public class K_Buckets {
 
         return prefixBitCount;
     }
-
 
 
     private class Bucket {
@@ -418,9 +421,9 @@ public class K_Buckets {
             }
         }
 
-        public NodeInfo findMinerInBucket(){
+        public NodeInfo findMinerInBucket() {
             for (NodeInfo nodeInfo : bucket) {
-                if (nodeInfo.isMiner()){
+                if (nodeInfo.isMiner()) {
                     return nodeInfo;
                 }
             }

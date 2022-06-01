@@ -1,6 +1,8 @@
 package PeerToPeer;
 
 import BlockChain.HashAlgorithm;
+import Utils.Bootstrap;
+import Utils.InfoJoin;
 import com.google.common.primitives.Longs;
 import grpcCode.PeerToPeerGrpc;
 import grpcCode.PeerToPeerOuterClass.*;
@@ -9,7 +11,7 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import Utils.*;
+
 import java.security.NoSuchAlgorithmException;
 import java.util.LinkedList;
 
@@ -39,6 +41,7 @@ public class NodeClient {
      */
     private PeerToPeerGrpc.PeerToPeerStub asyncStub;
     /**
+     * /**
      * Node that's running this client
      */
     private final Node node;
@@ -117,79 +120,105 @@ public class NodeClient {
      * @param ip
      * @return timeStamp
      */
-    long doInit(String ip){
-        LOGGER.info("Getting challenge from Bootstrap: ID: " + HashAlgorithm.byteToHex(Bootstrap.bootstrapId) +
+    long doInit(String ip) {
+        LOGGER.info("Try to get timestamp from Bootstrap: ID: " + HashAlgorithm.byteToHex(Bootstrap.bootstrapId) +
                 " IP: " + Bootstrap.bootstrapIp +
-                " PORT: " +  Bootstrap.bootstrapPort);
+                " PORT: " + Bootstrap.bootstrapPort);
+
         InitMSG initMSG = PeerToPeerService.convertToInitMSG(ip);
 
         try {
             InitResponse initResponse = syncStub.firstConn(initMSG);
 
             long timeStamp = initResponse.getTimeStamp();
+
+            LOGGER.info("Got timestamp from Bootstrap: ID: " + HashAlgorithm.byteToHex(Bootstrap.bootstrapId) +
+                    " IP: " + Bootstrap.bootstrapIp +
+                    " PORT: " + Bootstrap.bootstrapPort +
+                    ": " + timeStamp);
+
             return timeStamp;
         } catch (Exception e) {
             LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
                     + ": error: " + e);
         }
+
         return -1;
     }
-    void doGetInitID(long timeStamp){
-        byte[] sol=null;
-        int nonce=-1;
+
+    void doGetInitID(long timeStamp) {
+        byte[] sol = null;
+
+        int nonce = -1;
+
         do {
-                nonce++;
-                try {
-                    sol = HashAlgorithm.generateHash(Longs.toByteArray(timeStamp), HashAlgorithm.intToByte(nonce));
-                }catch (NoSuchAlgorithmException e){
+            nonce++;
+            try {
+                sol = HashAlgorithm.generateHash(Longs.toByteArray(timeStamp), HashAlgorithm.intToByte(nonce));
+            } catch (NoSuchAlgorithmException e) {
 
-                }
+            }
 
-        }while(!HashAlgorithm.validHash(sol,InfoJoin.DIFFICULTY));
+        } while (!HashAlgorithm.validHash(sol, InfoJoin.DIFFICULTY));
 
         GetIdMSG idMSG = PeerToPeerService.convertToGetIdMSG(getNode().getNodeInfo().getIp(), sol, timeStamp, nonce);
 
-        try{
+        try {
             GetIdResponse idResponse = syncStub.getID(idMSG);
             getNode().getNodeInfo().setId(idResponse.getId().toByteArray());
 
             LOGGER.info("Got my ID: " + HashAlgorithm.byteToHex(idResponse.getId().toByteArray()));
 
-        }catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error("Unavailable connection: " + getConnectedNodeInfo());
         }
 
     }
 
-    void doJoin(){
+    void doJoin() {
         LOGGER.info("Doing join to Bootstrap: ID: " + HashAlgorithm.byteToHex(Bootstrap.bootstrapId) +
                 " IP: " + Bootstrap.bootstrapIp);
+
         String ip = getNode().getNodeInfo().getIp();
+
         long timeStamp = doInit(ip);
+
+        if (timeStamp == -1) {
+            return;
+        }
+
         doGetInitID(timeStamp);
+
         getNode().initializeKbuckets();
-        try{
+
+        try {
             getNode().doFindNode(getNode().getNodeInfo().getId());
-        }catch (NoSuchAlgorithmException e){
+        } catch (NoSuchAlgorithmException e) {
             LOGGER.error("Unavailable connection: " + getConnectedNodeInfo());
         }
-        int randomId = generateRandomDigits(NodeInfo.SIZE_OF_ID);
 
-        byte[] nodeId = new byte[]{(byte)randomId};
+        doFindToAllKBuckets();
 
-        try{
-            getRandomBucket(nodeId);
-        }catch (Exception e){
-            LOGGER.info("Error" + e);
-        }
-
-        if(getNode().getNodeInfo().isMiner()){
+        if (getNode().getNodeInfo().isMiner()) {
             //getListofMiners();
         }
 
     }
+
+    public void doFindToAllKBuckets() {
+        int randomId = generateRandomDigits(Node.getIdSize());
+
+        byte[] nodeId = new byte[]{(byte) randomId};
+
+        try {
+            getRandomBucket(nodeId);
+        } catch (Exception e) {
+            LOGGER.info("Error" + e);
+        }
+    }
+
     //HERE
-    void doPingMiner(){
+    void doPingMiner() {
 
         NodeInfoMSG nodeInfoMsg =
                 PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
@@ -469,7 +498,7 @@ public class NodeClient {
         return getConnectedNodeInfo().toString();
     }
 
-    public void getRandomBucket(byte[] id){
+    public void getRandomBucket(byte[] id) {
 
         LOGGER.info("Try to get nodes from another zone");
         LinkedList<NodeInfo> list = new LinkedList<>();
@@ -478,12 +507,12 @@ public class NodeClient {
         list = getNode().getKBuckets().getKClosest(id);
         ourList = getNode().getKBuckets().getKClosest(getNode().getNodeInfo().getId());
 
-        for(NodeInfo n : list){
-            try{
-                if(!ourList.contains(n)) {
+        for (NodeInfo n : list) {
+            try {
+                if (!ourList.contains(n)) {
                     getNode().doFindNode(n.getId());
                 }
-            }catch (NoSuchAlgorithmException e){
+            } catch (NoSuchAlgorithmException e) {
                 LOGGER.info("Error: Cant contact node");
             }
 

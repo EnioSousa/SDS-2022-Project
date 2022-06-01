@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.HexFormat;
 
@@ -128,14 +129,14 @@ public class HashAlgorithm {
         int i;
 
         // Here we check if the byte is 0
-        for( i = 0; i<numByteZero && i<hash.length; i++ ) {
-            if ( hash[i] != 0x0) {
+        for (i = 0; i < numByteZero && i < hash.length; i++) {
+            if (hash[i] != 0x0) {
                 return false;
             }
         }
 
         // Check if we still have to check more of the byte array, aka hash
-        if ( i >= hash.length )
+        if (i >= hash.length)
             return true;
 
         // Here we check the number of zero bits in a byte
@@ -151,5 +152,21 @@ public class HashAlgorithm {
         };
 
         return (hash[i] & value) == 0x00;
+    }
+
+    /**
+     * Generates a random bte array of length size
+     *
+     * @param size The size of the byte array
+     * @return The random byte array
+     */
+    public static byte[] generateRandomByteArray(int size) {
+        SecureRandom random = new SecureRandom();
+
+        byte[] byteArray = new byte[size];
+
+        random.nextBytes(byteArray);
+
+        return byteArray;
     }
 }

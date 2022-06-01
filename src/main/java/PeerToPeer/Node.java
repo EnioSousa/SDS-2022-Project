@@ -57,6 +57,7 @@ public class Node {
      */
     private final StoredValues storedValues;
 
+    public static final int idSize = 8;
 
     /**
      * List of all nodes known by the SUPER node
@@ -74,9 +75,14 @@ public class Node {
     /*public static NodeInfo knownNode =
             new NodeInfo(new byte[]{0x00}, "localhost", 5000);*/
     public static NodeInfo knownNode =
-            new NodeInfo(Bootstrap.bootstrapId,Bootstrap.bootstrapIp,Bootstrap.bootstrapPort);
+            new NodeInfo(Bootstrap.bootstrapId, Bootstrap.bootstrapIp, Bootstrap.bootstrapPort);
 
+    // TODO: Be careful with the node initialization, try to start with a
+    //  null value
 
+    /**
+     * @param nodeInfo
+     */
     public Node(NodeInfo nodeInfo) {
         this.nodeInfo = nodeInfo;
 
@@ -89,26 +95,27 @@ public class Node {
 
         //TODO: Change id and key size. They have to be the same
         //kBuckets = new K_Buckets(this, 8, 4);
-        storedValues = new StoredValues(8, this);
+        storedValues = new StoredValues(idSize, this);
 
-        if(nodeInfo.equals(knownNode)){
-            kBuckets = new K_Buckets(this, 8, 4);
+        // If node is bootstrap initiate k buckets, otherwise its initiated
+        // on join
+        if (nodeInfo.equals(knownNode)) {
+            initializeKbuckets();
         }
 
         //DEBUG
-        if(nodeInfo.isMiner()){
+        if (nodeInfo.isMiner()) {
             LOGGER.info("IM MINER!!!!!!");
         }
-
-        /*if (!nodeInfo.equals(knownNode)) {
-            getKBuckets().addNodeInfo(knownNode);
-        }*/
     }
 
-
-    public void doJoin(NodeInfo nodeInfo){
+    /**
+     * @param nodeInfo
+     */
+    public void doJoin(NodeInfo nodeInfo) {
         getNodeClient(nodeInfo).doJoin();
     }
+
     /**
      * Store a keyPair in our node
      *
@@ -407,36 +414,40 @@ public class Node {
         return getNodeInfo().toString();
     }
 
-    public void setBootstrap(){
+    public void setBootstrap() {
         this.nodeInfo.setBootstrap();
     }
 
-    public void getBootstrap() {this.nodeInfo.isBootstrap();}
+    public void getBootstrap() {
+        this.nodeInfo.isBootstrap();
+    }
 
-    public Boolean isBootstrap(){ return this.nodeInfo.isBootstrap();}
+    public Boolean isBootstrap() {
+        return this.nodeInfo.isBootstrap();
+    }
 
-    public Boolean findId(byte[] id){
+    public Boolean findId(byte[] id) {
 
-        for(byte[] n: usedIds){
-            if(Arrays.equals(id,n)){
+        for (byte[] n : usedIds) {
+            if (Arrays.equals(id, n)) {
                 return true;
             }
         }
         return false;
     }
 
-    public void addToUsedIds(byte[] id){
+    public void addToUsedIds(byte[] id) {
         this.usedIds.add(id);
     }
 
     public void addIpTimeStamp(String ip, long timeStamp) {
-        InfoJoin info = new InfoJoin(ip,timeStamp);
+        InfoJoin info = new InfoJoin(ip, timeStamp);
         tableJoin.add(info);
     }
 
-    public boolean verifyIpTime(String ip, long timeStamp){
-        for( InfoJoin n: tableJoin){
-            if(n.getIp().equals(ip) && n.getTimeStamp() == timeStamp){
+    public boolean verifyIpTime(String ip, long timeStamp) {
+        for (InfoJoin n : tableJoin) {
+            if (n.getIp().equals(ip) && n.getTimeStamp() == timeStamp) {
                 tableJoin.remove(n);
                 return true;
             }
@@ -444,17 +455,20 @@ public class Node {
         return false;
     }
 
-    public void initializeKbuckets(){
-        kBuckets = new K_Buckets(this,8, 4);
+    public void initializeKbuckets() {
+        kBuckets = new K_Buckets(this, idSize * 8, 4);
 
         if (!nodeInfo.equals(knownNode)) {
             getKBuckets().addNodeInfo(knownNode);
         }
     }
 
-    public void addMinerList(NodeInfo miner){
+    public void addMinerList(NodeInfo miner) {
         listOfMiners.add(miner);
     }
 
+    public static int getIdSize() {
+        return idSize;
+    }
 
 }
