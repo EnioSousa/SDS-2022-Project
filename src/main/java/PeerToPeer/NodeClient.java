@@ -13,9 +13,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.LinkedList;
-
-import static PeerToPeer.PeerToPeerService.generateRandomDigits;
 
 
 /**
@@ -73,6 +70,14 @@ public class NodeClient {
         this.syncStub = PeerToPeerGrpc.newBlockingStub(channel);
     }
 
+    /**
+     * Do find call. Given a key, it will look up the closest nodes and try
+     * to find the the key
+     *
+     * @param key   The key to look
+     * @param alpha The alpha, i.e. the number of recursive calls
+     * @param entry The entry to save in another list, to avoid repetitions
+     */
     void doFind(byte[] key, int alpha, byte[] entry) {
         LOGGER.info("Doing find to: " + connectedNodeInfo + ": key: "
                 + HashAlgorithm.byteToHex(key));
@@ -117,8 +122,8 @@ public class NodeClient {
     /**
      * Get the timeStamp from the bootstrap node
      *
-     * @param ip
-     * @return timeStamp
+     * @param ip The ip of the bootstrap
+     * @return timeStamp The timestamp gotten
      */
     long doInit(String ip) {
         LOGGER.info("Try to get timestamp from Bootstrap: ID: " + HashAlgorithm.byteToHex(Bootstrap.bootstrapId) +
@@ -146,6 +151,12 @@ public class NodeClient {
         return -1;
     }
 
+    /**
+     * With a timestamp, we will try to solve the proposed challenge, to join
+     * the network
+     *
+     * @param timeStamp The timestamp to be used in the challenge
+     */
     void doGetInitID(long timeStamp) {
         byte[] sol = null;
 
@@ -175,6 +186,9 @@ public class NodeClient {
 
     }
 
+    /**
+     * Do the actual join
+     */
     void doJoin() {
         LOGGER.info("Doing join to Bootstrap: ID: " + HashAlgorithm.byteToHex(Bootstrap.bootstrapId) +
                 " IP: " + Bootstrap.bootstrapIp);
@@ -205,15 +219,24 @@ public class NodeClient {
 
     }
 
+    /**
+     * For each k buckuet, we will try to generate a random id, to populate
+     * the initial k bucket list
+     */
     public void doFindToAllKBuckets() {
-        int randomId = generateRandomDigits(Node.getIdSize());
-
-        byte[] nodeId = new byte[]{(byte) randomId};
-
-        try {
-            getRandomBucket(nodeId);
-        } catch (Exception e) {
-            LOGGER.info("Error" + e);
+        LOGGER.info("Doing join find: ");
+        for (int i = 0; i < getNode().getKBuckets().getSpaceSize(); i++) {
+            LOGGER.info("Join find: Trying bucket: " + i);
+            if (getNode().getKBuckets().getNodesFromBucket(i).isEmpty()) {
+                try {
+                    byte[] id = getNode().getKBuckets().generateRandomId(i);
+                    LOGGER.info("Join find: Trying id: " +
+                            HashAlgorithm.byteToHex(id));
+                    getNode().doFindNode(id);
+                } catch (NoSuchAlgorithmException e) {
+                    LOGGER.error("No such hash algorithm: " + e);
+                }
+            }
         }
     }
 
@@ -236,6 +259,13 @@ public class NodeClient {
         }
     }
 
+    /**
+     * Given a key, we will try to save a value in the closest nodes from
+     * that key
+     *
+     * @param key   The key from the key value pair
+     * @param value The value from the key value pair
+     */
     void doStore(byte[] key, byte[] value) {
         LOGGER.info("Doing store to: " + connectedNodeInfo + ": key: "
                 + HashAlgorithm.byteToHex(key) + ": value: "
@@ -496,26 +526,5 @@ public class NodeClient {
     @Override
     public String toString() {
         return getConnectedNodeInfo().toString();
-    }
-
-    public void getRandomBucket(byte[] id) {
-
-        LOGGER.info("Try to get nodes from another zone");
-        LinkedList<NodeInfo> list = new LinkedList<>();
-        LinkedList<NodeInfo> ourList = new LinkedList<>();
-
-        list = getNode().getKBuckets().getKClosest(id);
-        ourList = getNode().getKBuckets().getKClosest(getNode().getNodeInfo().getId());
-
-        for (NodeInfo n : list) {
-            try {
-                if (!ourList.contains(n)) {
-                    getNode().doFindNode(n.getId());
-                }
-            } catch (NoSuchAlgorithmException e) {
-                LOGGER.info("Error: Cant contact node");
-            }
-
-        }
     }
 }

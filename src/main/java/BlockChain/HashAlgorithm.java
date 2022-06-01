@@ -169,4 +169,52 @@ public class HashAlgorithm {
 
         return byteArray;
     }
+
+    public static void copyNBits(byte[] from, byte[] to, int nBits) {
+        // Copy bytes
+        for (int i = 0; i < nBits / 8; i++) {
+            to[i] = from[i];
+        }
+
+        // Copy bits
+        if (nBits / 8 < from.length && nBits % 8 != 0) {
+            byte bytePrefix = from[nBits / 8];
+            byte byteSuffix = to[nBits / 8];
+
+            switch (nBits % 8) {
+                case 1 -> {
+                    bytePrefix = (byte) (bytePrefix & (byte) 0x80);
+                    byteSuffix = (byte) (byteSuffix & (byte) 0x01);
+                }
+                case 2 -> {
+                    bytePrefix = (byte) (bytePrefix & (byte) 0xC0);
+                    byteSuffix = (byte) (byteSuffix & (byte) 0x03);
+                }
+                case 3 -> {
+                    bytePrefix = (byte) (bytePrefix & (byte) 0xE0);
+                    byteSuffix = (byte) (byteSuffix & (byte) 0x05);
+                }
+                case 4 -> {
+                    bytePrefix = (byte) (bytePrefix & (byte) 0xF0);
+                    byteSuffix = (byte) (byteSuffix & (byte) 0x07);
+                }
+                case 5 -> {
+                    bytePrefix = (byte) (bytePrefix & (byte) 0xF8);
+                    byteSuffix = (byte) (byteSuffix & (byte) 0x17);
+                }
+                case 6 -> {
+                    bytePrefix = (byte) (bytePrefix & (byte) 0xFC);
+                    byteSuffix = (byte) (byteSuffix & (byte) 0x37);
+                }
+                case 7 -> {
+                    bytePrefix = (byte) (bytePrefix & (byte) 0xFE);
+                    byteSuffix = (byte) (byteSuffix & (byte) 0x57);
+                }
+                default -> {
+                }
+            }
+
+            to[nBits / 8] = (byte) (bytePrefix | byteSuffix);
+        }
+    }
 }

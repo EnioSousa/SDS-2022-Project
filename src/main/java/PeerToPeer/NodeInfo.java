@@ -127,10 +127,18 @@ public class NodeInfo {
         return true;
     }
 
+    /**
+     * Set bootstrap value
+     */
     public void setBootstrap() {
         this.bootstrap = true;
     }
 
+    /**
+     * Check if its a bootstrap
+     *
+     * @return
+     */
     public Boolean isBootstrap() {
         return this.bootstrap;
     }
@@ -143,6 +151,11 @@ public class NodeInfo {
         return this.miner;
     }
 
+    /**
+     * Set if of the node
+     *
+     * @param id
+     */
     public void setId(byte[] id) {
         this.id = id;
     }

@@ -41,6 +41,12 @@ public class StoredValues {
         return true;
     }
 
+    /**
+     * Get the value from a key
+     *
+     * @param key The key
+     * @return null if it doesn't exist, otherwise the value
+     */
     public byte[] getStoredValue(byte[] key) {
         return storedValues.get(new KeyId(key));
     }

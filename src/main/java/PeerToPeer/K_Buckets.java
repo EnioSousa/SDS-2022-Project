@@ -64,6 +64,12 @@ public class K_Buckets {
         }
     }
 
+    /**
+     * Get the nodes from a bucket x
+     *
+     * @param nBucket The number of the bucket
+     * @return The list of nodes in the bucket
+     */
     public LinkedList<NodeInfo> getNodesFromBucket(int nBucket) {
         if (nBucket >= spaceSize) {
             return null;
@@ -72,10 +78,20 @@ public class K_Buckets {
         }
     }
 
+    /**
+     * Get the node running this k bucket
+     *
+     * @return The node
+     */
     public Node getNode() {
         return node;
     }
 
+    /**
+     * Get the alpha being used in this k bucket
+     *
+     * @return
+     */
     public int getAlpha() {
         return alpha;
     }
@@ -303,6 +319,24 @@ public class K_Buckets {
         return prefixBitCount;
     }
 
+    // TODO: Fix this. we should get aa random id, given a bucket
+
+    /**
+     * Generate a random id, given a bucket
+     *
+     * @param nBucket The number  of the bucket
+     * @return A random id
+     */
+    public byte[] generateRandomId(int nBucket) {
+        int idSize = getNode().getIdSize();
+
+        byte[] byteArray = HashAlgorithm.generateRandomByteArray(idSize);
+
+        //HashAlgorithm.copyNBits(runningNodeInfo.getId(), byteArray, idSize);
+
+        return byteArray;
+    }
+
 
     private class Bucket {
         private final LinkedList<NodeInfo> bucket;
@@ -378,6 +412,12 @@ public class K_Buckets {
             }
         }
 
+        /**
+         * Replace a node from a given bucket
+         *
+         * @param newInfo The new node
+         * @param oldInfo The replaced node
+         */
         public void replace(NodeInfo newInfo, NodeInfo oldInfo) {
             if (getBucket().get(0).equals(oldInfo)) {
                 getBucket().remove(oldInfo);

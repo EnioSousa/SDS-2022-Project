@@ -56,8 +56,10 @@ public class Node {
      * Holds the stored values
      */
     private final StoredValues storedValues;
-
-    public static final int idSize = 8;
+    /**
+     * Size of the ids in BYTES
+     */
+    public static final int idSize = 1;
 
     /**
      * List of all nodes known by the SUPER node
@@ -68,12 +70,9 @@ public class Node {
 
     private LinkedList<NodeInfo> listOfMiners = new LinkedList<>();
 
-
     /**
-     * Node known to all
+     * The info of the bootstrap node
      */
-    /*public static NodeInfo knownNode =
-            new NodeInfo(new byte[]{0x00}, "localhost", 5000);*/
     public static NodeInfo knownNode =
             new NodeInfo(Bootstrap.bootstrapId, Bootstrap.bootstrapIp, Bootstrap.bootstrapPort);
 
@@ -110,7 +109,9 @@ public class Node {
     }
 
     /**
-     * @param nodeInfo
+     * Do join. Begin the process of trying to join the network
+     *
+     * @param nodeInfo The bootstrap info
      */
     public void doJoin(NodeInfo nodeInfo) {
         getNodeClient(nodeInfo).doJoin();
@@ -414,18 +415,35 @@ public class Node {
         return getNodeInfo().toString();
     }
 
+    /**
+     * Set bootstrap node
+     */
     public void setBootstrap() {
         this.nodeInfo.setBootstrap();
     }
 
+    /**
+     * Get bootstrap node
+     */
     public void getBootstrap() {
         this.nodeInfo.isBootstrap();
     }
 
+    /**
+     * Check the node running is a bootstrap node
+     *
+     * @return True or false
+     */
     public Boolean isBootstrap() {
         return this.nodeInfo.isBootstrap();
     }
 
+    /**
+     * Checks if a given id has been ussed
+     *
+     * @param id The id to check
+     * @return True or false
+     */
     public Boolean findId(byte[] id) {
 
         for (byte[] n : usedIds) {
@@ -436,15 +454,33 @@ public class Node {
         return false;
     }
 
+    /**
+     * Add id to the used nodes
+     *
+     * @param id The id to add
+     */
     public void addToUsedIds(byte[] id) {
         this.usedIds.add(id);
     }
 
+    /**
+     * Save ip and timestamp of the challenge
+     *
+     * @param ip        The ip
+     * @param timeStamp The timestamp
+     */
     public void addIpTimeStamp(String ip, long timeStamp) {
         InfoJoin info = new InfoJoin(ip, timeStamp);
         tableJoin.add(info);
     }
 
+    /**
+     * Checks if the ip and timestamp are saved in the table
+     *
+     * @param ip        The ip
+     * @param timeStamp The timestamp
+     * @return True or false
+     */
     public boolean verifyIpTime(String ip, long timeStamp) {
         for (InfoJoin n : tableJoin) {
             if (n.getIp().equals(ip) && n.getTimeStamp() == timeStamp) {
@@ -455,6 +491,9 @@ public class Node {
         return false;
     }
 
+    /**
+     * Initialize the k buckets
+     */
     public void initializeKbuckets() {
         kBuckets = new K_Buckets(this, idSize * 8, 4);
 
@@ -467,6 +506,11 @@ public class Node {
         listOfMiners.add(miner);
     }
 
+    /**
+     * Get the size of the id in bytes
+     *
+     * @return
+     */
     public static int getIdSize() {
         return idSize;
     }

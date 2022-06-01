@@ -75,9 +75,37 @@ class HashAlgorithmTest {
     }
 
     @Test
-    void hexToByte() {
+    void TestHexToByte() {
         byte[] byteArray = {(byte) 0x01, (byte) 0x11, (byte) 0xAF};
 
         assertTrue(Arrays.equals(byteArray, HashAlgorithm.hexToByte("0111AF")));
+    }
+
+    @Test
+    void TestCopyNBits() {
+        byte[] from = {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF};
+        byte[] to0 = {(byte) 0x00, (byte) 0x00, (byte) 0x00};
+        byte[] to1 = {(byte) 0x00, (byte) 0x00, (byte) 0x00};
+        byte[] to2 = {(byte) 0x00, (byte) 0x00, (byte) 0x00};
+        byte[] to3 = {(byte) 0x00, (byte) 0x00, (byte) 0x00};
+        byte[] to4 = {(byte) 0x00, (byte) 0x00, (byte) 0x00};
+
+        HashAlgorithm.copyNBits(from, to0, 1);
+        HashAlgorithm.copyNBits(from, to1, 6);
+        HashAlgorithm.copyNBits(from, to2, 10);
+        HashAlgorithm.copyNBits(from, to3, 17);
+        HashAlgorithm.copyNBits(from, to4, 20);
+
+        assertAll(
+                () -> assertArrayEquals(new byte[]{(byte) 0x80, (byte) 0x00,
+                        (byte) 0x00}, to0),
+                () -> assertArrayEquals(new byte[]{(byte) 0xFC, (byte) 0x00,
+                        (byte) 0x00}, to1),
+                () -> assertArrayEquals(new byte[]{(byte) 0xFF, (byte) 0xC0,
+                        (byte) 0x00}, to2),
+                () -> assertArrayEquals(new byte[]{(byte) 0xFF, (byte) 0xFF,
+                        (byte) 0x80}, to3),
+                () -> assertArrayEquals(new byte[]{(byte) 0xFF, (byte) 0xFF,
+                        (byte) 0xF0}, to4));
     }
 }
