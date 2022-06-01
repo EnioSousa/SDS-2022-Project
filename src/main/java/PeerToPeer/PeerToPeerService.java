@@ -147,15 +147,16 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
     @Override
     public void getID(GetIdMSG request, StreamObserver<GetIdResponse> responseObserver) {
 
-        LOGGER.info("Second message of join");
+        LOGGER.info("Verify if client: IP: " + request.getIp() + " is on the list of contacted IPs");
 
         if (getRunningNode().verifyIpTime(request.getIp(), request.getTimeStamp())) {
 
-            LOGGER.info("Client passed initial connection check");
+            LOGGER.info("Client with IP: " + request.getIp() + " passed initial connection check");
 
             byte[] challenge = request.getChallenge().toByteArray();
 
-            LOGGER.info("Check if client has made the work");
+            LOGGER.info("Check if client with IP: " + request.getIp() + " Timestamp: " + request.getTimeStamp()
+                    + " Nonce: " + request.getNonce() + " made the work");
 
             if (HashAlgorithm.validHash(challenge, InfoJoin.DIFFICULTY)) {
                 long time = request.getTimeStamp();
@@ -170,14 +171,15 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
                 }
 
                 if (Arrays.equals(challenge, work)) {
-                    LOGGER.info("Hash matches");
+                    LOGGER.info("Hash from IP: " + request.getIp() + " Challenge: " + HashAlgorithm.byteToHex(request.getChallenge().toByteArray())
+                            + " matches Hash from Bootstrap: " + HashAlgorithm.byteToHex(work));
 
                     byte[] nodeId =
                             HashAlgorithm.generateRandomByteArray(Node.getIdSize());
 
                     // TODO: Verify that id doesn't exist
 
-                    LOGGER.info("Sending the new ID to the node: IP: " + request.getIp());
+                    LOGGER.info("Sending the new ID: " + HashAlgorithm.byteToHex(nodeId) + " to the node: IP: " + request.getIp());
 
                     responseObserver.onNext(convertToGetIdResponse(nodeId));
                     getRunningNode().addToUsedIds(nodeId);
