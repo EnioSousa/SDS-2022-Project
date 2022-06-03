@@ -1,15 +1,20 @@
 package PeerToPeer;
 
+import BlockChain.Block;
+import BlockChain.BlockHeader;
 import BlockChain.HashAlgorithm;
+import BlockChain.Transaction;
 import Utils.Bootstrap;
 import Utils.InfoJoin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 // TODO: Improve the contact list. Maybe use a timer to erase useless entries
@@ -101,11 +106,6 @@ public class Node {
         if (nodeInfo.equals(knownNode)) {
             initializeKbuckets();
         }
-
-        //DEBUG
-        if (nodeInfo.isMiner()) {
-            LOGGER.info("IM MINER!!!!!!");
-        }
     }
 
     /**
@@ -116,6 +116,7 @@ public class Node {
     public void doJoin(NodeInfo nodeInfo) {
         getNodeClient(nodeInfo).doJoin();
     }
+
 
     /**
      * Store a keyPair in our node
@@ -506,6 +507,10 @@ public class Node {
         listOfMiners.add(miner);
     }
 
+    public LinkedList<NodeInfo> getMinersList(){
+        return this.listOfMiners;
+    }
+
     /**
      * Get the size of the id in bytes
      *
@@ -514,5 +519,4 @@ public class Node {
     public static int getIdSize() {
         return idSize;
     }
-
 }

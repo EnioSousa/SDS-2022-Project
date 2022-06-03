@@ -19,9 +19,37 @@ service PeerToPeer {
 
   rpc PingMiner(NodeInfoMSG) returns (SuccessMSG) {}
 
+  rpc GetListOfMiners(NodeInfoMSG) returns (stream NodeInfoMSG) {}
+
   rpc GetMinersList(EmptyMSG) returns (stream NodeInfoMSG) {}
+
+  rpc GetBlockChain(EmptyMSG) returns (stream BlockMSG) {}
 }
 
+message BlockMSG{
+  MerkleTreeMSG merkleRoot = 1;
+  BlockHeaderMSG blockheader = 2;
+  repeated TransactionMSG transactions = 3;
+}
+
+message TransactionMSG {
+  bytes sourceEntity = 1;
+  bytes destEntity = 2;
+  bytes productId = 3;
+  int32 bidTrans = 4;
+}
+message MerkleTreeMSG{
+  string root = 1;
+}
+
+message BlockHeaderMSG{
+  int32 version = 1;
+  int64 unixTimestamp = 2;
+  int32 difficulty = 3;
+  bytes prevHash = 4;
+  bytes merkleTreeHash = 5;
+  int32 nonce = 6;
+}
 
 message InitMSG{
   string ip = 1;
@@ -42,15 +70,6 @@ message GetIdResponse{
   bytes id = 1;
 }
 
-/**
-Message format for Sendtransaction request
- */
-message TransactionMSG {
-  bytes sourceEnt = 1;
-  bytes destEnt = 2;
-  bytes productId = 3;
-  int32 bits = 4;
-}
 
 /**
   Empty message

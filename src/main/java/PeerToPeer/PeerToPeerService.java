@@ -198,12 +198,37 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
     }
 
     @Override
-    public void pingMiner(NodeInfoMSG request, StreamObserver<SuccessMSG> responseObserver) {
+    public void getListOfMiners(NodeInfoMSG request, StreamObserver<NodeInfoMSG> responseObserver) {
         NodeInfo nodeInfo = new NodeInfo(request.getNodeId().toByteArray(),
                 request.getNodeIp(), request.getNodePort());
 
+        LOGGER.info("Got request to get list of miners: From: " + nodeInfo);
+
+        LinkedList<NodeInfo>list = getRunningNode().getMinersList();
+
+        if (list.size() != 0) {
+            for (int i = 0;i < list.size(); i++) {
+                LOGGER.info("Sending miner " + i+1 + " to: " + nodeInfo + ": node: " + list.get(i));
+                responseObserver.onNext(convertToNodeInfoMSG(list.get(i)));
+            }
+        }
+
+        LOGGER.info("Added new miner to the list: node:" + nodeInfo);
+        getRunningNode().addMinerList(nodeInfo);
+
+        responseObserver.onCompleted();
+    }
+
+
+    @Override
+    public void pingMiner(NodeInfoMSG request, StreamObserver<SuccessMSG> responseObserver) {
+
+        NodeInfo nodeInfo = new NodeInfo(request.getNodeId().toByteArray(),
+                request.getNodeIp(), request.getNodePort());
         LOGGER.info("Got pingMiner request: From: " + nodeInfo);
 
+
+        LOGGER.info("Add miner after pingMiner:" + nodeInfo);
         getRunningNode().addMinerList(nodeInfo);
 
         responseObserver.onNext(convertToSuccessMsg(true));
@@ -212,12 +237,39 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
     }
 
 
+
+    public static BlockMSG convertToBlockMSG(MerkleTreeMSG merkleTree, BlockHeaderMSG blockHeader, TransactionMSG transaction, int size){
+        return BlockMSG.newBuilder()
+                .setMerkleRoot(merkleTree)
+                .setBlockheader(blockHeader)
+                .setTransactions(size,transaction)
+                .build();
+
+    }
+
+    public static BlockHeaderMSG convertToBlockHeaderMSG(int version, long unixTimestamp, int difficulty, byte[] prevHash, byte[] merkleTreeHash, int nonce){
+        return BlockHeaderMSG.newBuilder()
+                .setVersion(version)
+                .setUnixTimestamp(unixTimestamp)
+                .setDifficulty(difficulty)
+                .setPrevHash(ByteString.copyFrom(prevHash))
+                .setMerkleTreeHash(ByteString.copyFrom(merkleTreeHash))
+                .setNonce(nonce)
+                .build();
+    }
+
+    public static MerkleTreeMSG convertToMerkleTreeMSG(String root){
+        return MerkleTreeMSG.newBuilder()
+                .setRoot(root)
+                .build();
+    }
+
     public static TransactionMSG convertToTransactionMSG(byte[] sourceEnt, byte[] destEnt, byte[] productId, int bits) {
         return TransactionMSG.newBuilder()
-                .setSourceEnt(ByteString.copyFrom(sourceEnt))
-                .setDestEnt(ByteString.copyFrom(destEnt))
+                .setSourceEntity(ByteString.copyFrom(sourceEnt))
+                .setDestEntity(ByteString.copyFrom(destEnt))
                 .setProductId(ByteString.copyFrom(productId))
-                .setBits(bits)
+                .setBidTrans(bits)
                 .build();
     }
 
