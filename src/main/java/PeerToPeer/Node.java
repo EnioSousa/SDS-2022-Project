@@ -73,7 +73,6 @@ public class Node {
 
     private LinkedList<InfoJoin> tableJoin = new LinkedList<>();
 
-    private LinkedList<NodeInfo> listOfMiners = new LinkedList<>();
 
     /**
      * The info of the bootstrap node
@@ -501,14 +500,6 @@ public class Node {
         if (!nodeInfo.equals(knownNode)) {
             getKBuckets().addNodeInfo(knownNode);
         }
-    }
-
-    public void addMinerList(NodeInfo miner) {
-        listOfMiners.add(miner);
-    }
-
-    public LinkedList<NodeInfo> getMinersList(){
-        return this.listOfMiners;
     }
 
     /**

@@ -213,16 +213,6 @@ public class NodeClient {
         }
 
         doFindToAllKBuckets();
-
-        if (getNode().getNodeInfo().isMiner()) {
-            LOGGER.info("Getting list of miners");
-            doGetListOfMiners();
-            if(getNode().getMinersList().size() > 0){
-                doPingMiner();
-            }
-
-        }
-
     }
 
     /**
@@ -242,43 +232,6 @@ public class NodeClient {
                 } catch (NoSuchAlgorithmException e) {
                     LOGGER.error("No such hash algorithm: " + e);
                 }
-            }
-        }
-    }
-
-    void doGetListOfMiners(){
-        NodeInfoMSG nodeInfo =
-                PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
-
-        LOGGER.info("Trying to get the list of current miners");
-        try{
-            Iterator<NodeInfoMSG> response = syncStub.getListOfMiners(nodeInfo);
-
-            while(response.hasNext()){
-                NodeInfo n = new NodeInfo(response.next().getNodeId().toByteArray(),response.next().getNodeIp(), response.next().getNodePort());
-                getNode().addMinerList(n);
-                LOGGER.info("Got this MINER: ID:"+ response.next().getNodeId().toByteArray());
-            }
-        }catch(Exception e){
-            LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
-                    + ": error: " + e);
-        }
-    }
-    void doPingMiner() {
-
-        LOGGER.info("Im a new miner, add me to the list");
-
-        for(NodeInfo n: getNode().getMinersList()){
-            NodeInfoMSG nodeInfo =
-                    PeerToPeerService.convertToNodeInfoMSG(n);
-            try {
-                SuccessMSG pingSuccessMSG = syncStub.pingMiner(nodeInfo);
-
-                LOGGER.info("Got PingMiner Response: from: " + connectedNodeInfo +
-                        ": Value: " + pingSuccessMSG.getSuccess());
-            } catch (Exception e) {
-                LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
-                        + ": error: " + e);
             }
         }
     }
