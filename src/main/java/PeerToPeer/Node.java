@@ -1,20 +1,15 @@
 package PeerToPeer;
 
-import BlockChain.Block;
-import BlockChain.BlockHeader;
 import BlockChain.HashAlgorithm;
-import BlockChain.Transaction;
 import Utils.Bootstrap;
 import Utils.InfoJoin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.security.NoSuchAlgorithmException;
-import java.time.Instant;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 // TODO: Improve the contact list. Maybe use a timer to erase useless entries
@@ -64,7 +59,7 @@ public class Node {
     /**
      * Size of the ids in BYTES
      */
-    public static final int idSize = 1;
+    public static final int idSize = 8;
 
     /**
      * List of all nodes known by the SUPER node
