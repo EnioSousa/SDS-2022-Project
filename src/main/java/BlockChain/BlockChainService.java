@@ -28,6 +28,8 @@ public class BlockChainService extends BlockChainGrpc.BlockChainImplBase {
     public void sendBlock(BlockMSG request, StreamObserver<Success> responseObserver) {
         NodeInfo nodeInfo = convertToNodeInfo(request.getNodeInfo());
 
+        getRunningNode().gotRequest(nodeInfo);
+
         BlockHeader blockHeader =
                 convertToBlockHeader(request.getBlockHeader());
 
@@ -40,8 +42,11 @@ public class BlockChainService extends BlockChainGrpc.BlockChainImplBase {
 
         try {
             Block block = new Block(blockHeader, list);
-        } catch (Exception e) {
 
+            LOGGER.info("Got block from: " + nodeInfo + ": Block: " + block);
+        } catch (Exception e) {
+            LOGGER.error("Failed to get block from: " + nodeInfo + ": Reason:" +
+                    e);
         }
     }
 
