@@ -12,15 +12,11 @@ class SecurityTest {
     }
 
     @Test
-    void setKeyPair() {
+    void testSetKeyPair() {
     }
 
     @Test
-    void generateKeys() {
-    }
-
-    @Test
-    void decrypt() {
+    void testGenerateKeys() {
     }
 
     @Test
@@ -28,18 +24,14 @@ class SecurityTest {
     }
 
     @Test
-    void encrypt() {
-    }
-
-    @Test
     void testEncrypt() {
     }
 
     @Test
-    void signData() {
+    void testSignData() {
     }
 
     @Test
-    void verifyData() {
+    void testVerifyData() {
     }
 }
