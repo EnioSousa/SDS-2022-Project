@@ -20,4 +20,8 @@ public class Security {
     public static boolean verifyData(byte[] in) {
         return true;
     }
+
+    public static boolean verifyTransaction(Transaction transaction) {
+        return true;
+    }
 }

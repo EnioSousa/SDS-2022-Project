@@ -11,14 +11,27 @@ message EmptyMSG{
 }
 
 message TransactionMSG {
-  bytes sourceEntity = 1;
-  bytes destEntity = 2;
-  bytes productId = 3;
-  bytes bidTrans = 4;
-  bytes signature = 5;
+  NodeInfoMSG nodeInfo = 1;
+  bytes sourceEntity = 2;
+  bytes destEntity = 3;
+  bytes productId = 4;
+  bytes bidTrans = 5;
+  bytes signature = 6;
 }
 
 message Success {
   bytes success = 1;
   bytes signature = 2;
+}
+
+/**
+  Message format for a basic info of a node
+ */
+message NodeInfoMSG {
+  // Node identification
+  bytes nodeId = 1;
+  // IP of node
+  bytes nodeIp = 2;
+  // Port of the node
+  bytes nodePort = 3;
 }

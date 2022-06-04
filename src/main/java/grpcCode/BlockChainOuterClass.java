@@ -431,27 +431,40 @@ public final class BlockChainOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>bytes sourceEntity = 1;</code>
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    boolean hasNodeInfo();
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    grpcCode.BlockChainOuterClass.NodeInfoMSG getNodeInfo();
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    grpcCode.BlockChainOuterClass.NodeInfoMSGOrBuilder getNodeInfoOrBuilder();
+
+    /**
+     * <code>bytes sourceEntity = 2;</code>
      */
     com.google.protobuf.ByteString getSourceEntity();
 
     /**
-     * <code>bytes destEntity = 2;</code>
+     * <code>bytes destEntity = 3;</code>
      */
     com.google.protobuf.ByteString getDestEntity();
 
     /**
-     * <code>bytes productId = 3;</code>
+     * <code>bytes productId = 4;</code>
      */
     com.google.protobuf.ByteString getProductId();
 
     /**
-     * <code>bytes bidTrans = 4;</code>
+     * <code>bytes bidTrans = 5;</code>
      */
     com.google.protobuf.ByteString getBidTrans();
 
     /**
-     * <code>bytes signature = 5;</code>
+     * <code>bytes signature = 6;</code>
      */
     com.google.protobuf.ByteString getSignature();
   }
@@ -500,26 +513,39 @@ public final class BlockChainOuterClass {
               done = true;
               break;
             case 10: {
+              grpcCode.BlockChainOuterClass.NodeInfoMSG.Builder subBuilder = null;
+              if (nodeInfo_ != null) {
+                subBuilder = nodeInfo_.toBuilder();
+              }
+              nodeInfo_ = input.readMessage(grpcCode.BlockChainOuterClass.NodeInfoMSG.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(nodeInfo_);
+                nodeInfo_ = subBuilder.buildPartial();
+              }
 
-              sourceEntity_ = input.readBytes();
               break;
             }
             case 18: {
 
-              destEntity_ = input.readBytes();
+              sourceEntity_ = input.readBytes();
               break;
             }
             case 26: {
 
-              productId_ = input.readBytes();
+              destEntity_ = input.readBytes();
               break;
             }
             case 34: {
 
-              bidTrans_ = input.readBytes();
+              productId_ = input.readBytes();
               break;
             }
             case 42: {
+
+              bidTrans_ = input.readBytes();
+              break;
+            }
+            case 50: {
 
               signature_ = input.readBytes();
               break;
@@ -556,46 +582,67 @@ public final class BlockChainOuterClass {
               grpcCode.BlockChainOuterClass.TransactionMSG.class, grpcCode.BlockChainOuterClass.TransactionMSG.Builder.class);
     }
 
-    public static final int SOURCEENTITY_FIELD_NUMBER = 1;
+    public static final int NODEINFO_FIELD_NUMBER = 1;
+    private grpcCode.BlockChainOuterClass.NodeInfoMSG nodeInfo_;
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    public boolean hasNodeInfo() {
+      return nodeInfo_ != null;
+    }
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    public grpcCode.BlockChainOuterClass.NodeInfoMSG getNodeInfo() {
+      return nodeInfo_ == null ? grpcCode.BlockChainOuterClass.NodeInfoMSG.getDefaultInstance() : nodeInfo_;
+    }
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    public grpcCode.BlockChainOuterClass.NodeInfoMSGOrBuilder getNodeInfoOrBuilder() {
+      return getNodeInfo();
+    }
+
+    public static final int SOURCEENTITY_FIELD_NUMBER = 2;
     private com.google.protobuf.ByteString sourceEntity_;
     /**
-     * <code>bytes sourceEntity = 1;</code>
+     * <code>bytes sourceEntity = 2;</code>
      */
     public com.google.protobuf.ByteString getSourceEntity() {
       return sourceEntity_;
     }
 
-    public static final int DESTENTITY_FIELD_NUMBER = 2;
+    public static final int DESTENTITY_FIELD_NUMBER = 3;
     private com.google.protobuf.ByteString destEntity_;
     /**
-     * <code>bytes destEntity = 2;</code>
+     * <code>bytes destEntity = 3;</code>
      */
     public com.google.protobuf.ByteString getDestEntity() {
       return destEntity_;
     }
 
-    public static final int PRODUCTID_FIELD_NUMBER = 3;
+    public static final int PRODUCTID_FIELD_NUMBER = 4;
     private com.google.protobuf.ByteString productId_;
     /**
-     * <code>bytes productId = 3;</code>
+     * <code>bytes productId = 4;</code>
      */
     public com.google.protobuf.ByteString getProductId() {
       return productId_;
     }
 
-    public static final int BIDTRANS_FIELD_NUMBER = 4;
+    public static final int BIDTRANS_FIELD_NUMBER = 5;
     private com.google.protobuf.ByteString bidTrans_;
     /**
-     * <code>bytes bidTrans = 4;</code>
+     * <code>bytes bidTrans = 5;</code>
      */
     public com.google.protobuf.ByteString getBidTrans() {
       return bidTrans_;
     }
 
-    public static final int SIGNATURE_FIELD_NUMBER = 5;
+    public static final int SIGNATURE_FIELD_NUMBER = 6;
     private com.google.protobuf.ByteString signature_;
     /**
-     * <code>bytes signature = 5;</code>
+     * <code>bytes signature = 6;</code>
      */
     public com.google.protobuf.ByteString getSignature() {
       return signature_;
@@ -615,20 +662,23 @@ public final class BlockChainOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (nodeInfo_ != null) {
+        output.writeMessage(1, getNodeInfo());
+      }
       if (!sourceEntity_.isEmpty()) {
-        output.writeBytes(1, sourceEntity_);
+        output.writeBytes(2, sourceEntity_);
       }
       if (!destEntity_.isEmpty()) {
-        output.writeBytes(2, destEntity_);
+        output.writeBytes(3, destEntity_);
       }
       if (!productId_.isEmpty()) {
-        output.writeBytes(3, productId_);
+        output.writeBytes(4, productId_);
       }
       if (!bidTrans_.isEmpty()) {
-        output.writeBytes(4, bidTrans_);
+        output.writeBytes(5, bidTrans_);
       }
       if (!signature_.isEmpty()) {
-        output.writeBytes(5, signature_);
+        output.writeBytes(6, signature_);
       }
       unknownFields.writeTo(output);
     }
@@ -639,25 +689,29 @@ public final class BlockChainOuterClass {
       if (size != -1) return size;
 
       size = 0;
+      if (nodeInfo_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getNodeInfo());
+      }
       if (!sourceEntity_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, sourceEntity_);
+          .computeBytesSize(2, sourceEntity_);
       }
       if (!destEntity_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, destEntity_);
+          .computeBytesSize(3, destEntity_);
       }
       if (!productId_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, productId_);
+          .computeBytesSize(4, productId_);
       }
       if (!bidTrans_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(4, bidTrans_);
+          .computeBytesSize(5, bidTrans_);
       }
       if (!signature_.isEmpty()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(5, signature_);
+          .computeBytesSize(6, signature_);
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -675,6 +729,11 @@ public final class BlockChainOuterClass {
       grpcCode.BlockChainOuterClass.TransactionMSG other = (grpcCode.BlockChainOuterClass.TransactionMSG) obj;
 
       boolean result = true;
+      result = result && (hasNodeInfo() == other.hasNodeInfo());
+      if (hasNodeInfo()) {
+        result = result && getNodeInfo()
+            .equals(other.getNodeInfo());
+      }
       result = result && getSourceEntity()
           .equals(other.getSourceEntity());
       result = result && getDestEntity()
@@ -696,6 +755,10 @@ public final class BlockChainOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasNodeInfo()) {
+        hash = (37 * hash) + NODEINFO_FIELD_NUMBER;
+        hash = (53 * hash) + getNodeInfo().hashCode();
+      }
       hash = (37 * hash) + SOURCEENTITY_FIELD_NUMBER;
       hash = (53 * hash) + getSourceEntity().hashCode();
       hash = (37 * hash) + DESTENTITY_FIELD_NUMBER;
@@ -839,6 +902,12 @@ public final class BlockChainOuterClass {
       @java.lang.Override
       public Builder clear() {
         super.clear();
+        if (nodeInfoBuilder_ == null) {
+          nodeInfo_ = null;
+        } else {
+          nodeInfo_ = null;
+          nodeInfoBuilder_ = null;
+        }
         sourceEntity_ = com.google.protobuf.ByteString.EMPTY;
 
         destEntity_ = com.google.protobuf.ByteString.EMPTY;
@@ -875,6 +944,11 @@ public final class BlockChainOuterClass {
       @java.lang.Override
       public grpcCode.BlockChainOuterClass.TransactionMSG buildPartial() {
         grpcCode.BlockChainOuterClass.TransactionMSG result = new grpcCode.BlockChainOuterClass.TransactionMSG(this);
+        if (nodeInfoBuilder_ == null) {
+          result.nodeInfo_ = nodeInfo_;
+        } else {
+          result.nodeInfo_ = nodeInfoBuilder_.build();
+        }
         result.sourceEntity_ = sourceEntity_;
         result.destEntity_ = destEntity_;
         result.productId_ = productId_;
@@ -928,6 +1002,9 @@ public final class BlockChainOuterClass {
 
       public Builder mergeFrom(grpcCode.BlockChainOuterClass.TransactionMSG other) {
         if (other == grpcCode.BlockChainOuterClass.TransactionMSG.getDefaultInstance()) return this;
+        if (other.hasNodeInfo()) {
+          mergeNodeInfo(other.getNodeInfo());
+        }
         if (other.getSourceEntity() != com.google.protobuf.ByteString.EMPTY) {
           setSourceEntity(other.getSourceEntity());
         }
@@ -972,15 +1049,132 @@ public final class BlockChainOuterClass {
         return this;
       }
 
+      private grpcCode.BlockChainOuterClass.NodeInfoMSG nodeInfo_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpcCode.BlockChainOuterClass.NodeInfoMSG, grpcCode.BlockChainOuterClass.NodeInfoMSG.Builder, grpcCode.BlockChainOuterClass.NodeInfoMSGOrBuilder> nodeInfoBuilder_;
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public boolean hasNodeInfo() {
+        return nodeInfoBuilder_ != null || nodeInfo_ != null;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public grpcCode.BlockChainOuterClass.NodeInfoMSG getNodeInfo() {
+        if (nodeInfoBuilder_ == null) {
+          return nodeInfo_ == null ? grpcCode.BlockChainOuterClass.NodeInfoMSG.getDefaultInstance() : nodeInfo_;
+        } else {
+          return nodeInfoBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public Builder setNodeInfo(grpcCode.BlockChainOuterClass.NodeInfoMSG value) {
+        if (nodeInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          nodeInfo_ = value;
+          onChanged();
+        } else {
+          nodeInfoBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public Builder setNodeInfo(
+          grpcCode.BlockChainOuterClass.NodeInfoMSG.Builder builderForValue) {
+        if (nodeInfoBuilder_ == null) {
+          nodeInfo_ = builderForValue.build();
+          onChanged();
+        } else {
+          nodeInfoBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public Builder mergeNodeInfo(grpcCode.BlockChainOuterClass.NodeInfoMSG value) {
+        if (nodeInfoBuilder_ == null) {
+          if (nodeInfo_ != null) {
+            nodeInfo_ =
+              grpcCode.BlockChainOuterClass.NodeInfoMSG.newBuilder(nodeInfo_).mergeFrom(value).buildPartial();
+          } else {
+            nodeInfo_ = value;
+          }
+          onChanged();
+        } else {
+          nodeInfoBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public Builder clearNodeInfo() {
+        if (nodeInfoBuilder_ == null) {
+          nodeInfo_ = null;
+          onChanged();
+        } else {
+          nodeInfo_ = null;
+          nodeInfoBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public grpcCode.BlockChainOuterClass.NodeInfoMSG.Builder getNodeInfoBuilder() {
+        
+        onChanged();
+        return getNodeInfoFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public grpcCode.BlockChainOuterClass.NodeInfoMSGOrBuilder getNodeInfoOrBuilder() {
+        if (nodeInfoBuilder_ != null) {
+          return nodeInfoBuilder_.getMessageOrBuilder();
+        } else {
+          return nodeInfo_ == null ?
+              grpcCode.BlockChainOuterClass.NodeInfoMSG.getDefaultInstance() : nodeInfo_;
+        }
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpcCode.BlockChainOuterClass.NodeInfoMSG, grpcCode.BlockChainOuterClass.NodeInfoMSG.Builder, grpcCode.BlockChainOuterClass.NodeInfoMSGOrBuilder> 
+          getNodeInfoFieldBuilder() {
+        if (nodeInfoBuilder_ == null) {
+          nodeInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              grpcCode.BlockChainOuterClass.NodeInfoMSG, grpcCode.BlockChainOuterClass.NodeInfoMSG.Builder, grpcCode.BlockChainOuterClass.NodeInfoMSGOrBuilder>(
+                  getNodeInfo(),
+                  getParentForChildren(),
+                  isClean());
+          nodeInfo_ = null;
+        }
+        return nodeInfoBuilder_;
+      }
+
       private com.google.protobuf.ByteString sourceEntity_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>bytes sourceEntity = 1;</code>
+       * <code>bytes sourceEntity = 2;</code>
        */
       public com.google.protobuf.ByteString getSourceEntity() {
         return sourceEntity_;
       }
       /**
-       * <code>bytes sourceEntity = 1;</code>
+       * <code>bytes sourceEntity = 2;</code>
        */
       public Builder setSourceEntity(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -992,7 +1186,7 @@ public final class BlockChainOuterClass {
         return this;
       }
       /**
-       * <code>bytes sourceEntity = 1;</code>
+       * <code>bytes sourceEntity = 2;</code>
        */
       public Builder clearSourceEntity() {
         
@@ -1003,13 +1197,13 @@ public final class BlockChainOuterClass {
 
       private com.google.protobuf.ByteString destEntity_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>bytes destEntity = 2;</code>
+       * <code>bytes destEntity = 3;</code>
        */
       public com.google.protobuf.ByteString getDestEntity() {
         return destEntity_;
       }
       /**
-       * <code>bytes destEntity = 2;</code>
+       * <code>bytes destEntity = 3;</code>
        */
       public Builder setDestEntity(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1021,7 +1215,7 @@ public final class BlockChainOuterClass {
         return this;
       }
       /**
-       * <code>bytes destEntity = 2;</code>
+       * <code>bytes destEntity = 3;</code>
        */
       public Builder clearDestEntity() {
         
@@ -1032,13 +1226,13 @@ public final class BlockChainOuterClass {
 
       private com.google.protobuf.ByteString productId_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>bytes productId = 3;</code>
+       * <code>bytes productId = 4;</code>
        */
       public com.google.protobuf.ByteString getProductId() {
         return productId_;
       }
       /**
-       * <code>bytes productId = 3;</code>
+       * <code>bytes productId = 4;</code>
        */
       public Builder setProductId(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1050,7 +1244,7 @@ public final class BlockChainOuterClass {
         return this;
       }
       /**
-       * <code>bytes productId = 3;</code>
+       * <code>bytes productId = 4;</code>
        */
       public Builder clearProductId() {
         
@@ -1061,13 +1255,13 @@ public final class BlockChainOuterClass {
 
       private com.google.protobuf.ByteString bidTrans_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>bytes bidTrans = 4;</code>
+       * <code>bytes bidTrans = 5;</code>
        */
       public com.google.protobuf.ByteString getBidTrans() {
         return bidTrans_;
       }
       /**
-       * <code>bytes bidTrans = 4;</code>
+       * <code>bytes bidTrans = 5;</code>
        */
       public Builder setBidTrans(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1079,7 +1273,7 @@ public final class BlockChainOuterClass {
         return this;
       }
       /**
-       * <code>bytes bidTrans = 4;</code>
+       * <code>bytes bidTrans = 5;</code>
        */
       public Builder clearBidTrans() {
         
@@ -1090,13 +1284,13 @@ public final class BlockChainOuterClass {
 
       private com.google.protobuf.ByteString signature_ = com.google.protobuf.ByteString.EMPTY;
       /**
-       * <code>bytes signature = 5;</code>
+       * <code>bytes signature = 6;</code>
        */
       public com.google.protobuf.ByteString getSignature() {
         return signature_;
       }
       /**
-       * <code>bytes signature = 5;</code>
+       * <code>bytes signature = 6;</code>
        */
       public Builder setSignature(com.google.protobuf.ByteString value) {
         if (value == null) {
@@ -1108,7 +1302,7 @@ public final class BlockChainOuterClass {
         return this;
       }
       /**
-       * <code>bytes signature = 5;</code>
+       * <code>bytes signature = 6;</code>
        */
       public Builder clearSignature() {
         
@@ -1714,6 +1908,687 @@ public final class BlockChainOuterClass {
 
   }
 
+  public interface NodeInfoMSGOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:NodeInfoMSG)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <pre>
+     * Node identification
+     * </pre>
+     *
+     * <code>bytes nodeId = 1;</code>
+     */
+    com.google.protobuf.ByteString getNodeId();
+
+    /**
+     * <pre>
+     * IP of node
+     * </pre>
+     *
+     * <code>bytes nodeIp = 2;</code>
+     */
+    com.google.protobuf.ByteString getNodeIp();
+
+    /**
+     * <pre>
+     * Port of the node
+     * </pre>
+     *
+     * <code>bytes nodePort = 3;</code>
+     */
+    com.google.protobuf.ByteString getNodePort();
+  }
+  /**
+   * <pre>
+   **
+   *Message format for a basic info of a node
+   * </pre>
+   *
+   * Protobuf type {@code NodeInfoMSG}
+   */
+  public  static final class NodeInfoMSG extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:NodeInfoMSG)
+      NodeInfoMSGOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use NodeInfoMSG.newBuilder() to construct.
+    private NodeInfoMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private NodeInfoMSG() {
+      nodeId_ = com.google.protobuf.ByteString.EMPTY;
+      nodeIp_ = com.google.protobuf.ByteString.EMPTY;
+      nodePort_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private NodeInfoMSG(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+
+              nodeId_ = input.readBytes();
+              break;
+            }
+            case 18: {
+
+              nodeIp_ = input.readBytes();
+              break;
+            }
+            case 26: {
+
+              nodePort_ = input.readBytes();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpcCode.BlockChainOuterClass.internal_static_NodeInfoMSG_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpcCode.BlockChainOuterClass.internal_static_NodeInfoMSG_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpcCode.BlockChainOuterClass.NodeInfoMSG.class, grpcCode.BlockChainOuterClass.NodeInfoMSG.Builder.class);
+    }
+
+    public static final int NODEID_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString nodeId_;
+    /**
+     * <pre>
+     * Node identification
+     * </pre>
+     *
+     * <code>bytes nodeId = 1;</code>
+     */
+    public com.google.protobuf.ByteString getNodeId() {
+      return nodeId_;
+    }
+
+    public static final int NODEIP_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString nodeIp_;
+    /**
+     * <pre>
+     * IP of node
+     * </pre>
+     *
+     * <code>bytes nodeIp = 2;</code>
+     */
+    public com.google.protobuf.ByteString getNodeIp() {
+      return nodeIp_;
+    }
+
+    public static final int NODEPORT_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString nodePort_;
+    /**
+     * <pre>
+     * Port of the node
+     * </pre>
+     *
+     * <code>bytes nodePort = 3;</code>
+     */
+    public com.google.protobuf.ByteString getNodePort() {
+      return nodePort_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!nodeId_.isEmpty()) {
+        output.writeBytes(1, nodeId_);
+      }
+      if (!nodeIp_.isEmpty()) {
+        output.writeBytes(2, nodeIp_);
+      }
+      if (!nodePort_.isEmpty()) {
+        output.writeBytes(3, nodePort_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!nodeId_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, nodeId_);
+      }
+      if (!nodeIp_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, nodeIp_);
+      }
+      if (!nodePort_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, nodePort_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpcCode.BlockChainOuterClass.NodeInfoMSG)) {
+        return super.equals(obj);
+      }
+      grpcCode.BlockChainOuterClass.NodeInfoMSG other = (grpcCode.BlockChainOuterClass.NodeInfoMSG) obj;
+
+      boolean result = true;
+      result = result && getNodeId()
+          .equals(other.getNodeId());
+      result = result && getNodeIp()
+          .equals(other.getNodeIp());
+      result = result && getNodePort()
+          .equals(other.getNodePort());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + NODEID_FIELD_NUMBER;
+      hash = (53 * hash) + getNodeId().hashCode();
+      hash = (37 * hash) + NODEIP_FIELD_NUMBER;
+      hash = (53 * hash) + getNodeIp().hashCode();
+      hash = (37 * hash) + NODEPORT_FIELD_NUMBER;
+      hash = (53 * hash) + getNodePort().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpcCode.BlockChainOuterClass.NodeInfoMSG parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.BlockChainOuterClass.NodeInfoMSG parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.NodeInfoMSG parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.BlockChainOuterClass.NodeInfoMSG parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.NodeInfoMSG parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.BlockChainOuterClass.NodeInfoMSG parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.NodeInfoMSG parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.BlockChainOuterClass.NodeInfoMSG parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.NodeInfoMSG parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpcCode.BlockChainOuterClass.NodeInfoMSG parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.NodeInfoMSG parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.BlockChainOuterClass.NodeInfoMSG parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpcCode.BlockChainOuterClass.NodeInfoMSG prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * <pre>
+     **
+     *Message format for a basic info of a node
+     * </pre>
+     *
+     * Protobuf type {@code NodeInfoMSG}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:NodeInfoMSG)
+        grpcCode.BlockChainOuterClass.NodeInfoMSGOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpcCode.BlockChainOuterClass.internal_static_NodeInfoMSG_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpcCode.BlockChainOuterClass.internal_static_NodeInfoMSG_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpcCode.BlockChainOuterClass.NodeInfoMSG.class, grpcCode.BlockChainOuterClass.NodeInfoMSG.Builder.class);
+      }
+
+      // Construct using grpcCode.BlockChainOuterClass.NodeInfoMSG.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        nodeId_ = com.google.protobuf.ByteString.EMPTY;
+
+        nodeIp_ = com.google.protobuf.ByteString.EMPTY;
+
+        nodePort_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpcCode.BlockChainOuterClass.internal_static_NodeInfoMSG_descriptor;
+      }
+
+      @java.lang.Override
+      public grpcCode.BlockChainOuterClass.NodeInfoMSG getDefaultInstanceForType() {
+        return grpcCode.BlockChainOuterClass.NodeInfoMSG.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpcCode.BlockChainOuterClass.NodeInfoMSG build() {
+        grpcCode.BlockChainOuterClass.NodeInfoMSG result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpcCode.BlockChainOuterClass.NodeInfoMSG buildPartial() {
+        grpcCode.BlockChainOuterClass.NodeInfoMSG result = new grpcCode.BlockChainOuterClass.NodeInfoMSG(this);
+        result.nodeId_ = nodeId_;
+        result.nodeIp_ = nodeIp_;
+        result.nodePort_ = nodePort_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpcCode.BlockChainOuterClass.NodeInfoMSG) {
+          return mergeFrom((grpcCode.BlockChainOuterClass.NodeInfoMSG)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpcCode.BlockChainOuterClass.NodeInfoMSG other) {
+        if (other == grpcCode.BlockChainOuterClass.NodeInfoMSG.getDefaultInstance()) return this;
+        if (other.getNodeId() != com.google.protobuf.ByteString.EMPTY) {
+          setNodeId(other.getNodeId());
+        }
+        if (other.getNodeIp() != com.google.protobuf.ByteString.EMPTY) {
+          setNodeIp(other.getNodeIp());
+        }
+        if (other.getNodePort() != com.google.protobuf.ByteString.EMPTY) {
+          setNodePort(other.getNodePort());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpcCode.BlockChainOuterClass.NodeInfoMSG parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpcCode.BlockChainOuterClass.NodeInfoMSG) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private com.google.protobuf.ByteString nodeId_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * Node identification
+       * </pre>
+       *
+       * <code>bytes nodeId = 1;</code>
+       */
+      public com.google.protobuf.ByteString getNodeId() {
+        return nodeId_;
+      }
+      /**
+       * <pre>
+       * Node identification
+       * </pre>
+       *
+       * <code>bytes nodeId = 1;</code>
+       */
+      public Builder setNodeId(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        nodeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Node identification
+       * </pre>
+       *
+       * <code>bytes nodeId = 1;</code>
+       */
+      public Builder clearNodeId() {
+        
+        nodeId_ = getDefaultInstance().getNodeId();
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString nodeIp_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * IP of node
+       * </pre>
+       *
+       * <code>bytes nodeIp = 2;</code>
+       */
+      public com.google.protobuf.ByteString getNodeIp() {
+        return nodeIp_;
+      }
+      /**
+       * <pre>
+       * IP of node
+       * </pre>
+       *
+       * <code>bytes nodeIp = 2;</code>
+       */
+      public Builder setNodeIp(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        nodeIp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * IP of node
+       * </pre>
+       *
+       * <code>bytes nodeIp = 2;</code>
+       */
+      public Builder clearNodeIp() {
+        
+        nodeIp_ = getDefaultInstance().getNodeIp();
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString nodePort_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <pre>
+       * Port of the node
+       * </pre>
+       *
+       * <code>bytes nodePort = 3;</code>
+       */
+      public com.google.protobuf.ByteString getNodePort() {
+        return nodePort_;
+      }
+      /**
+       * <pre>
+       * Port of the node
+       * </pre>
+       *
+       * <code>bytes nodePort = 3;</code>
+       */
+      public Builder setNodePort(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        nodePort_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <pre>
+       * Port of the node
+       * </pre>
+       *
+       * <code>bytes nodePort = 3;</code>
+       */
+      public Builder clearNodePort() {
+        
+        nodePort_ = getDefaultInstance().getNodePort();
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:NodeInfoMSG)
+    }
+
+    // @@protoc_insertion_point(class_scope:NodeInfoMSG)
+    private static final grpcCode.BlockChainOuterClass.NodeInfoMSG DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpcCode.BlockChainOuterClass.NodeInfoMSG();
+    }
+
+    public static grpcCode.BlockChainOuterClass.NodeInfoMSG getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<NodeInfoMSG>
+        PARSER = new com.google.protobuf.AbstractParser<NodeInfoMSG>() {
+      @java.lang.Override
+      public NodeInfoMSG parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new NodeInfoMSG(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<NodeInfoMSG> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NodeInfoMSG> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpcCode.BlockChainOuterClass.NodeInfoMSG getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_EmptyMSG_descriptor;
   private static final 
@@ -1729,6 +2604,11 @@ public final class BlockChainOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_Success_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_NodeInfoMSG_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_NodeInfoMSG_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1738,13 +2618,16 @@ public final class BlockChainOuterClass {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\020BlockChain.proto\"\n\n\010EmptyMSG\"r\n\016Transa" +
-      "ctionMSG\022\024\n\014sourceEntity\030\001 \001(\014\022\022\n\ndestEn" +
-      "tity\030\002 \001(\014\022\021\n\tproductId\030\003 \001(\014\022\020\n\010bidTran" +
-      "s\030\004 \001(\014\022\021\n\tsignature\030\005 \001(\014\"-\n\007Success\022\017\n" +
-      "\007success\030\001 \001(\014\022\021\n\tsignature\030\002 \001(\0142<\n\nBlo" +
-      "ckChain\022.\n\017SendTransaction\022\017.Transaction" +
-      "MSG\032\010.Success\"\000B\n\n\010grpcCodeb\006proto3"
+      "\n\020BlockChain.proto\"\n\n\010EmptyMSG\"\222\001\n\016Trans" +
+      "actionMSG\022\036\n\010nodeInfo\030\001 \001(\0132\014.NodeInfoMS" +
+      "G\022\024\n\014sourceEntity\030\002 \001(\014\022\022\n\ndestEntity\030\003 " +
+      "\001(\014\022\021\n\tproductId\030\004 \001(\014\022\020\n\010bidTrans\030\005 \001(\014" +
+      "\022\021\n\tsignature\030\006 \001(\014\"-\n\007Success\022\017\n\007succes" +
+      "s\030\001 \001(\014\022\021\n\tsignature\030\002 \001(\014\"?\n\013NodeInfoMS" +
+      "G\022\016\n\006nodeId\030\001 \001(\014\022\016\n\006nodeIp\030\002 \001(\014\022\020\n\010nod" +
+      "ePort\030\003 \001(\0142<\n\nBlockChain\022.\n\017SendTransac" +
+      "tion\022\017.TransactionMSG\032\010.Success\"\000B\n\n\010grp" +
+      "cCodeb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -1769,13 +2652,19 @@ public final class BlockChainOuterClass {
     internal_static_TransactionMSG_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_TransactionMSG_descriptor,
-        new java.lang.String[] { "SourceEntity", "DestEntity", "ProductId", "BidTrans", "Signature", });
+        new java.lang.String[] { "NodeInfo", "SourceEntity", "DestEntity", "ProductId", "BidTrans", "Signature", });
     internal_static_Success_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_Success_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_Success_descriptor,
         new java.lang.String[] { "Success", "Signature", });
+    internal_static_NodeInfoMSG_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_NodeInfoMSG_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_NodeInfoMSG_descriptor,
+        new java.lang.String[] { "NodeId", "NodeIp", "NodePort", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
