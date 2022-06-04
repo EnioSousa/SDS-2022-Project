@@ -3,38 +3,22 @@ syntax = "proto3";
 option java_package = "grpcCode";
 
 service BlockChain {
-
-  rpc SendTransaction(TransactionMSG) returns (BlockMSG) {}
-
-  rpc GetBlockChain(EmptyMSG) returns (stream BlockMSG) {}
-
+  rpc SendTransaction(TransactionMSG) returns (Success) {}
 }
 
 message EmptyMSG{
 
 }
 
-message BlockMSG{
-  MerkleTreeMSG merkleRoot = 1;
-  BlockHeaderMSG blockHeader = 2;
-  repeated TransactionMSG transactions = 3;
-}
-
 message TransactionMSG {
   bytes sourceEntity = 1;
   bytes destEntity = 2;
   bytes productId = 3;
-  int32 bidTrans = 4;
-}
-message MerkleTreeMSG{
-  string root = 1;
+  bytes bidTrans = 4;
+  bytes signature = 5;
 }
 
-message BlockHeaderMSG{
-  int32 version = 1;
-  int64 unixTimestamp = 2;
-  int32 difficulty = 3;
-  bytes prevHash = 4;
-  bytes merkleTreeHash = 5;
-  int32 nonce = 6;
+message Success {
+  bytes success = 1;
+  bytes signature = 2;
 }
