@@ -27,15 +27,16 @@ public class BlockChainService extends BlockChainGrpc.BlockChainImplBase {
     @Override
     public void sendTransaction(TransactionMSG request, StreamObserver<Success> responseObserver) {
         Transaction transaction = convertToTransaction(request);
+
         NodeInfo nodeInfo = convertToNodeInfo(request.getNodeInfo());
 
-        if (Security.verifyData(request.getSignature().toByteArray())) {
+        if (getRunningNode().getSecurity().verifyData(request.getSignature().toByteArray())) {
             LOGGER.info("Got transaction from: " + nodeInfo +
                     ": Transaction: " + transaction);
 
             getRunningNode().gotRequest(nodeInfo);
 
-            if (Security.verifyTransaction(transaction)) {
+            if (getRunningNode().getSecurity().verifyTransaction(transaction)) {
                 LOGGER.info("Transaction: " + transaction + ": valid:");
                 // TODO: Do something else
             } else {
@@ -47,27 +48,35 @@ public class BlockChainService extends BlockChainGrpc.BlockChainImplBase {
     }
 
     public static Transaction convertToTransaction(TransactionMSG request) {
-        byte[] source =
-                Security.decrypt(request.getSourceEntity().toByteArray());
+        try {
+            byte[] source =
+                    getRunningNode().getSecurity().decrypt(request.getSourceEntity().toByteArray());
 
-        byte[] dest =
-                Security.decrypt(request.getDestEntity().toByteArray());
+            byte[] dest =
+                    getRunningNode().getSecurity().decrypt(request.getDestEntity().toByteArray());
 
-        byte[] productId =
-                Security.decrypt(request.getProductId().toByteArray());
+            byte[] productId =
+                    getRunningNode().getSecurity().decrypt(request.getProductId().toByteArray());
 
-        byte[] bidTrans =
-                Security.decrypt(request.getBidTrans().toByteArray());
+            byte[] bidTrans =
+                    getRunningNode().getSecurity().decrypt(request.getBidTrans().toByteArray());
 
-        return new Transaction(source, dest, productId
-                , HashAlgorithm.byteToInt(bidTrans));
+            return new Transaction(source, dest, productId
+                    , HashAlgorithm.byteToInt(bidTrans));
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     public static NodeInfo convertToNodeInfo(NodeInfoMSG nodeInfoMSG) {
-        byte[] id = Security.decrypt(nodeInfoMSG.getNodeId().toByteArray());
-        byte[] ip = Security.decrypt(nodeInfoMSG.getNodeIp().toByteArray());
-        byte[] port = Security.decrypt(nodeInfoMSG.getNodePort().toByteArray());
+        try {
+            byte[] id = getRunningNode().getSecurity().decrypt(nodeInfoMSG.getNodeId().toByteArray());
+            byte[] ip = getRunningNode().getSecurity().decrypt(nodeInfoMSG.getNodeIp().toByteArray());
+            byte[] port = getRunningNode().getSecurity().decrypt(nodeInfoMSG.getNodePort().toByteArray());
 
-        return new NodeInfo(id, new String(ip), HashAlgorithm.byteToInt(port));
+            return new NodeInfo(id, new String(ip), HashAlgorithm.byteToInt(port));
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

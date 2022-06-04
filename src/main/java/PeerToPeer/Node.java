@@ -1,6 +1,7 @@
 package PeerToPeer;
 
 import BlockChain.HashAlgorithm;
+import BlockChain.Security;
 import Utils.Bootstrap;
 import Utils.InfoJoin;
 import org.apache.logging.log4j.LogManager;
@@ -68,6 +69,15 @@ public class Node {
 
     private LinkedList<InfoJoin> tableJoin = new LinkedList<>();
 
+    private Security security;
+
+    public void setSecurity(Security security) {
+        this.security = security;
+    }
+
+    public Security getSecurity() {
+        return security;
+    }
 
     /**
      * The info of the bootstrap node
