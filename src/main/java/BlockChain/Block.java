@@ -25,8 +25,32 @@ public class Block {
 
     }
 
+    public Block(int version, long unixTimestamp, int difficulty, byte[] prevHash,
+                 int nonce, List<Transaction> transactionsList) throws NoSuchAlgorithmException {
+        this.transactionsList = transactionsList;
+
+        this.merkleTree = new MerkleTree(this.transactionsList);
+
+        this.blockHeader = new BlockHeader(version, unixTimestamp, difficulty,
+                prevHash, merkleTree.getHash(), nonce);
+
+    }
+
+    public Block(BlockHeader blockHeader,
+                 List<Transaction> transactionList) throws NoSuchAlgorithmException {
+        this.transactionsList = transactionList;
+
+        this.merkleTree = new MerkleTree(this.transactionsList);
+
+        this.blockHeader = new BlockHeader(blockHeader.getVersion(),
+                blockHeader.getUnixTimestamp(), blockHeader.getDifficulty(),
+                blockHeader.getPrevHash(), blockHeader.getMerkleTreeHash(),
+                blockHeader.getNonce());
+    }
+
     /**
      * Get the full list of transaction in this given block
+     *
      * @return The transaction list
      */
     public List<Transaction> getTransactionsList() {
@@ -35,6 +59,7 @@ public class Block {
 
     /**
      * Get the merkle tree with the transactions hashes
+     *
      * @return the merkle tree
      */
     public MerkleTree getMerkleTree() {
@@ -43,6 +68,7 @@ public class Block {
 
     /**
      * Get the block header for this block
+     *
      * @return the block header
      */
     public BlockHeader getBlockHeader() {

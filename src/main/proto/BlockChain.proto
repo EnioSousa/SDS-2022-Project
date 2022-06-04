@@ -4,6 +4,8 @@ option java_package = "grpcCode";
 
 service BlockChain {
   rpc SendTransaction(TransactionMSG) returns (Success) {}
+
+  rpc sendBlock(BlockMSG) returns (Success) {}
 }
 
 message EmptyMSG{
@@ -15,8 +17,20 @@ message TransactionMSG {
   bytes sourceEntity = 2;
   bytes destEntity = 3;
   bytes productId = 4;
-  bytes bidTrans = 5;
-  bytes signature = 6;
+  int32 bidTrans = 5;
+}
+
+message TransactionContentMSG {
+  bytes sourceEntity = 1;
+  bytes destEntity = 2;
+  bytes productId = 3;
+  int32 bidTrans = 4;
+}
+
+message BlockMSG {
+  NodeInfoMSG nodeInfo = 1;
+  BlockHeaderMSG blockHeader = 2;
+  repeated TransactionContentMSG transaction = 3;
 }
 
 message Success {
@@ -31,7 +45,16 @@ message NodeInfoMSG {
   // Node identification
   bytes nodeId = 1;
   // IP of node
-  bytes nodeIp = 2;
+  string nodeIp = 2;
   // Port of the node
-  bytes nodePort = 3;
+  int32 nodePort = 3;
+}
+
+message BlockHeaderMSG {
+  int32 version = 1;
+  int64 time = 2;
+  int32 difficulty = 3;
+  bytes prevHash = 4;
+  bytes merkleRoot = 5;
+  int32 nonce = 6;
 }
