@@ -10,6 +10,11 @@ public class Security {
 
     private KeyPair keyPair;
 
+    Security() {
+        // TODO: Change to proper file names
+        generateKeys(null, null);
+    }
+
     public void setKeyPair(KeyPair keyPair) {
         this.keyPair = keyPair;
     }
@@ -32,7 +37,6 @@ public class Security {
             setKeyPair(keyGen.generateKeyPair());
 
             // TODO: Save keys
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
