@@ -1,10 +1,18 @@
 package PeerToPeer;
 
 import BlockChain.HashAlgorithm;
+import Utils.Bootstrap;
+import Utils.InfoJoin;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.concurrent.ConcurrentLinkedQueue;
+
+// TODO: Improve the contact list. Maybe use a timer to erase useless entries
 
 public class Node {
     /**
@@ -23,115 +31,356 @@ public class Node {
      * List of connections to other nodes
      */
     private final ConcurrentLinkedQueue<NodeClient> nodeClients;
+    /**
+     * K buckets that is running this node
+     */
+    private K_Buckets kBuckets = null;
+    /**
+     * This var will be used for the find node. We have async calls, so
+     * we need a way to check if we have contacted a given node
+     */
+    private final HashMap<byte[], LinkedList<NodeInfo>> findNodeContactedList =
+            new HashMap<>();
+    /**
+     * This var will be used for the finds. We have async calls, so we need a
+     * way to know if for a given find call we have already contacted a node
+     */
+    private final HashMap<byte[], LinkedList<NodeInfo>> findContactedList =
+            new HashMap<>();
+    /**
+     * This var will be used to save the values that we find
+     */
+    private final HashMap<byte[], byte[]> keyValuePair =
+            new HashMap<>();
+    /**
+     * Holds the stored values
+     */
+    private final StoredValues storedValues;
+    /**
+     * Size of the ids in BYTES
+     */
+    public static final int idSize = 1;
 
+    /**
+     * List of all nodes known by the SUPER node
+     */
+    private final LinkedList<byte[]> usedIds = new LinkedList<>();
+
+    private LinkedList<InfoJoin> tableJoin = new LinkedList<>();
+
+    private LinkedList<NodeInfo> listOfMiners = new LinkedList<>();
+
+    /**
+     * The info of the bootstrap node
+     */
+    public static NodeInfo knownNode =
+            new NodeInfo(Bootstrap.bootstrapId, Bootstrap.bootstrapIp, Bootstrap.bootstrapPort);
+
+    // TODO: Be careful with the node initialization, try to start with a
+    //  null value
+
+    /**
+     * @param nodeInfo
+     */
     public Node(NodeInfo nodeInfo) {
         this.nodeInfo = nodeInfo;
-        LOGGER.info("New Node: Id:" + HashAlgorithm.byteToHex(nodeInfo.getId()));
+
+        LOGGER.info("New Node: " + nodeInfo);
 
         nodeServer = new NodeServer(this, nodeInfo.getPort());
         nodeServer.start();
 
         nodeClients = new ConcurrentLinkedQueue<>();
-    }
 
-    /**
-     * Given the info of a node, checks the connection list for a node
-     * connection, NodeClient, with the given information passed in the
-     * parameters
-     *
-     * @param nodeInfo The info to search in the connection list
-     * @return a nodeClient i.e. a connection to a node if it exists
-     */
-    public NodeClient getNodeClient(NodeInfo nodeInfo) {
-        for (NodeClient nodeClient : nodeClients) {
-            if (nodeClient.getConnectedNodeInfo().equals(nodeInfo))
-                return nodeClient;
+        //TODO: Change id and key size. They have to be the same
+        //kBuckets = new K_Buckets(this, 8, 4);
+        storedValues = new StoredValues(idSize, this);
+
+        // If node is bootstrap initiate k buckets, otherwise its initiated
+        // on join
+        if (nodeInfo.equals(knownNode)) {
+            initializeKbuckets();
         }
 
-        return null;
+        //DEBUG
+        if (nodeInfo.isMiner()) {
+            LOGGER.info("IM MINER!!!!!!");
+        }
     }
 
     /**
-     * Given a node info, open a new channel connection
+     * Do join. Begin the process of trying to join the network
      *
-     * @param nodeInfo node info
+     * @param nodeInfo The bootstrap info
      */
-    public void connectToNode(NodeInfo nodeInfo) {
-        connectToNode(new NodeClient(this, nodeInfo));
+    public void doJoin(NodeInfo nodeInfo) {
+        getNodeClient(nodeInfo).doJoin();
     }
 
     /**
-     * Connect to node, i.e. save the node connection (NodeClient) in a
-     * list
+     * Store a keyPair in our node
      *
-     * @param nodeClient node client to save
+     * @param key   The key
+     * @param value The value
+     * @return True if the key, value pair was saved
      */
-    public void connectToNode(NodeClient nodeClient) {
-        if (!nodeClients.contains(nodeClient)) {
-            nodeClients.add(nodeClient);
-            LOGGER.info("New node connection: id: " +
-                    nodeClient.getConnectedNodeInfo().getIdString());
+    public boolean storeValue(byte[] key, byte[] value) {
+        return storedValues.storeValue(key, value);
+    }
+
+    /**
+     * Get a value from a keyPair from our node
+     *
+     * @param key The key
+     * @return The value if it exists, otherwise null
+     */
+    public byte[] getStoredValue(byte[] key) {
+        return storedValues.getStoredValue(key);
+    }
+
+    /**
+     * This method starts the find call. The find call is async
+     *
+     * @param key The key we want to search
+     */
+    public void doFind(byte[] key) {
+        try {
+            byte[] normalizedKey = HashAlgorithm.generateHash(key,
+                    getKBuckets().getSpaceSize());
+
+            keyValuePair.remove(normalizedKey);
+
+            byte[] entry = HashAlgorithm.generateHash(normalizedKey);
+
+            findContactedList.remove(entry);
+            findContactedList.put(entry, new LinkedList<>());
+
+            LinkedList<NodeInfo> list =
+                    getKBuckets().getKClosest(normalizedKey);
+
+            for (NodeInfo nodeInfo : list) {
+                getNodeClient(nodeInfo).doFind(normalizedKey, 0, entry);
+            }
+
+        } catch (Exception e) {
+            LOGGER.error("Hash error: " + e);
+        }
+    }
+
+    /**
+     * This method does a find to a specific node. Because by definition the
+     * find call is recursive, i.e. it will continue to do finds until a
+     * searched value is found, we need to set a limit to the number of
+     * calls, with alpha, and a way to know if we already contacted a given
+     * node, we can do this by having a list of contacts, identified by the
+     * entry parameter
+     *
+     * @param nodeInfo      The node to contact
+     * @param normalizedKey The normalized key. See kadamlia for more info
+     * @param alpha         The maximum number of recursion depth
+     * @param entry         The entry identifying the already contacted group
+     */
+    void doFind(NodeInfo nodeInfo, byte[] normalizedKey, int alpha,
+                byte[] entry) {
+        if (alpha >= 3 || (findContactedList.get(entry) != null &&
+                findContactedList.get(entry).contains(nodeInfo))) {
+            return;
+        }
+
+        findContactedList.get(entry).add(nodeInfo);
+
+        getNodeClient(nodeInfo).doFind(normalizedKey, alpha, entry);
+    }
+
+    /**
+     * This method does the store. It will get the k closest nodes, and try
+     * to store a keyValue pair in those nodes.
+     *
+     * @param key   The key
+     * @param value The value
+     */
+    public void doStore(byte[] key, byte[] value) {
+        try {
+            byte[] normalizedKey = HashAlgorithm.generateHash(key,
+                    getKBuckets().getSpaceSize());
+
+            LinkedList<NodeInfo> list =
+                    getKBuckets().getKClosest(normalizedKey);
+
+            for (NodeInfo nodeInfo : list) {
+                NodeClient nodeClient = getNodeClient(nodeInfo);
+
+                nodeClient.doStore(normalizedKey, value);
+            }
+
+        } catch (Exception e) {
+            LOGGER.error("Hash error: " + e);
+        }
+    }
+
+    /**
+     * This method will start a find node request. The find node request,
+     * will start by getting the k closest nodes to a given id, and for each
+     * subsequent response, will try to contact the new nodes for the
+     * wanted id
+     *
+     * @param wantedId the id we want to find
+     * @throws NoSuchAlgorithmException If hash algorithm is not found
+     */
+    public void doFindNode(byte[] wantedId) throws NoSuchAlgorithmException {
+        LinkedList<NodeInfo> contactList = getKBuckets().getKClosest(wantedId);
+
+        LOGGER.info(contactList);
+
+        byte[] entry = HashAlgorithm.generateHash(wantedId);
+
+        // TODO: Improve how we check the already contacted nodes
+        findNodeContactedList.remove(entry);
+
+        findNodeContactedList.put(entry, new LinkedList<>(contactList));
+
+        for (NodeInfo nodeInfo : contactList) {
+            NodeClient nodeClient = getNodeClient(nodeInfo);
+
+            nodeClient.doFindNode(wantedId, 0, entry);
+        }
+    }
+
+    /**
+     * Do find request to a given node. Similar idea to doFind/3
+     *
+     * @param nodeInfo The node to do the request
+     * @param wantedId The wanted id
+     * @param alpha    The current alpha
+     * @param entry    The entry of the contacted list
+     */
+    void doFindNode(NodeInfo nodeInfo, byte[] wantedId, int alpha, byte[] entry) {
+        // If the node hasn't been contacted, then..
+        if (nodeInfo.equals(getNodeInfo())) {
+            return;
+        } else if (findNodeContactedList.get(entry) != null &&
+                findNodeContactedList.get(entry).contains(nodeInfo)) {
+            return;
         } else {
-            LOGGER.info("Node already connected: id: " +
-                    nodeClient.getConnectedNodeInfo().getIdString());
+            findNodeContactedList.get(entry).add(nodeInfo);
         }
-    }
 
-    /**
-     * Disconnects from a node that has the info passed in the parameters
-     *
-     * @param nodeInfo Info of the node we want to remove
-     */
-    public void disconnectFromNode(NodeInfo nodeInfo) {
         NodeClient nodeClient = getNodeClient(nodeInfo);
 
-        if (nodeClient == null) {
-            LOGGER.info("Node doesn't exist: id: " + nodeInfo.getIdString());
+        nodeClient.doFindNode(wantedId, alpha, entry);
+    }
+
+    /**
+     * This method is responsible for adding the requester info to the k
+     * buckets, or in case it's already there, put him at the end of the list
+     *
+     * @param nodeInfo the node that made us a request
+     */
+    public void gotRequest(NodeInfo nodeInfo) {
+        if (!nodeInfo.equals(getNodeInfo())) {
+            getKBuckets().addNodeInfo(nodeInfo);
+        }
+    }
+
+    /**
+     * The method is responsible for adding the node that responded to us,
+     * to the k buckets list, or to the end of the list
+     *
+     * @param nodeInfo The node that answered us
+     */
+    public void gotResponse(NodeInfo nodeInfo) {
+        gotRequest(nodeInfo);
+    }
+
+    /**
+     * When a given k bucket is full, we will try to replace the oldest non-speaking
+     * node, by trying to ping him. If he doesn't respond we eliminate him
+     *
+     * @param newInfo THe node candidate to be the replacement
+     * @param oldInfo The node candidate to be replaced
+     */
+    void kBucketFullDoPing(NodeInfo newInfo, NodeInfo oldInfo) {
+        if (!newInfo.equals(oldInfo)) {
+            NodeClient nodeClient = getNodeClient(oldInfo);
+
+            nodeClient.kBucketFullDoPing(newInfo, oldInfo);
+        }
+    }
+
+    /**
+     * Do a sync ping to a node. If ping fails we will try to remove the
+     * connection from our database
+     *
+     * @param nodeInfo The respective node info
+     * @return True if ping successful, otherwise false
+     */
+    boolean doPingSync(NodeInfo nodeInfo) {
+        NodeClient nodeClient = getNodeClient(nodeInfo);
+
+        boolean success = nodeClient.doPingSync();
+
+        if (!success) {
+            nodeClient.closeClient();
+            nodeClients.remove(nodeClient);
+        }
+
+        return success;
+    }
+
+    /**
+     * Add new node client to our clients list
+     *
+     * @param nodeClient New node client to add
+     * @return True if successfully added
+     */
+    private boolean addNodeClient(NodeClient nodeClient) {
+        boolean success = nodeClients.add(nodeClient);
+
+        if (success) {
+            LOGGER.info("Adding new node to list: " + nodeClient);
         } else {
-            disconnectFromNode(nodeClient);
+            LOGGER.info("Failed to add new node to list: " + nodeClient);
         }
+
+        return success;
     }
 
     /**
-     * Disconnect from a node client
+     * Get Node client from the info of a node. If the client already exist,
+     * then it returns the respective node client, otherwise a new NodeClient
      *
-     * @param nodeClient node client we want to disconnect
+     * @param nodeInfo the info of a node
+     * @return The node client, if it exists, otherwise creates a new one
      */
-    public void disconnectFromNode(NodeClient nodeClient) {
-        if (nodeClients.remove(nodeClient)) {
-            LOGGER.info("Removed node from connected list: id: " +
-                    nodeClient.getConnectedNodeInfo().getIdString());
-        } else {
-            LOGGER.info("Failed to removed node: id: " +
-                    nodeClient.getConnectedNodeInfo().getIdString());
+    private NodeClient getNodeClient(NodeInfo nodeInfo) {
+        for (NodeClient nodeClient : nodeClients) {
+            if (nodeClient.getConnectedNodeInfo().equals(nodeInfo)) {
+                return nodeClient;
+            }
         }
+
+        return connectToNodeWithoutPing(nodeInfo);
     }
 
     /**
-     * Do ping rpc call. If ping is successful, we will add the node into a
-     * known connection list, i.e. open connections
+     * Create a grpc channel and stubs, without making ping afterwards
      *
-     * @param nodeInfoDest Node info to do the rpc call
+     * @param nodeInfo The node we want to connect
+     * @return The node client
      */
-    public void doPing(NodeInfo nodeInfoDest) {
-        NodeClient nodeClient = getNodeClient(nodeInfoDest);
-
-        if (nodeClient == null) {
-            nodeClient = new NodeClient(this, nodeInfoDest);
+    NodeClient connectToNodeWithoutPing(NodeInfo nodeInfo) {
+        for (NodeClient nodeClient : nodeClients) {
+            if (nodeClient.equals(nodeInfo)) {
+                LOGGER.info("Already connected: " + nodeInfo);
+                return nodeClient;
+            }
         }
 
-        nodeClient.doPing(this.nodeInfo, nodeInfoDest);
-    }
+        NodeClient nodeClient = new NodeClient(this, nodeInfo);
 
-    /**
-     * Checks if the Node info passed in the arguments is the same info on
-     * this particular node
-     *
-     * @param nodeInfo info we want to check
-     * @return true if the info are the same, toherwise false
-     */
-    public boolean sameNodeInfo(NodeInfo nodeInfo) {
-        return nodeInfo.equals(getNodeInfo());
+        addNodeClient(nodeClient);
+
+        return nodeClient;
     }
 
     /**
@@ -150,6 +399,120 @@ public class Node {
      */
     public NodeServer getNodeServer() {
         return nodeServer;
+    }
+
+    /**
+     * Return the k buckets from this node
+     *
+     * @return The k buckets
+     */
+    public K_Buckets getKBuckets() {
+        return kBuckets;
+    }
+
+    @Override
+    public String toString() {
+        return getNodeInfo().toString();
+    }
+
+    /**
+     * Set bootstrap node
+     */
+    public void setBootstrap() {
+        this.nodeInfo.setBootstrap();
+    }
+
+    /**
+     * Get bootstrap node
+     */
+    public void getBootstrap() {
+        this.nodeInfo.isBootstrap();
+    }
+
+    /**
+     * Check the node running is a bootstrap node
+     *
+     * @return True or false
+     */
+    public Boolean isBootstrap() {
+        return this.nodeInfo.isBootstrap();
+    }
+
+    /**
+     * Checks if a given id has been ussed
+     *
+     * @param id The id to check
+     * @return True or false
+     */
+    public Boolean findId(byte[] id) {
+
+        for (byte[] n : usedIds) {
+            if (Arrays.equals(id, n)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Add id to the used nodes
+     *
+     * @param id The id to add
+     */
+    public void addToUsedIds(byte[] id) {
+        this.usedIds.add(id);
+    }
+
+    /**
+     * Save ip and timestamp of the challenge
+     *
+     * @param ip        The ip
+     * @param timeStamp The timestamp
+     */
+    public void addIpTimeStamp(String ip, long timeStamp) {
+        InfoJoin info = new InfoJoin(ip, timeStamp);
+        tableJoin.add(info);
+    }
+
+    /**
+     * Checks if the ip and timestamp are saved in the table
+     *
+     * @param ip        The ip
+     * @param timeStamp The timestamp
+     * @return True or false
+     */
+    public boolean verifyIpTime(String ip, long timeStamp) {
+        for (InfoJoin n : tableJoin) {
+            if (n.getIp().equals(ip) && n.getTimeStamp() == timeStamp) {
+                tableJoin.remove(n);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Initialize the k buckets
+     */
+    public void initializeKbuckets() {
+        kBuckets = new K_Buckets(this, idSize * 8, 4);
+
+        if (!nodeInfo.equals(knownNode)) {
+            getKBuckets().addNodeInfo(knownNode);
+        }
+    }
+
+    public void addMinerList(NodeInfo miner) {
+        listOfMiners.add(miner);
+    }
+
+    /**
+     * Get the size of the id in bytes
+     *
+     * @return
+     */
+    public static int getIdSize() {
+        return idSize;
     }
 
 }

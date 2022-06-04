@@ -2,6 +2,7 @@ package BlockChain;
 
 import org.junit.jupiter.api.Test;
 
+import java.nio.charset.StandardCharsets;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
@@ -31,7 +32,18 @@ class HashAlgorithmTest {
                 () -> assertEquals("61B712BAB581A8F4F7478DA0E44A2AE559BFC5A36C1FAC0FD1F092EF25CAC573", hex2)
         );
 
+        byte[] hash0 =
+                HashAlgorithm.generateHash("Enio".getBytes(StandardCharsets.UTF_8), 1 * 8);
+        byte[] hash1 =
+                HashAlgorithm.generateHash("Enio".getBytes(StandardCharsets.UTF_8), 2 * 8);
+        byte[] hash2 =
+                HashAlgorithm.generateHash("Enio".getBytes(StandardCharsets.UTF_8), 30 * 8);
 
+        assertAll(
+                () -> assertEquals(1, hash0.length),
+                () -> assertEquals(2, hash1.length),
+                () -> assertEquals(30, hash2.length)
+        );
     }
 
     @Test
@@ -63,9 +75,37 @@ class HashAlgorithmTest {
     }
 
     @Test
-    void hexToByte() {
+    void TestHexToByte() {
         byte[] byteArray = {(byte) 0x01, (byte) 0x11, (byte) 0xAF};
 
         assertTrue(Arrays.equals(byteArray, HashAlgorithm.hexToByte("0111AF")));
+    }
+
+    @Test
+    void TestCopyNBits() {
+        byte[] from = {(byte) 0xFF, (byte) 0xFF, (byte) 0xFF};
+        byte[] to0 = {(byte) 0x00, (byte) 0x00, (byte) 0x00};
+        byte[] to1 = {(byte) 0x00, (byte) 0x00, (byte) 0x00};
+        byte[] to2 = {(byte) 0x00, (byte) 0x00, (byte) 0x00};
+        byte[] to3 = {(byte) 0x00, (byte) 0x00, (byte) 0x00};
+        byte[] to4 = {(byte) 0x00, (byte) 0x00, (byte) 0x00};
+
+        HashAlgorithm.copyNBits(from, to0, 1);
+        HashAlgorithm.copyNBits(from, to1, 6);
+        HashAlgorithm.copyNBits(from, to2, 10);
+        HashAlgorithm.copyNBits(from, to3, 17);
+        HashAlgorithm.copyNBits(from, to4, 20);
+
+        assertAll(
+                () -> assertArrayEquals(new byte[]{(byte) 0x80, (byte) 0x00,
+                        (byte) 0x00}, to0),
+                () -> assertArrayEquals(new byte[]{(byte) 0xFC, (byte) 0x00,
+                        (byte) 0x00}, to1),
+                () -> assertArrayEquals(new byte[]{(byte) 0xFF, (byte) 0xC0,
+                        (byte) 0x00}, to2),
+                () -> assertArrayEquals(new byte[]{(byte) 0xFF, (byte) 0xFF,
+                        (byte) 0x80}, to3),
+                () -> assertArrayEquals(new byte[]{(byte) 0xFF, (byte) 0xFF,
+                        (byte) 0xF0}, to4));
     }
 }

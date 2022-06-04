@@ -37,6 +37,8 @@ public class NodeServer extends Thread {
         this.server = ServerBuilder.forPort(this.port)
                 .addService(new PeerToPeerService())
                 .build();
+
+        PeerToPeerService.setRunningNode(node);
     }
 
     @Override
@@ -78,5 +80,14 @@ public class NodeServer extends Thread {
      */
     public int getPort() {
         return port;
+    }
+
+    /**
+     * Return the node running this server
+     *
+     * @return The node running this server
+     */
+    public Node getNode() {
+        return node;
     }
 }

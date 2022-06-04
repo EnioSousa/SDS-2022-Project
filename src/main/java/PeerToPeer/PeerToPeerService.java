@@ -1,72 +1,315 @@
 package PeerToPeer;
 
 import BlockChain.HashAlgorithm;
+import Utils.InfoJoin;
+import com.google.common.primitives.Longs;
+import com.google.protobuf.ByteString;
 import grpcCode.PeerToPeerGrpc;
-import grpcCode.PeerToPeerOuterClass;
+import grpcCode.PeerToPeerOuterClass.*;
 import io.grpc.stub.StreamObserver;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-// TODO: Check if we want the server to open a connection to the other node
+import java.security.NoSuchAlgorithmException;
+import java.time.Instant;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Random;
 
 public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
-    public static Logger LOGGER = LogManager.getLogger(PeerToPeerService.class);
+    public static Logger LOGGER =
+            LogManager.getLogger(PeerToPeerService.class);
+
+    public static Node runningNode;
+
+    public static void setRunningNode(Node node) {
+        runningNode = node;
+    }
+
+    public static Node getRunningNode() {
+        return runningNode;
+    }
 
     @Override
-    public void ping(PeerToPeerOuterClass.PingInfo request, StreamObserver<PeerToPeerOuterClass.PingSuccess> responseObserver) {
-        PeerToPeerOuterClass.NodeInfo nodeDest = request.getDest();
-        PeerToPeerOuterClass.NodeInfo nodeOrig = request.getOrig();
+    public void find(FindMSG request, StreamObserver<FindResponseMSG> responseObserver) {
+        NodeInfo nodeInfo = convertToNodeInfo(request.getRequester());
+        byte[] key = request.getKey().toByteArray();
 
-        NodeInfo nodeInfoOrig = new NodeInfo(nodeOrig);
-        LOGGER.info("Got ping: From: " + HashAlgorithm.byteToHex(nodeInfoOrig.getId()));
+        LOGGER.info("Got find request from: " + nodeInfo + ": key: "
+                + HashAlgorithm.byteToHex(key));
 
-        PeerToPeerOuterClass.PingSuccess.Builder response =
-                PeerToPeerOuterClass.PingSuccess.newBuilder();
+        byte[] storedValue = getRunningNode().getStoredValue(key);
 
-        response.setSuccess(isPingValid(nodeDest));
-        LOGGER.info("Sending Ping response: Response: " + response.getSuccess());
+        if (storedValue == null) {
+            LinkedList<NodeInfo> list =
+                    getRunningNode().getKBuckets().getKClosest(key);
 
-        if (response.getSuccess()) {
-            // Server that received the ping also adds the node to the known node
-            // list, by opening a connection
-            PeerToPeer.getRunningNode().connectToNode(convertToNodeInfo(nodeOrig));
+            LOGGER.info("Don't have the key: " + HashAlgorithm.byteToHex(key));
+
+            for (NodeInfo info : list) {
+                responseObserver.onNext(convertToFindNodeResponseMSG(info,
+                        null));
+            }
         } else {
-            LOGGER.info("Wrong dest: SupposedNodeId0: " +
-                    PeerToPeer.getRunningNode().getNodeInfo().getIdString() +
-                    ": GotNodeId1: " + convertToNodeInfo(nodeDest).getIdString());
-        }
+            LOGGER.info("Have the key: " + HashAlgorithm.byteToHex(key));
 
-        responseObserver.onNext(response.build());
+            responseObserver.onNext(convertToFindNodeResponseMSG(null, storedValue));
+        }
 
         responseObserver.onCompleted();
     }
 
-    /**
-     * Given a grpc {@link grpcCode.PeerToPeerOuterClass.NodeInfo}, defined
-     * in the proto file, this method converts it to a standard
-     * {@link NodeInfo} object
-     *
-     * @param nodeInfo the info to convert
-     * @return A {@link NodeInfo} object
-     */
-    public NodeInfo convertToNodeInfo(PeerToPeerOuterClass.NodeInfo nodeInfo) {
-        byte[] id = nodeInfo.getNodeId().toByteArray();
-        String ip = nodeInfo.getNodeIp();
-        int port = nodeInfo.getNodePort();
+    @Override
+    public void store(SaveMSG request, StreamObserver<SuccessMSG> responseObserver) {
+        NodeInfo nodeInfo = convertToNodeInfo(request.getRequester());
 
-        return new NodeInfo(id, ip, port);
+        LOGGER.info("Got store request: From: " + nodeInfo + ": key: " +
+                HashAlgorithm.byteToHex(request.getKey().toByteArray()) +
+                ": value: " +
+                HashAlgorithm.byteToHex(request.getValue().toByteArray()));
+
+        boolean success =
+                getRunningNode().storeValue(request.getKey().toByteArray(),
+                        request.getValue().toByteArray());
+
+        LOGGER.info("keyPair success: " + success + ": " +
+                HashAlgorithm.byteToHex(request.getKey().toByteArray()) + ": " +
+                HashAlgorithm.byteToHex(request.getValue().toByteArray()));
+
+        responseObserver.onNext(convertToSuccessMsg(success));
+
+        responseObserver.onCompleted();
+
+        // Try to add the requester info into our k bucket list
+        getRunningNode().gotRequest(nodeInfo);
     }
 
-    /**
-     * Checks if a ping request is valid. It does so, by checking if the ping
-     * was correctly sent for him, i.e. checks the NodeInfo sent by the sender.
-     * If ping is valid
-     *
-     * @param nodeInfoDest info of the destination node
-     * @return true if ping is valid, otherwise false
-     */
-    public boolean isPingValid(PeerToPeerOuterClass.NodeInfo nodeInfoDest) {
-        return PeerToPeer.getRunningNode()
-                .sameNodeInfo(convertToNodeInfo(nodeInfoDest));
+    @Override
+    public void findNode(FindNodeMSG request,
+                         StreamObserver<NodeInfoMSG> responseObserver) {
+        NodeInfo nodeInfo = convertToNodeInfo(request.getRequester());
+
+        LOGGER.info("Got findNode request: From: " + nodeInfo + ": id: " +
+                HashAlgorithm.byteToHex(request.getWantedId().toByteArray()));
+
+        // Try to add the requester info into our k bucket list
+        getRunningNode().gotRequest(nodeInfo);
+
+        LinkedList<NodeInfo> list =
+                getRunningNode().getKBuckets().getKClosest(request.getWantedId().toByteArray());
+
+        if (list.size() != 0) {
+            for (int i = 0; i < runningNode.getKBuckets().getK() && i < list.size(); i++) {
+                LOGGER.info("Sending to: " + nodeInfo + ": node: " + list.get(i));
+                responseObserver.onNext(convertToNodeInfoMSG(list.get(i)));
+            }
+        }
+
+        responseObserver.onCompleted();
     }
+
+    @Override
+    public void ping(NodeInfoMSG request,
+                     StreamObserver<SuccessMSG> responseObserver) {
+
+        NodeInfo nodeInfo = new NodeInfo(request.getNodeId().toByteArray(),
+                request.getNodeIp(), request.getNodePort());
+
+        LOGGER.info("Got ping request: From: " + nodeInfo);
+
+        LOGGER.info("Sending ping response: True: To: " + nodeInfo);
+        responseObserver.onNext(convertToSuccessMsg(true));
+
+        responseObserver.onCompleted();
+
+        // Try to add the requester info into our k bucket list
+        getRunningNode().gotRequest(nodeInfo);
+    }
+
+
+    @Override
+    public void firstConn(InitMSG request, StreamObserver<InitResponse> responseObserver) {
+
+        String ip = request.getIp();
+
+        LOGGER.info("Got request for timestamp: From: IP: " + request.getIp());
+
+        long timeStamp = Instant.now().toEpochMilli();
+
+        getRunningNode().addIpTimeStamp(ip, timeStamp);
+
+        LOGGER.info("Sending timestamp: To: IP: " + request.getIp() +
+                ": TimeStamp: " + timeStamp);
+        responseObserver.onNext(convertToInitResponse(timeStamp));
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void getID(GetIdMSG request, StreamObserver<GetIdResponse> responseObserver) {
+
+        LOGGER.info("Verify if client: IP: " + request.getIp() + " is on the list of contacted IPs");
+
+        if (getRunningNode().verifyIpTime(request.getIp(), request.getTimeStamp())) {
+
+            LOGGER.info("Client with IP: " + request.getIp() + " passed initial connection check");
+
+            byte[] challenge = request.getChallenge().toByteArray();
+
+            LOGGER.info("Check if client with IP: " + request.getIp() + " Timestamp: " + request.getTimeStamp()
+                    + " Nonce: " + request.getNonce() + " made the work");
+
+            if (HashAlgorithm.validHash(challenge, InfoJoin.DIFFICULTY)) {
+                long time = request.getTimeStamp();
+                int nonce = request.getNonce();
+
+                byte[] work = null;
+
+                try {
+                    work = HashAlgorithm.generateHash(Longs.toByteArray(time), HashAlgorithm.intToByte(nonce));
+                } catch (NoSuchAlgorithmException e) {
+                    LOGGER.info("Error generating the hash");
+                }
+
+                if (Arrays.equals(challenge, work)) {
+                    LOGGER.info("Hash from IP: " + request.getIp() + " Challenge: " + HashAlgorithm.byteToHex(request.getChallenge().toByteArray())
+                            + " matches Hash from Bootstrap: " + HashAlgorithm.byteToHex(work));
+
+                    byte[] nodeId =
+                            HashAlgorithm.generateRandomByteArray(Node.getIdSize());
+
+                    // TODO: Verify that id doesn't exist
+
+                    LOGGER.info("Sending the new ID: " + HashAlgorithm.byteToHex(nodeId) + " to the node: IP: " + request.getIp());
+
+                    responseObserver.onNext(convertToGetIdResponse(nodeId));
+                    getRunningNode().addToUsedIds(nodeId);
+                }
+
+            } else {
+                // TODO: Make better log
+                LOGGER.info("The sender didnt do the work: Expected: " +
+                        HashAlgorithm.byteToHex(challenge));
+            }
+        } else {
+            LOGGER.info("The sender is not in the list: IP: " + request.getIp());
+        }
+
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void pingMiner(NodeInfoMSG request, StreamObserver<SuccessMSG> responseObserver) {
+        NodeInfo nodeInfo = new NodeInfo(request.getNodeId().toByteArray(),
+                request.getNodeIp(), request.getNodePort());
+
+        LOGGER.info("Got pingMiner request: From: " + nodeInfo);
+
+        getRunningNode().addMinerList(nodeInfo);
+
+        responseObserver.onNext(convertToSuccessMsg(true));
+
+        responseObserver.onCompleted();
+    }
+
+
+    public static TransactionMSG convertToTransactionMSG(byte[] sourceEnt, byte[] destEnt, byte[] productId, int bits) {
+        return TransactionMSG.newBuilder()
+                .setSourceEnt(ByteString.copyFrom(sourceEnt))
+                .setDestEnt(ByteString.copyFrom(destEnt))
+                .setProductId(ByteString.copyFrom(productId))
+                .setBits(bits)
+                .build();
+    }
+
+    public static InitMSG convertToInitMSG(String nodeIp) {
+        return InitMSG.newBuilder()
+                .setIp(nodeIp)
+                .build();
+    }
+
+    public static InitResponse convertToInitResponse(long timeStamp) {
+        return InitResponse.newBuilder()
+                .setTimeStamp(timeStamp)
+                .build();
+    }
+
+    public static GetIdMSG convertToGetIdMSG(String ip, byte[] challenge, long timeStamp, int nonce) {
+        return GetIdMSG.newBuilder()
+                .setIp(ip)
+                .setChallenge(ByteString.copyFrom(challenge))
+                .setTimeStamp(timeStamp)
+                .setNonce(nonce)
+                .build();
+    }
+
+    public static GetIdResponse convertToGetIdResponse(byte[] id) {
+        return GetIdResponse.newBuilder()
+                .setId(ByteString.copyFrom(id))
+                .build();
+    }
+
+    public static SuccessMSG convertToSuccessMsg(boolean bool) {
+        return SuccessMSG.newBuilder()
+                .setSuccess(bool)
+                .build();
+    }
+
+    public static SaveMSG convertToSaveMSG(NodeInfo nodeInfo, byte[] key,
+                                           byte[] value) {
+        return SaveMSG.newBuilder()
+                .setRequester(convertToNodeInfoMSG(nodeInfo))
+                .setKey(ByteString.copyFrom(key))
+                .setValue(ByteString.copyFrom(value))
+                .build();
+    }
+
+    public static NodeInfoMSG convertToNodeInfoMSG(NodeInfo nodeInfo) {
+        return NodeInfoMSG.newBuilder()
+                .setNodeId(ByteString.copyFrom(nodeInfo.getId()))
+                .setNodeIp(nodeInfo.getIp())
+                .setNodePort(nodeInfo.getPort())
+                .build();
+    }
+
+    public static NodeInfo convertToNodeInfo(NodeInfoMSG nodeInfoMSG) {
+        return new NodeInfo(nodeInfoMSG.getNodeId().toByteArray(),
+                nodeInfoMSG.getNodeIp(), nodeInfoMSG.getNodePort());
+    }
+
+    public static FindNodeMSG convertToFindNodeMSG(NodeInfo nodeInfo,
+                                                   byte[] wantedId) {
+        return FindNodeMSG.newBuilder()
+                .setRequester(convertToNodeInfoMSG(nodeInfo))
+                .setWantedId(ByteString.copyFrom(wantedId))
+                .build();
+    }
+
+    public static FindResponseMSG convertToFindNodeResponseMSG(NodeInfo nodeInfo, byte[] value) {
+        FindResponseMSG.Builder builder = FindResponseMSG.newBuilder();
+
+        if (nodeInfo != null) {
+            builder.setResponder(convertToNodeInfoMSG(nodeInfo));
+        }
+
+        if (value != null) {
+            builder.setValue(ByteString.copyFrom(value));
+        }
+
+        return builder.build();
+    }
+
+    public static FindMSG convertToFindMSG(NodeInfo nodeInfo, byte[] key) {
+        return FindMSG.newBuilder()
+                .setRequester(convertToNodeInfoMSG(getRunningNode().getNodeInfo()))
+                .setKey(ByteString.copyFrom(key))
+                .build();
+    }
+
+    // Generates a random int with n digits
+    public static int generateRandomDigits(int n) {
+        int m = (int) Math.pow(10, n - 1);
+        return m + new Random().nextInt(9 * m);
+    }
+
+
 }

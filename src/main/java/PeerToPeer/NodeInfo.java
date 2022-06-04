@@ -1,8 +1,6 @@
 package PeerToPeer;
 
 import BlockChain.HashAlgorithm;
-import com.google.protobuf.ByteString;
-import grpcCode.PeerToPeerOuterClass;
 
 import java.util.Arrays;
 
@@ -10,15 +8,35 @@ public class NodeInfo {
     /**
      * id of the node
      */
-    private final byte[] id;
+    private byte[] id;
     /**
      * ip of the node
      */
-    private final String ip;
+    private String ip;
     /**
      * port of the node
      */
-    private final int port;
+    private int port;
+
+
+    private Boolean bootstrap = false;
+
+    private Boolean miner = false;
+
+    /**
+     * Given a set a parameters this constructor creates a {@link NodeInfo}
+     * object
+     *
+     * @param id   id of the node, in byte[] format
+     * @param ip   ip of the node is listening
+     * @param port port the node is listening
+     */
+    public NodeInfo(byte[] id, String ip, int port, boolean miner) {
+        this.id = id;
+        this.ip = ip;
+        this.port = port;
+        this.miner = miner;
+    }
 
     /**
      * Given a set a parameters this constructor creates a {@link NodeInfo}
@@ -46,32 +64,6 @@ public class NodeInfo {
         this.id = HashAlgorithm.hexToByte(hexId);
         this.ip = ip;
         this.port = port;
-    }
-
-    /**
-     * Given a grpc nodeInfo type, this constructor creates the {@link NodeInfo}
-     * object
-     *
-     * @param nodeInfo nodeInfo type object defined in the proto file
-     */
-    public NodeInfo(PeerToPeerOuterClass.NodeInfo nodeInfo) {
-        this.id = nodeInfo.getNodeId().toByteArray();
-        this.ip = nodeInfo.getNodeIp();
-        this.port = nodeInfo.getNodePort();
-    }
-
-    /**
-     * Given a NodeInfo, this method return the grpc type of the NodeInfo,
-     * defined in the proto file
-     *
-     * @return {@link grpcCode.PeerToPeerOuterClass.NodeInfo} object
-     */
-    public PeerToPeerOuterClass.NodeInfo getServiceNodeInfo() {
-        return PeerToPeerOuterClass.NodeInfo.newBuilder()
-                .setNodeId(ByteString.copyFrom(getId()))
-                .setNodeIp(getIp())
-                .setNodePort(getPort())
-                .build();
     }
 
     /**
@@ -106,6 +98,13 @@ public class NodeInfo {
     }
 
     @Override
+    public String toString() {
+        return " id = " + getIdString() +
+                " ip = " + getIp() +
+                " port = " + getPort();
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this)
             return true;
@@ -128,4 +127,36 @@ public class NodeInfo {
         return true;
     }
 
+    /**
+     * Set bootstrap value
+     */
+    public void setBootstrap() {
+        this.bootstrap = true;
+    }
+
+    /**
+     * Check if its a bootstrap
+     *
+     * @return
+     */
+    public Boolean isBootstrap() {
+        return this.bootstrap;
+    }
+
+    public void setMiner() {
+        this.miner = true;
+    }
+
+    public Boolean isMiner() {
+        return this.miner;
+    }
+
+    /**
+     * Set if of the node
+     *
+     * @param id
+     */
+    public void setId(byte[] id) {
+        this.id = id;
+    }
 }
