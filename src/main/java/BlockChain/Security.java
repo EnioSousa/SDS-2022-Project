@@ -38,47 +38,6 @@ public class Security {
         }
     }
 
-    public byte[] decrypt(byte[] in, PrivateKey key) throws NoSuchPaddingException,
-            NoSuchAlgorithmException, IllegalBlockSizeException,
-            BadPaddingException, InvalidKeyException {
-
-        Cipher decryptCypher = Cipher.getInstance("RSA");
-        decryptCypher.init(Cipher.DECRYPT_MODE, key);
-
-        return decryptCypher.doFinal(in);
-
-    }
-
-    public byte[] decrypt(byte[] in) throws NoSuchPaddingException,
-            NoSuchAlgorithmException, IllegalBlockSizeException,
-            BadPaddingException, InvalidKeyException {
-
-        Cipher decryptCypher = Cipher.getInstance("RSA");
-        decryptCypher.init(Cipher.DECRYPT_MODE, getPrivateKey());
-
-        return decryptCypher.doFinal(in);
-    }
-
-    public byte[] encrypt(byte[] in, PublicKey key) throws NoSuchPaddingException,
-            NoSuchAlgorithmException, InvalidKeyException,
-            IllegalBlockSizeException, BadPaddingException {
-
-        Cipher encryptCypher = Cipher.getInstance("RSA");
-        encryptCypher.init(Cipher.ENCRYPT_MODE, key);
-
-        return encryptCypher.doFinal(in);
-    }
-
-    public byte[] encrypt(byte[] in) throws NoSuchPaddingException,
-            NoSuchAlgorithmException, InvalidKeyException,
-            IllegalBlockSizeException, BadPaddingException {
-
-        Cipher encryptCypher = Cipher.getInstance("RSA");
-        encryptCypher.init(Cipher.ENCRYPT_MODE, getPublicKey());
-
-        return encryptCypher.doFinal(in);
-    }
-
     public byte[] signData(byte[] in) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
         // TODO: Do sign stuff
         Signature privateSignature = Signature.getInstance("SHA256withRSA");
@@ -93,8 +52,14 @@ public class Security {
         return signature;
     }
 
-    public boolean verifyData(byte[] in) {
-        return true;
+    public boolean verifyData(byte[] data, byte[] signature, PublicKey key) throws NoSuchAlgorithmException, InvalidKeyException, SignatureException {
+        Signature sig = Signature.getInstance("SHA256withRSA");
+        sig.initVerify(key);
+
+        sig.update(data);
+
+        return sig.verify(signature);
+
     }
 
     public boolean verifyTransaction(Transaction transaction) {
