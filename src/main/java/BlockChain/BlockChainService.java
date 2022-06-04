@@ -24,6 +24,8 @@ public class BlockChainService extends BlockChainGrpc.BlockChainImplBase {
 
     @Override
     public void sendTransaction(TransactionMSG request, StreamObserver<Success> responseObserver) {
-        
+        byte[] source = request.getSourceEntity().toByteArray();
+
+        LOGGER.info("Got message from: ");
     }
 }
