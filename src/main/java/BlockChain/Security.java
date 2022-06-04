@@ -11,4 +11,13 @@ public class Security {
         // TODO: Decrypt stuff
         return in;
     }
+
+    public byte[] signData(byte[] in) {
+        // TODO: Do sign stuff
+        return in;
+    }
+
+    public boolean verifyData(byte[] in) {
+        return true;
+    }
 }
