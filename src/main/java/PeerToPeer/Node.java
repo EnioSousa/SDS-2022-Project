@@ -68,16 +68,10 @@ public class Node {
     private final LinkedList<byte[]> usedIds = new LinkedList<>();
 
     private LinkedList<InfoJoin> tableJoin = new LinkedList<>();
-
+    /**
+     * Variable holds the security functions
+     */
     private Security security;
-
-    public void setSecurity(Security security) {
-        this.security = security;
-    }
-
-    public Security getSecurity() {
-        return security;
-    }
 
     /**
      * The info of the bootstrap node
@@ -514,5 +508,23 @@ public class Node {
      */
     public static int getIdSize() {
         return idSize;
+    }
+
+    /**
+     * Set the security parameters
+     *
+     * @param security Security definitions
+     */
+    public void setSecurity(Security security) {
+        this.security = security;
+    }
+
+    /**
+     * Get the security paramaters
+     *
+     * @return
+     */
+    public Security getSecurity() {
+        return security;
     }
 }
