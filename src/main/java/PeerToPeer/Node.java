@@ -101,16 +101,16 @@ public class Node {
 
         nodeClients = new ConcurrentLinkedQueue<>();
 
-        storedValues = new StoredValues(idSize, this);
+        storedValues = new StoredValues(idSize * 8, this);
 
         // If node is bootstrap initiate k buckets, otherwise its initiated
         // on join
         if (nodeInfo.equals(knownNode)) {
             initializeKbuckets();
-        } else {
-            blockChain = new Chain();
-            transactionPool = new LinkedList<>();
         }
+
+        blockChain = new Chain();
+        transactionPool = new LinkedList<>();
     }
 
     /**
@@ -539,8 +539,14 @@ public class Node {
         return transactionPool;
     }
 
-    public void addTransactionToPool(Transaction transaction) {
-        getTransactionPool().add(transaction);
+    public boolean addTransactionToPool(Transaction transaction) {
+        if (getTransactionPool().add(transaction)) {
+            LOGGER.info("Added transaction to pool: " + transaction);
+            return true;
+        } else {
+            LOGGER.error("Failed to add transaction to pool: " + transaction);
+            return false;
+        }
     }
 
     public Chain getBlockChain() {
@@ -579,7 +585,8 @@ public class Node {
         byte[] prodId = transaction.getProductId();
 
         try {
-            byte[] prodIdHash = HashAlgorithm.generateHash(prodId, getIdSize());
+            byte[] prodIdHash = HashAlgorithm.generateHash(prodId,
+                    getIdSize() * 8);
 
             LinkedList<NodeInfo> potentialMiners =
                     getKBuckets().getKClosest(prodIdHash);

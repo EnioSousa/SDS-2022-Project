@@ -227,6 +227,7 @@ public class BlockHeader {
      * @param blockHeader The block header to verify
      */
     public static boolean verifyBlockHeader(BlockHeader blockHeader) {
+
         try {
             if (!HashAlgorithm.validHash(blockHeader.getHash(),
                     blockHeader.getDifficulty())) {
@@ -235,7 +236,7 @@ public class BlockHeader {
                 return true;
             }
         } catch (Exception e) {
-            LOGGER.error("Failed verify: " + e);
+            LOGGER.error("Failed to verify block header: " + e);
             return false;
         }
     }

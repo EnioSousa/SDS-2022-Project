@@ -31,7 +31,6 @@ public class Block {
 
         this.blockHeader = new BlockHeader(version, unixTimestamp, difficulty,
                 prevHash, merkleTree.getHash(), 0);
-
     }
 
     public Block(int version, long unixTimestamp, int difficulty, byte[] prevHash,

@@ -1,5 +1,6 @@
 package BlockChain;
 
+import PeerToPeer.Node;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -60,7 +61,8 @@ public class Chain {
      * @throws NoSuchAlgorithmException Hash algorithm not found
      */
     public byte[] getLastHash() throws NoSuchAlgorithmException {
-        return blockChain.isEmpty() ? null : blockChain.getLast().getBlockHeader().getHash();
+        return blockChain.isEmpty() ? new byte[Node.getIdSize()] :
+                blockChain.getLast().getBlockHeader().getHash();
     }
 
     @Override

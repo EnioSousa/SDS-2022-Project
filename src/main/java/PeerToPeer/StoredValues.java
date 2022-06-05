@@ -25,6 +25,10 @@ public class StoredValues {
      */
     private final Node runningNode;
 
+    /**
+     * @param keySize     size in bits
+     * @param runningNode
+     */
     public StoredValues(int keySize, Node runningNode) {
         this.keySize = keySize;
         this.runningNode = runningNode;

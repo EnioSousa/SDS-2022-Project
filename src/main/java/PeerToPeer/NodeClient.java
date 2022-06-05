@@ -183,7 +183,7 @@ public class NodeClient {
             GetIdResponse idResponse = syncStub.getID(idMSG);
             getNode().getNodeInfo().setId(idResponse.getId().toByteArray());
 
-            LOGGER.info("Got my ID: " + HashAlgorithm.byteToHex(idResponse.getId().toByteArray()));
+            LOGGER.info("Got my ID: " + HashAlgorithm.byteToHex(getNode().getNodeInfo().getId()));
 
         } catch (Exception e) {
             LOGGER.error("Unavailable connection: " + getConnectedNodeInfo());
