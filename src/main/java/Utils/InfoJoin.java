@@ -1,11 +1,12 @@
 package Utils;
 
 
-
 public class InfoJoin {
-
-
+    /**
+     * Difficulty to join
+     */
     public static int DIFFICULTY = 00;
+
     String ip;
     long timeStamp;
 

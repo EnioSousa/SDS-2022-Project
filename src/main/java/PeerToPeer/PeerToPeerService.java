@@ -1,6 +1,10 @@
 package PeerToPeer;
 
+import BlockChain.Block;
+import BlockChain.BlockHeader;
 import BlockChain.HashAlgorithm;
+import BlockChain.Transaction;
+import Utils.BlockChain;
 import Utils.InfoJoin;
 import com.google.common.primitives.Longs;
 import com.google.protobuf.ByteString;
@@ -14,7 +18,6 @@ import java.security.NoSuchAlgorithmException;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.LinkedList;
-import java.util.Random;
 
 public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
     public static Logger LOGGER =
@@ -197,28 +200,91 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
         responseObserver.onCompleted();
     }
 
+
     @Override
-    public void pingMiner(NodeInfoMSG request, StreamObserver<SuccessMSG> responseObserver) {
-        NodeInfo nodeInfo = new NodeInfo(request.getNodeId().toByteArray(),
-                request.getNodeIp(), request.getNodePort());
+    public void sendBlockChainSize(NodeInfoMSG request,
+                                   StreamObserver<BlockChainSizeMSG> responseObserver) {
+        NodeInfo nodeInfo = convertToNodeInfo(request);
 
-        LOGGER.info("Got pingMiner request: From: " + nodeInfo);
+        getRunningNode().gotRequest(nodeInfo);
 
-        getRunningNode().addMinerList(nodeInfo);
+        LOGGER.info("Got request from: " + nodeInfo);
 
-        responseObserver.onNext(convertToSuccessMsg(true));
+        responseObserver.onNext(BlockChainSizeMSG.newBuilder().setSize(
+                getRunningNode().getBlockChain().getBlockChain().size()).build());
 
         responseObserver.onCompleted();
     }
 
+    @Override
+    public void sendFullBlockChain(NodeInfoMSG request, StreamObserver<BlockContentMSG> responseObserver) {
+        NodeInfo nodeInfo = convertToNodeInfo(request);
 
-    public static TransactionMSG convertToTransactionMSG(byte[] sourceEnt, byte[] destEnt, byte[] productId, int bits) {
-        return TransactionMSG.newBuilder()
-                .setSourceEnt(ByteString.copyFrom(sourceEnt))
-                .setDestEnt(ByteString.copyFrom(destEnt))
-                .setProductId(ByteString.copyFrom(productId))
-                .setBits(bits)
-                .build();
+        LOGGER.info("Got request for full block chain from: " + nodeInfo);
+
+        LinkedList<Block> blockChain = getRunningNode().getBlockChain().getBlockChain();
+
+        for (Block block : blockChain) {
+            responseObserver.onNext(convertToBlockContentMSG(block));
+        }
+
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void sendBlock(BlockMSG request,
+                          StreamObserver<SuccessMSG> responseObserver) {
+        NodeInfo nodeInfo = convertToNodeInfo(request.getNodeInfo());
+
+        getRunningNode().gotRequest(nodeInfo);
+
+        BlockHeader blockHeader =
+                convertToBlockHeader(request.getBlockHeader());
+
+        LinkedList<Transaction> list = new LinkedList<>();
+
+
+        for (int i = 0; i < request.getTransactionCount(); i++) {
+            list.add(convertToTransaction(request.getTransaction(i)));
+        }
+
+        try {
+            Block block = new Block(blockHeader, list);
+
+            LOGGER.info("Got block from: " + nodeInfo + ": Block: " + block);
+
+            getRunningNode().addBlock(block);
+        } catch (Exception e) {
+            LOGGER.error("Failed to get block from: " + nodeInfo + ": Reason:" +
+                    e);
+        }
+    }
+
+    @Override
+    public void sendTransaction(TransactionMSG request,
+                                StreamObserver<SuccessMSG> responseObserver) {
+        Transaction transaction = convertToTransaction(request);
+        NodeInfo nodeInfo = convertToNodeInfo(request.getNodeInfo());
+
+        // TODO: Verify transaction and signature
+        if (true) {
+            LOGGER.info("Got transaction from: " + nodeInfo +
+                    ":Transaction :" + transaction);
+
+            getRunningNode().gotRequest(nodeInfo);
+
+            getRunningNode().addTransactionToPool(transaction);
+
+            responseObserver.onNext(convertToSuccessMSG(true));
+        } else {
+            responseObserver.onNext(convertToSuccessMSG(false));
+        }
+
+        responseObserver.onCompleted();
+
+        if (getRunningNode().getTransactionPool().size() >= BlockChain.blockChainMinTransaction) {
+            getRunningNode().newBlock();
+        }
     }
 
     public static InitMSG convertToInitMSG(String nodeIp) {
@@ -305,11 +371,92 @@ public class PeerToPeerService extends PeerToPeerGrpc.PeerToPeerImplBase {
                 .build();
     }
 
-    // Generates a random int with n digits
-    public static int generateRandomDigits(int n) {
-        int m = (int) Math.pow(10, n - 1);
-        return m + new Random().nextInt(9 * m);
+    public static Block convertToBlock(BlockContentMSG cnt) throws NoSuchAlgorithmException {
+        LinkedList<Transaction> list = new LinkedList<>();
+
+        for (TransactionContentMSG tran : cnt.getTransactionList()) {
+            list.add(convertToTransaction(tran));
+        }
+
+        return new Block(convertToBlockHeader(cnt.getBlockHeader()), list);
     }
 
+    public static BlockContentMSG convertToBlockContentMSG(Block block) {
+        BlockContentMSG.Builder builder = BlockContentMSG.newBuilder()
+                .setBlockHeader(convertToBlockHeaderMSG(block.getBlockHeader()));
 
+        for (int i = 0; i < block.getTransactionsList().size(); i++) {
+            builder.setTransaction(i,
+                    convertToTransactionContentMSG(block.getTransactionsList().get(i)));
+        }
+
+        return builder.build();
+    }
+
+    public static BlockHeaderMSG convertToBlockHeaderMSG(BlockHeader blockHeader) {
+        return BlockHeaderMSG.newBuilder()
+                .setDifficulty(blockHeader.getDifficulty())
+                .setMerkleRoot(ByteString.copyFrom(blockHeader.getMerkleTreeHash()))
+                .setNonce(blockHeader.getNonce())
+                .setPrevHash(ByteString.copyFrom(blockHeader.getPrevHash()))
+                .setVersion(blockHeader.getVersion())
+                .setTime(blockHeader.getUnixTimestamp())
+                .build();
+    }
+
+    public static Transaction convertToTransaction(TransactionMSG request) {
+        return new Transaction(request.getSourceEntity().toByteArray(),
+                request.getDestEntity().toByteArray(),
+                request.getProductId().toByteArray(),
+                request.getBidTrans());
+    }
+
+    public static TransactionContentMSG convertToTransactionContentMSG(Transaction transaction) {
+        return TransactionContentMSG.newBuilder()
+                .setBidTrans(transaction.getBidTrans())
+                .setDestEntity(ByteString.copyFrom(transaction.getDestEntity()))
+                .setSourceEntity(ByteString.copyFrom(transaction.getSourceEntity()))
+                .setProductId(ByteString.copyFrom(transaction.getProductId()))
+                .build();
+    }
+
+    public static Transaction convertToTransaction(TransactionContentMSG request) {
+        return new Transaction(request.getSourceEntity().toByteArray(),
+                request.getDestEntity().toByteArray(),
+                request.getProductId().toByteArray(),
+                request.getBidTrans());
+    }
+
+    public static BlockHeader convertToBlockHeader(BlockHeaderMSG request) {
+        return new BlockHeader(request.getVersion(), request.getTime(),
+                request.getDifficulty(), request.getPrevHash().toByteArray(),
+                request.getMerkleRoot().toByteArray(), request.getNonce());
+    }
+
+    public static SuccessMSG convertToSuccessMSG(boolean bool) {
+        return SuccessMSG.newBuilder().setSuccess(bool).build();
+    }
+
+    public static TransactionMSG convertToTransactionMSG(Transaction transaction) {
+        return TransactionMSG.newBuilder()
+                .setBidTrans(transaction.getBidTrans())
+                .setDestEntity(ByteString.copyFrom(transaction.getDestEntity()))
+                .setSourceEntity(ByteString.copyFrom(transaction.getSourceEntity()))
+                .setProductId(ByteString.copyFrom(transaction.getProductId()))
+                .setNodeInfo(convertToNodeInfoMSG(getRunningNode().getNodeInfo()))
+                .build();
+    }
+
+    public static BlockMSG convertToBlockMSG(Block block) {
+        BlockMSG.Builder builder = BlockMSG.newBuilder()
+                .setBlockHeader(convertToBlockHeaderMSG(block.getBlockHeader()))
+                .setNodeInfo(convertToNodeInfoMSG(getRunningNode().getNodeInfo()));
+
+        for (int i = 0; i < block.getTransactionsList().size(); i++) {
+            builder.setTransaction(i,
+                    convertToTransactionContentMSG(block.getTransactionsList().get(i)));
+        }
+
+        return builder.build();
+    }
 }

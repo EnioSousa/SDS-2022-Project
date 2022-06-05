@@ -143,10 +143,6 @@ public class NodeInfo {
         return this.bootstrap;
     }
 
-    public void setMiner() {
-        this.miner = true;
-    }
-
     public Boolean isMiner() {
         return this.miner;
     }

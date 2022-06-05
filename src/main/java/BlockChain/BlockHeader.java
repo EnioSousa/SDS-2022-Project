@@ -1,8 +1,12 @@
 package BlockChain;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 /*
  * TODO: Improve performance on hash validation
@@ -15,6 +19,10 @@ import java.security.NoSuchAlgorithmException;
  * only generates the nonce that will generate a hash with certain characteristics
  */
 public class BlockHeader {
+    /**
+     * Logger
+     */
+    public static Logger LOGGER = LogManager.getLogger(BlockHeader.class);
     /**
      * Version of the block generation protocol
      */
@@ -103,7 +111,8 @@ public class BlockHeader {
     /**
      * Given a certain difficulty, this function checks if a given hash code has a certain
      * number of zeros at the beginning
-     * @param hash hash to check
+     *
+     * @param hash       hash to check
      * @param difficulty number of zero's in the prefix
      * @return True if the hash e valid, otherwise false
      */
@@ -114,14 +123,14 @@ public class BlockHeader {
         int i;
 
         // Here we check if the byte is 0
-        for( i = 0; i<numByteZero && i<hash.length; i++ ) {
-            if ( hash[i] != 0x0) {
+        for (i = 0; i < numByteZero && i < hash.length; i++) {
+            if (hash[i] != 0x0) {
                 return false;
             }
         }
 
         // Check if we still have to check more of the byte array, aka hash
-        if ( i >= hash.length )
+        if (i >= hash.length)
             return true;
 
         // Here we check the number of zero bits in a byte
@@ -210,5 +219,41 @@ public class BlockHeader {
      */
     public int getNonce() {
         return nonce;
+    }
+
+    /**
+     * Verify that a block header is valid
+     *
+     * @param blockHeader The block header to verify
+     */
+    public static boolean verifyBlockHeader(BlockHeader blockHeader) {
+
+        try {
+            if (!HashAlgorithm.validHash(blockHeader.getHash(),
+                    blockHeader.getDifficulty())) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
+            LOGGER.error("Failed to verify block header: " + e);
+            return false;
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+
+        if (other == this)
+            return true;
+
+        if (other == null || !(other instanceof BlockHeader))
+            return false;
+
+        try {
+            return Arrays.compare(getHash(), ((BlockHeader) other).getHash()) == 0;
+        } catch (NoSuchAlgorithmException e) {
+            return false;
+        }
     }
 }

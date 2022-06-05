@@ -1,6 +1,8 @@
 package PeerToPeer;
 
+import BlockChain.Block;
 import BlockChain.HashAlgorithm;
+import BlockChain.Transaction;
 import Utils.Bootstrap;
 import Utils.InfoJoin;
 import com.google.common.primitives.Longs;
@@ -13,6 +15,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.LinkedList;
+
+import static PeerToPeer.PeerToPeerService.*;
 
 
 /**
@@ -178,7 +183,7 @@ public class NodeClient {
             GetIdResponse idResponse = syncStub.getID(idMSG);
             getNode().getNodeInfo().setId(idResponse.getId().toByteArray());
 
-            LOGGER.info("Got my ID: " + HashAlgorithm.byteToHex(idResponse.getId().toByteArray()));
+            LOGGER.info("Got my ID: " + HashAlgorithm.byteToHex(getNode().getNodeInfo().getId()));
 
         } catch (Exception e) {
             LOGGER.error("Unavailable connection: " + getConnectedNodeInfo());
@@ -212,11 +217,6 @@ public class NodeClient {
         }
 
         doFindToAllKBuckets();
-
-        if (getNode().getNodeInfo().isMiner()) {
-            //getListofMiners();
-        }
-
     }
 
     /**
@@ -237,25 +237,6 @@ public class NodeClient {
                     LOGGER.error("No such hash algorithm: " + e);
                 }
             }
-        }
-    }
-
-    //HERE
-    void doPingMiner() {
-
-        NodeInfoMSG nodeInfoMsg =
-                PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
-
-        LOGGER.info("Im a new miner, add me to the list");
-
-        try {
-            SuccessMSG pingSuccessMSG = syncStub.pingMiner(nodeInfoMsg);
-
-            LOGGER.info("Got PingMiner Response: from: " + connectedNodeInfo +
-                    ": Value: " + pingSuccessMSG.getSuccess());
-        } catch (Exception e) {
-            LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
-                    + ": error: " + e);
         }
     }
 
@@ -373,7 +354,7 @@ public class NodeClient {
         LOGGER.info("Doing ping request: To: " + connectedNodeInfo);
 
         NodeInfoMSG nodeInfoMsg =
-                PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
+                convertToNodeInfoMSG(node.getNodeInfo());
 
         final long oldTimer = System.currentTimeMillis();
 
@@ -426,7 +407,7 @@ public class NodeClient {
         LOGGER.info("Doing ping request: To: " + connectedNodeInfo);
 
         NodeInfoMSG nodeInfoMsg =
-                PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
+                convertToNodeInfoMSG(node.getNodeInfo());
 
         try {
             asyncStub.ping(nodeInfoMsg,
@@ -462,7 +443,7 @@ public class NodeClient {
      */
     boolean doPingSync() {
         NodeInfoMSG nodeInfoMsg =
-                PeerToPeerService.convertToNodeInfoMSG(node.getNodeInfo());
+                convertToNodeInfoMSG(node.getNodeInfo());
 
         LOGGER.info("Doing ping request: To: " + connectedNodeInfo);
 
@@ -526,5 +507,152 @@ public class NodeClient {
     @Override
     public String toString() {
         return getConnectedNodeInfo().toString();
+    }
+
+    public void doSendTransaction(Transaction transaction) {
+        LOGGER.info("Doing send transaction To: " + connectedNodeInfo + ": " +
+                transaction);
+
+        TransactionMSG transactionMSG = convertToTransactionMSG(transaction);
+
+        try {
+            asyncStub.sendTransaction(transactionMSG, new StreamObserver<SuccessMSG>() {
+                @Override
+                public void onNext(SuccessMSG value) {
+                    LOGGER.info("Got send transaction Response: from:" +
+                            " " + connectedNodeInfo +
+                            ": Value: " + value.getSuccess());
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    LOGGER.error("Transaction send error: From: " + connectedNodeInfo);
+                }
+
+                @Override
+                public void onCompleted() {
+                    LOGGER.info("Transaction stream completed: From: " + connectedNodeInfo);
+
+                    getNode().gotResponse(getConnectedNodeInfo());
+                }
+            });
+        } catch (Exception e) {
+            LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
+                    + ": error: " + e);
+        }
+    }
+
+    public void doSendBlock(Block block) {
+        LOGGER.info("Doing send Block To: " + connectedNodeInfo + ": " +
+                block);
+
+        BlockMSG blockMSG = convertToBlockMSG(block);
+
+        try {
+            asyncStub.sendBlock(blockMSG, new StreamObserver<SuccessMSG>() {
+                @Override
+                public void onNext(SuccessMSG value) {
+                    LOGGER.info("Got send block Response: from:" +
+                            " " + connectedNodeInfo +
+                            ": Value: " + value.getSuccess());
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    LOGGER.error("Send block error: From: " + connectedNodeInfo);
+
+                }
+
+                @Override
+                public void onCompleted() {
+                    LOGGER.info("Block stream completed: From: " + connectedNodeInfo);
+
+                    getNode().gotResponse(getConnectedNodeInfo());
+                }
+            });
+        } catch (Exception e) {
+            LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
+                    + ": error: " + e);
+        }
+    }
+
+    public void sendBlockChainSize() {
+        LOGGER.info("Asking for BlockChain size from: " + connectedNodeInfo);
+
+        NodeInfoMSG nodeInfoMsg =
+                convertToNodeInfoMSG(node.getNodeInfo());
+
+        try {
+            asyncStub.sendBlockChainSize(nodeInfoMsg, new StreamObserver<BlockChainSizeMSG>() {
+                @Override
+                public void onNext(BlockChainSizeMSG value) {
+                    LOGGER.info("Got send blockChain size Response: " +
+                            "from:" +
+                            " " + connectedNodeInfo +
+                            ": Value: " + value.getSize());
+
+                    getNode().sendBlockChain(connectedNodeInfo);
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    LOGGER.error("Send blockChain size error: From: " + connectedNodeInfo);
+                }
+
+                @Override
+                public void onCompleted() {
+                    LOGGER.info("Blockchain size stream completed: " +
+                            "From: " + connectedNodeInfo);
+
+                    getNode().gotResponse(getConnectedNodeInfo());
+                }
+            });
+        } catch (Exception e) {
+            LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
+                    + ": error: " + e);
+        }
+    }
+
+    public void sendFullBlockChain() {
+        LOGGER.info("Ask for BlockChain from: " + connectedNodeInfo);
+
+        NodeInfoMSG nodeInfoMsg =
+                convertToNodeInfoMSG(node.getNodeInfo());
+
+        LinkedList<Block> list = new LinkedList<>();
+
+        try {
+            asyncStub.sendFullBlockChain(nodeInfoMsg, new StreamObserver<BlockContentMSG>() {
+                @Override
+                public void onNext(BlockContentMSG value) {
+                    LOGGER.info("Got send blockchain Response: " +
+                            "from:" +
+                            " " + connectedNodeInfo);
+                    try {
+                        list.add(convertToBlock(value));
+                    } catch (NoSuchAlgorithmException e) {
+                    }
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    LOGGER.error("Send blockChain error: From: " + connectedNodeInfo);
+
+                }
+
+                @Override
+                public void onCompleted() {
+                    LOGGER.info("Blockchain stream completed: " +
+                            "From: " + connectedNodeInfo);
+
+                    getNode().gotResponse(getConnectedNodeInfo());
+
+                    getNode().getBlockChain().replaceBlockChain(list);
+                }
+            });
+        } catch (Exception e) {
+            LOGGER.error("Connection unavailable: " + getConnectedNodeInfo()
+                    + ": error: " + e);
+        }
     }
 }

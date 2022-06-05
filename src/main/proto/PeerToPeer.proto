@@ -11,17 +11,18 @@ service PeerToPeer {
 
   rpc Find(FindMSG) returns (stream FindResponseMSG) {}
 
-  rpc SendTransaction(TransactionMSG) returns (SuccessMSG) {}
-
   rpc FirstConn(InitMSG) returns (InitResponse) {}
 
   rpc GetID(GetIdMSG) returns (GetIdResponse) {}
 
-  rpc PingMiner(NodeInfoMSG) returns (SuccessMSG) {}
+  rpc SendTransaction(TransactionMSG) returns (SuccessMSG) {}
 
-  rpc GetMinersList(EmptyMSG) returns (stream NodeInfoMSG) {}
+  rpc SendBlock(BlockMSG) returns (SuccessMSG) {}
+
+  rpc SendBlockChainSize(NodeInfoMSG) returns (BlockChainSizeMSG) {}
+
+  rpc SendFullBlockChain(NodeInfoMSG) returns (stream BlockContentMSG) {}
 }
-
 
 message InitMSG{
   string ip = 1;
@@ -42,15 +43,6 @@ message GetIdResponse{
   bytes id = 1;
 }
 
-/**
-Message format for Sendtransaction request
- */
-message TransactionMSG {
-  bytes sourceEnt = 1;
-  bytes destEnt = 2;
-  bytes productId = 3;
-  int32 bits = 4;
-}
 
 /**
   Empty message
@@ -105,4 +97,42 @@ message FindResponseMSG {
 
 message SuccessMSG {
   bool success = 1;
+}
+message TransactionMSG {
+  NodeInfoMSG nodeInfo = 1;
+  bytes sourceEntity = 2;
+  bytes destEntity = 3;
+  bytes productId = 4;
+  int32 bidTrans = 5;
+}
+
+message TransactionContentMSG {
+  bytes sourceEntity = 1;
+  bytes destEntity = 2;
+  bytes productId = 3;
+  int32 bidTrans = 4;
+}
+
+message BlockMSG {
+  NodeInfoMSG nodeInfo = 1;
+  BlockHeaderMSG blockHeader = 2;
+  repeated TransactionContentMSG transaction = 3;
+}
+
+message BlockContentMSG {
+  BlockHeaderMSG blockHeader = 1;
+  repeated TransactionContentMSG transaction = 2;
+}
+
+message BlockHeaderMSG {
+  int32 version = 1;
+  int64 time = 2;
+  int32 difficulty = 3;
+  bytes prevHash = 4;
+  bytes merkleRoot = 5;
+  int32 nonce = 6;
+}
+
+message BlockChainSizeMSG {
+  int32 size = 1;
 }

@@ -1,5 +1,8 @@
 package BlockChain;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -9,6 +12,11 @@ import java.util.Arrays;
 import java.util.HexFormat;
 
 public class HashAlgorithm {
+    /**
+     * Logger
+     */
+    public static Logger LOGGER = LogManager.getLogger(HashAlgorithm.class);
+
     /**
      * Function hashes a given string with SHA-256 algorithm
      *
@@ -87,6 +95,11 @@ public class HashAlgorithm {
 
     public static byte[] hexToByte(String string) {
         return HexFormat.of().parseHex(string);
+    }
+
+    public static int byteToInt(byte[] bytes) {
+        return bytes[0] << 24 | (bytes[1] & 0xFF) << 16 | (bytes[2] & 0xFF) << 8 | (bytes[3] & 0xFF);
+
     }
 
     /**
