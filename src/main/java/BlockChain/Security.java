@@ -65,4 +65,5 @@ public class Security {
     public boolean verifyTransaction(Transaction transaction) {
         return true;
     }
+
 }

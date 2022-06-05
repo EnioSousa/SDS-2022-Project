@@ -28,21 +28,21 @@ public final class BlockChainGrpc {
 
   // Static method descriptors that strictly reflect the proto.
   private static volatile io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.TransactionMSG,
-      grpcCode.BlockChainOuterClass.Success> getSendTransactionMethod;
+      grpcCode.BlockChainOuterClass.SuccessMSG> getSendTransactionMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
       fullMethodName = SERVICE_NAME + '/' + "SendTransaction",
       requestType = grpcCode.BlockChainOuterClass.TransactionMSG.class,
-      responseType = grpcCode.BlockChainOuterClass.Success.class,
+      responseType = grpcCode.BlockChainOuterClass.SuccessMSG.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.TransactionMSG,
-      grpcCode.BlockChainOuterClass.Success> getSendTransactionMethod() {
-    io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.TransactionMSG, grpcCode.BlockChainOuterClass.Success> getSendTransactionMethod;
+      grpcCode.BlockChainOuterClass.SuccessMSG> getSendTransactionMethod() {
+    io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.TransactionMSG, grpcCode.BlockChainOuterClass.SuccessMSG> getSendTransactionMethod;
     if ((getSendTransactionMethod = BlockChainGrpc.getSendTransactionMethod) == null) {
       synchronized (BlockChainGrpc.class) {
         if ((getSendTransactionMethod = BlockChainGrpc.getSendTransactionMethod) == null) {
           BlockChainGrpc.getSendTransactionMethod = getSendTransactionMethod = 
-              io.grpc.MethodDescriptor.<grpcCode.BlockChainOuterClass.TransactionMSG, grpcCode.BlockChainOuterClass.Success>newBuilder()
+              io.grpc.MethodDescriptor.<grpcCode.BlockChainOuterClass.TransactionMSG, grpcCode.BlockChainOuterClass.SuccessMSG>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
                   "BlockChain", "SendTransaction"))
@@ -50,7 +50,7 @@ public final class BlockChainGrpc {
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   grpcCode.BlockChainOuterClass.TransactionMSG.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  grpcCode.BlockChainOuterClass.Success.getDefaultInstance()))
+                  grpcCode.BlockChainOuterClass.SuccessMSG.getDefaultInstance()))
                   .setSchemaDescriptor(new BlockChainMethodDescriptorSupplier("SendTransaction"))
                   .build();
           }
@@ -60,35 +60,99 @@ public final class BlockChainGrpc {
   }
 
   private static volatile io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.BlockMSG,
-      grpcCode.BlockChainOuterClass.Success> getSendBlockMethod;
+      grpcCode.BlockChainOuterClass.SuccessMSG> getSendBlockMethod;
 
   @io.grpc.stub.annotations.RpcMethod(
-      fullMethodName = SERVICE_NAME + '/' + "sendBlock",
+      fullMethodName = SERVICE_NAME + '/' + "SendBlock",
       requestType = grpcCode.BlockChainOuterClass.BlockMSG.class,
-      responseType = grpcCode.BlockChainOuterClass.Success.class,
+      responseType = grpcCode.BlockChainOuterClass.SuccessMSG.class,
       methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
   public static io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.BlockMSG,
-      grpcCode.BlockChainOuterClass.Success> getSendBlockMethod() {
-    io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.BlockMSG, grpcCode.BlockChainOuterClass.Success> getSendBlockMethod;
+      grpcCode.BlockChainOuterClass.SuccessMSG> getSendBlockMethod() {
+    io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.BlockMSG, grpcCode.BlockChainOuterClass.SuccessMSG> getSendBlockMethod;
     if ((getSendBlockMethod = BlockChainGrpc.getSendBlockMethod) == null) {
       synchronized (BlockChainGrpc.class) {
         if ((getSendBlockMethod = BlockChainGrpc.getSendBlockMethod) == null) {
           BlockChainGrpc.getSendBlockMethod = getSendBlockMethod = 
-              io.grpc.MethodDescriptor.<grpcCode.BlockChainOuterClass.BlockMSG, grpcCode.BlockChainOuterClass.Success>newBuilder()
+              io.grpc.MethodDescriptor.<grpcCode.BlockChainOuterClass.BlockMSG, grpcCode.BlockChainOuterClass.SuccessMSG>newBuilder()
               .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
               .setFullMethodName(generateFullMethodName(
-                  "BlockChain", "sendBlock"))
+                  "BlockChain", "SendBlock"))
               .setSampledToLocalTracing(true)
               .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
                   grpcCode.BlockChainOuterClass.BlockMSG.getDefaultInstance()))
               .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
-                  grpcCode.BlockChainOuterClass.Success.getDefaultInstance()))
-                  .setSchemaDescriptor(new BlockChainMethodDescriptorSupplier("sendBlock"))
+                  grpcCode.BlockChainOuterClass.SuccessMSG.getDefaultInstance()))
+                  .setSchemaDescriptor(new BlockChainMethodDescriptorSupplier("SendBlock"))
                   .build();
           }
         }
      }
      return getSendBlockMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.NodeInfoMSG,
+      grpcCode.BlockChainOuterClass.blockChainSizeMSG> getSendBlockChainSizeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SendBlockChainSize",
+      requestType = grpcCode.BlockChainOuterClass.NodeInfoMSG.class,
+      responseType = grpcCode.BlockChainOuterClass.blockChainSizeMSG.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.NodeInfoMSG,
+      grpcCode.BlockChainOuterClass.blockChainSizeMSG> getSendBlockChainSizeMethod() {
+    io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.NodeInfoMSG, grpcCode.BlockChainOuterClass.blockChainSizeMSG> getSendBlockChainSizeMethod;
+    if ((getSendBlockChainSizeMethod = BlockChainGrpc.getSendBlockChainSizeMethod) == null) {
+      synchronized (BlockChainGrpc.class) {
+        if ((getSendBlockChainSizeMethod = BlockChainGrpc.getSendBlockChainSizeMethod) == null) {
+          BlockChainGrpc.getSendBlockChainSizeMethod = getSendBlockChainSizeMethod = 
+              io.grpc.MethodDescriptor.<grpcCode.BlockChainOuterClass.NodeInfoMSG, grpcCode.BlockChainOuterClass.blockChainSizeMSG>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "BlockChain", "SendBlockChainSize"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.BlockChainOuterClass.NodeInfoMSG.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.BlockChainOuterClass.blockChainSizeMSG.getDefaultInstance()))
+                  .setSchemaDescriptor(new BlockChainMethodDescriptorSupplier("SendBlockChainSize"))
+                  .build();
+          }
+        }
+     }
+     return getSendBlockChainSizeMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.NodeInfoMSG,
+      grpcCode.BlockChainOuterClass.BlockContentMSG> getSendFullBlockChainMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SendFullBlockChain",
+      requestType = grpcCode.BlockChainOuterClass.NodeInfoMSG.class,
+      responseType = grpcCode.BlockChainOuterClass.BlockContentMSG.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.NodeInfoMSG,
+      grpcCode.BlockChainOuterClass.BlockContentMSG> getSendFullBlockChainMethod() {
+    io.grpc.MethodDescriptor<grpcCode.BlockChainOuterClass.NodeInfoMSG, grpcCode.BlockChainOuterClass.BlockContentMSG> getSendFullBlockChainMethod;
+    if ((getSendFullBlockChainMethod = BlockChainGrpc.getSendFullBlockChainMethod) == null) {
+      synchronized (BlockChainGrpc.class) {
+        if ((getSendFullBlockChainMethod = BlockChainGrpc.getSendFullBlockChainMethod) == null) {
+          BlockChainGrpc.getSendFullBlockChainMethod = getSendFullBlockChainMethod = 
+              io.grpc.MethodDescriptor.<grpcCode.BlockChainOuterClass.NodeInfoMSG, grpcCode.BlockChainOuterClass.BlockContentMSG>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "BlockChain", "SendFullBlockChain"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.BlockChainOuterClass.NodeInfoMSG.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.BlockChainOuterClass.BlockContentMSG.getDefaultInstance()))
+                  .setSchemaDescriptor(new BlockChainMethodDescriptorSupplier("SendFullBlockChain"))
+                  .build();
+          }
+        }
+     }
+     return getSendFullBlockChainMethod;
   }
 
   /**
@@ -121,15 +185,29 @@ public final class BlockChainGrpc {
     /**
      */
     public void sendTransaction(grpcCode.BlockChainOuterClass.TransactionMSG request,
-        io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.Success> responseObserver) {
+        io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.SuccessMSG> responseObserver) {
       asyncUnimplementedUnaryCall(getSendTransactionMethod(), responseObserver);
     }
 
     /**
      */
     public void sendBlock(grpcCode.BlockChainOuterClass.BlockMSG request,
-        io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.Success> responseObserver) {
+        io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.SuccessMSG> responseObserver) {
       asyncUnimplementedUnaryCall(getSendBlockMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void sendBlockChainSize(grpcCode.BlockChainOuterClass.NodeInfoMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.blockChainSizeMSG> responseObserver) {
+      asyncUnimplementedUnaryCall(getSendBlockChainSizeMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void sendFullBlockChain(grpcCode.BlockChainOuterClass.NodeInfoMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.BlockContentMSG> responseObserver) {
+      asyncUnimplementedUnaryCall(getSendFullBlockChainMethod(), responseObserver);
     }
 
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
@@ -139,15 +217,29 @@ public final class BlockChainGrpc {
             asyncUnaryCall(
               new MethodHandlers<
                 grpcCode.BlockChainOuterClass.TransactionMSG,
-                grpcCode.BlockChainOuterClass.Success>(
+                grpcCode.BlockChainOuterClass.SuccessMSG>(
                   this, METHODID_SEND_TRANSACTION)))
           .addMethod(
             getSendBlockMethod(),
             asyncUnaryCall(
               new MethodHandlers<
                 grpcCode.BlockChainOuterClass.BlockMSG,
-                grpcCode.BlockChainOuterClass.Success>(
+                grpcCode.BlockChainOuterClass.SuccessMSG>(
                   this, METHODID_SEND_BLOCK)))
+          .addMethod(
+            getSendBlockChainSizeMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                grpcCode.BlockChainOuterClass.NodeInfoMSG,
+                grpcCode.BlockChainOuterClass.blockChainSizeMSG>(
+                  this, METHODID_SEND_BLOCK_CHAIN_SIZE)))
+          .addMethod(
+            getSendFullBlockChainMethod(),
+            asyncServerStreamingCall(
+              new MethodHandlers<
+                grpcCode.BlockChainOuterClass.NodeInfoMSG,
+                grpcCode.BlockChainOuterClass.BlockContentMSG>(
+                  this, METHODID_SEND_FULL_BLOCK_CHAIN)))
           .build();
     }
   }
@@ -173,7 +265,7 @@ public final class BlockChainGrpc {
     /**
      */
     public void sendTransaction(grpcCode.BlockChainOuterClass.TransactionMSG request,
-        io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.Success> responseObserver) {
+        io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.SuccessMSG> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getSendTransactionMethod(), getCallOptions()), request, responseObserver);
     }
@@ -181,9 +273,25 @@ public final class BlockChainGrpc {
     /**
      */
     public void sendBlock(grpcCode.BlockChainOuterClass.BlockMSG request,
-        io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.Success> responseObserver) {
+        io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.SuccessMSG> responseObserver) {
       asyncUnaryCall(
           getChannel().newCall(getSendBlockMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void sendBlockChainSize(grpcCode.BlockChainOuterClass.NodeInfoMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.blockChainSizeMSG> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSendBlockChainSizeMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void sendFullBlockChain(grpcCode.BlockChainOuterClass.NodeInfoMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.BlockContentMSG> responseObserver) {
+      asyncServerStreamingCall(
+          getChannel().newCall(getSendFullBlockChainMethod(), getCallOptions()), request, responseObserver);
     }
   }
 
@@ -207,16 +315,31 @@ public final class BlockChainGrpc {
 
     /**
      */
-    public grpcCode.BlockChainOuterClass.Success sendTransaction(grpcCode.BlockChainOuterClass.TransactionMSG request) {
+    public grpcCode.BlockChainOuterClass.SuccessMSG sendTransaction(grpcCode.BlockChainOuterClass.TransactionMSG request) {
       return blockingUnaryCall(
           getChannel(), getSendTransactionMethod(), getCallOptions(), request);
     }
 
     /**
      */
-    public grpcCode.BlockChainOuterClass.Success sendBlock(grpcCode.BlockChainOuterClass.BlockMSG request) {
+    public grpcCode.BlockChainOuterClass.SuccessMSG sendBlock(grpcCode.BlockChainOuterClass.BlockMSG request) {
       return blockingUnaryCall(
           getChannel(), getSendBlockMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public grpcCode.BlockChainOuterClass.blockChainSizeMSG sendBlockChainSize(grpcCode.BlockChainOuterClass.NodeInfoMSG request) {
+      return blockingUnaryCall(
+          getChannel(), getSendBlockChainSizeMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public java.util.Iterator<grpcCode.BlockChainOuterClass.BlockContentMSG> sendFullBlockChain(
+        grpcCode.BlockChainOuterClass.NodeInfoMSG request) {
+      return blockingServerStreamingCall(
+          getChannel(), getSendFullBlockChainMethod(), getCallOptions(), request);
     }
   }
 
@@ -240,7 +363,7 @@ public final class BlockChainGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<grpcCode.BlockChainOuterClass.Success> sendTransaction(
+    public com.google.common.util.concurrent.ListenableFuture<grpcCode.BlockChainOuterClass.SuccessMSG> sendTransaction(
         grpcCode.BlockChainOuterClass.TransactionMSG request) {
       return futureUnaryCall(
           getChannel().newCall(getSendTransactionMethod(), getCallOptions()), request);
@@ -248,15 +371,25 @@ public final class BlockChainGrpc {
 
     /**
      */
-    public com.google.common.util.concurrent.ListenableFuture<grpcCode.BlockChainOuterClass.Success> sendBlock(
+    public com.google.common.util.concurrent.ListenableFuture<grpcCode.BlockChainOuterClass.SuccessMSG> sendBlock(
         grpcCode.BlockChainOuterClass.BlockMSG request) {
       return futureUnaryCall(
           getChannel().newCall(getSendBlockMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<grpcCode.BlockChainOuterClass.blockChainSizeMSG> sendBlockChainSize(
+        grpcCode.BlockChainOuterClass.NodeInfoMSG request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSendBlockChainSizeMethod(), getCallOptions()), request);
     }
   }
 
   private static final int METHODID_SEND_TRANSACTION = 0;
   private static final int METHODID_SEND_BLOCK = 1;
+  private static final int METHODID_SEND_BLOCK_CHAIN_SIZE = 2;
+  private static final int METHODID_SEND_FULL_BLOCK_CHAIN = 3;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -277,11 +410,19 @@ public final class BlockChainGrpc {
       switch (methodId) {
         case METHODID_SEND_TRANSACTION:
           serviceImpl.sendTransaction((grpcCode.BlockChainOuterClass.TransactionMSG) request,
-              (io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.Success>) responseObserver);
+              (io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.SuccessMSG>) responseObserver);
           break;
         case METHODID_SEND_BLOCK:
           serviceImpl.sendBlock((grpcCode.BlockChainOuterClass.BlockMSG) request,
-              (io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.Success>) responseObserver);
+              (io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.SuccessMSG>) responseObserver);
+          break;
+        case METHODID_SEND_BLOCK_CHAIN_SIZE:
+          serviceImpl.sendBlockChainSize((grpcCode.BlockChainOuterClass.NodeInfoMSG) request,
+              (io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.blockChainSizeMSG>) responseObserver);
+          break;
+        case METHODID_SEND_FULL_BLOCK_CHAIN:
+          serviceImpl.sendFullBlockChain((grpcCode.BlockChainOuterClass.NodeInfoMSG) request,
+              (io.grpc.stub.StreamObserver<grpcCode.BlockChainOuterClass.BlockContentMSG>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -346,6 +487,8 @@ public final class BlockChainGrpc {
               .setSchemaDescriptor(new BlockChainFileDescriptorSupplier())
               .addMethod(getSendTransactionMethod())
               .addMethod(getSendBlockMethod())
+              .addMethod(getSendBlockChainSizeMethod())
+              .addMethod(getSendFullBlockChainMethod())
               .build();
         }
       }

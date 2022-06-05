@@ -219,6 +219,134 @@ public final class PeerToPeerGrpc {
      return getGetIDMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.TransactionMSG,
+      grpcCode.PeerToPeerOuterClass.SuccessMSG> getSendTransactionMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SendTransaction",
+      requestType = grpcCode.PeerToPeerOuterClass.TransactionMSG.class,
+      responseType = grpcCode.PeerToPeerOuterClass.SuccessMSG.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.TransactionMSG,
+      grpcCode.PeerToPeerOuterClass.SuccessMSG> getSendTransactionMethod() {
+    io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.TransactionMSG, grpcCode.PeerToPeerOuterClass.SuccessMSG> getSendTransactionMethod;
+    if ((getSendTransactionMethod = PeerToPeerGrpc.getSendTransactionMethod) == null) {
+      synchronized (PeerToPeerGrpc.class) {
+        if ((getSendTransactionMethod = PeerToPeerGrpc.getSendTransactionMethod) == null) {
+          PeerToPeerGrpc.getSendTransactionMethod = getSendTransactionMethod = 
+              io.grpc.MethodDescriptor.<grpcCode.PeerToPeerOuterClass.TransactionMSG, grpcCode.PeerToPeerOuterClass.SuccessMSG>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "PeerToPeer", "SendTransaction"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.TransactionMSG.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.SuccessMSG.getDefaultInstance()))
+                  .setSchemaDescriptor(new PeerToPeerMethodDescriptorSupplier("SendTransaction"))
+                  .build();
+          }
+        }
+     }
+     return getSendTransactionMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.BlockMSG,
+      grpcCode.PeerToPeerOuterClass.SuccessMSG> getSendBlockMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SendBlock",
+      requestType = grpcCode.PeerToPeerOuterClass.BlockMSG.class,
+      responseType = grpcCode.PeerToPeerOuterClass.SuccessMSG.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.BlockMSG,
+      grpcCode.PeerToPeerOuterClass.SuccessMSG> getSendBlockMethod() {
+    io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.BlockMSG, grpcCode.PeerToPeerOuterClass.SuccessMSG> getSendBlockMethod;
+    if ((getSendBlockMethod = PeerToPeerGrpc.getSendBlockMethod) == null) {
+      synchronized (PeerToPeerGrpc.class) {
+        if ((getSendBlockMethod = PeerToPeerGrpc.getSendBlockMethod) == null) {
+          PeerToPeerGrpc.getSendBlockMethod = getSendBlockMethod = 
+              io.grpc.MethodDescriptor.<grpcCode.PeerToPeerOuterClass.BlockMSG, grpcCode.PeerToPeerOuterClass.SuccessMSG>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "PeerToPeer", "SendBlock"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.BlockMSG.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.SuccessMSG.getDefaultInstance()))
+                  .setSchemaDescriptor(new PeerToPeerMethodDescriptorSupplier("SendBlock"))
+                  .build();
+          }
+        }
+     }
+     return getSendBlockMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.NodeInfoMSG,
+      grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG> getSendBlockChainSizeMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SendBlockChainSize",
+      requestType = grpcCode.PeerToPeerOuterClass.NodeInfoMSG.class,
+      responseType = grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.NodeInfoMSG,
+      grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG> getSendBlockChainSizeMethod() {
+    io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.NodeInfoMSG, grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG> getSendBlockChainSizeMethod;
+    if ((getSendBlockChainSizeMethod = PeerToPeerGrpc.getSendBlockChainSizeMethod) == null) {
+      synchronized (PeerToPeerGrpc.class) {
+        if ((getSendBlockChainSizeMethod = PeerToPeerGrpc.getSendBlockChainSizeMethod) == null) {
+          PeerToPeerGrpc.getSendBlockChainSizeMethod = getSendBlockChainSizeMethod = 
+              io.grpc.MethodDescriptor.<grpcCode.PeerToPeerOuterClass.NodeInfoMSG, grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+              .setFullMethodName(generateFullMethodName(
+                  "PeerToPeer", "SendBlockChainSize"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.NodeInfoMSG.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG.getDefaultInstance()))
+                  .setSchemaDescriptor(new PeerToPeerMethodDescriptorSupplier("SendBlockChainSize"))
+                  .build();
+          }
+        }
+     }
+     return getSendBlockChainSizeMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.NodeInfoMSG,
+      grpcCode.PeerToPeerOuterClass.BlockContentMSG> getSendFullBlockChainMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "SendFullBlockChain",
+      requestType = grpcCode.PeerToPeerOuterClass.NodeInfoMSG.class,
+      responseType = grpcCode.PeerToPeerOuterClass.BlockContentMSG.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+  public static io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.NodeInfoMSG,
+      grpcCode.PeerToPeerOuterClass.BlockContentMSG> getSendFullBlockChainMethod() {
+    io.grpc.MethodDescriptor<grpcCode.PeerToPeerOuterClass.NodeInfoMSG, grpcCode.PeerToPeerOuterClass.BlockContentMSG> getSendFullBlockChainMethod;
+    if ((getSendFullBlockChainMethod = PeerToPeerGrpc.getSendFullBlockChainMethod) == null) {
+      synchronized (PeerToPeerGrpc.class) {
+        if ((getSendFullBlockChainMethod = PeerToPeerGrpc.getSendFullBlockChainMethod) == null) {
+          PeerToPeerGrpc.getSendFullBlockChainMethod = getSendFullBlockChainMethod = 
+              io.grpc.MethodDescriptor.<grpcCode.PeerToPeerOuterClass.NodeInfoMSG, grpcCode.PeerToPeerOuterClass.BlockContentMSG>newBuilder()
+              .setType(io.grpc.MethodDescriptor.MethodType.SERVER_STREAMING)
+              .setFullMethodName(generateFullMethodName(
+                  "PeerToPeer", "SendFullBlockChain"))
+              .setSampledToLocalTracing(true)
+              .setRequestMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.NodeInfoMSG.getDefaultInstance()))
+              .setResponseMarshaller(io.grpc.protobuf.ProtoUtils.marshaller(
+                  grpcCode.PeerToPeerOuterClass.BlockContentMSG.getDefaultInstance()))
+                  .setSchemaDescriptor(new PeerToPeerMethodDescriptorSupplier("SendFullBlockChain"))
+                  .build();
+          }
+        }
+     }
+     return getSendFullBlockChainMethod;
+  }
+
   /**
    * Creates a new async stub that supports all call types for the service
    */
@@ -288,6 +416,34 @@ public final class PeerToPeerGrpc {
       asyncUnimplementedUnaryCall(getGetIDMethod(), responseObserver);
     }
 
+    /**
+     */
+    public void sendTransaction(grpcCode.PeerToPeerOuterClass.TransactionMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.SuccessMSG> responseObserver) {
+      asyncUnimplementedUnaryCall(getSendTransactionMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void sendBlock(grpcCode.PeerToPeerOuterClass.BlockMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.SuccessMSG> responseObserver) {
+      asyncUnimplementedUnaryCall(getSendBlockMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void sendBlockChainSize(grpcCode.PeerToPeerOuterClass.NodeInfoMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG> responseObserver) {
+      asyncUnimplementedUnaryCall(getSendBlockChainSizeMethod(), responseObserver);
+    }
+
+    /**
+     */
+    public void sendFullBlockChain(grpcCode.PeerToPeerOuterClass.NodeInfoMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.BlockContentMSG> responseObserver) {
+      asyncUnimplementedUnaryCall(getSendFullBlockChainMethod(), responseObserver);
+    }
+
     @java.lang.Override public final io.grpc.ServerServiceDefinition bindService() {
       return io.grpc.ServerServiceDefinition.builder(getServiceDescriptor())
           .addMethod(
@@ -332,6 +488,34 @@ public final class PeerToPeerGrpc {
                 grpcCode.PeerToPeerOuterClass.GetIdMSG,
                 grpcCode.PeerToPeerOuterClass.GetIdResponse>(
                   this, METHODID_GET_ID)))
+          .addMethod(
+            getSendTransactionMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                grpcCode.PeerToPeerOuterClass.TransactionMSG,
+                grpcCode.PeerToPeerOuterClass.SuccessMSG>(
+                  this, METHODID_SEND_TRANSACTION)))
+          .addMethod(
+            getSendBlockMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                grpcCode.PeerToPeerOuterClass.BlockMSG,
+                grpcCode.PeerToPeerOuterClass.SuccessMSG>(
+                  this, METHODID_SEND_BLOCK)))
+          .addMethod(
+            getSendBlockChainSizeMethod(),
+            asyncUnaryCall(
+              new MethodHandlers<
+                grpcCode.PeerToPeerOuterClass.NodeInfoMSG,
+                grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG>(
+                  this, METHODID_SEND_BLOCK_CHAIN_SIZE)))
+          .addMethod(
+            getSendFullBlockChainMethod(),
+            asyncServerStreamingCall(
+              new MethodHandlers<
+                grpcCode.PeerToPeerOuterClass.NodeInfoMSG,
+                grpcCode.PeerToPeerOuterClass.BlockContentMSG>(
+                  this, METHODID_SEND_FULL_BLOCK_CHAIN)))
           .build();
     }
   }
@@ -401,6 +585,38 @@ public final class PeerToPeerGrpc {
       asyncUnaryCall(
           getChannel().newCall(getGetIDMethod(), getCallOptions()), request, responseObserver);
     }
+
+    /**
+     */
+    public void sendTransaction(grpcCode.PeerToPeerOuterClass.TransactionMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.SuccessMSG> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSendTransactionMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void sendBlock(grpcCode.PeerToPeerOuterClass.BlockMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.SuccessMSG> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSendBlockMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void sendBlockChainSize(grpcCode.PeerToPeerOuterClass.NodeInfoMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG> responseObserver) {
+      asyncUnaryCall(
+          getChannel().newCall(getSendBlockChainSizeMethod(), getCallOptions()), request, responseObserver);
+    }
+
+    /**
+     */
+    public void sendFullBlockChain(grpcCode.PeerToPeerOuterClass.NodeInfoMSG request,
+        io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.BlockContentMSG> responseObserver) {
+      asyncServerStreamingCall(
+          getChannel().newCall(getSendFullBlockChainMethod(), getCallOptions()), request, responseObserver);
+    }
   }
 
   /**
@@ -464,6 +680,35 @@ public final class PeerToPeerGrpc {
       return blockingUnaryCall(
           getChannel(), getGetIDMethod(), getCallOptions(), request);
     }
+
+    /**
+     */
+    public grpcCode.PeerToPeerOuterClass.SuccessMSG sendTransaction(grpcCode.PeerToPeerOuterClass.TransactionMSG request) {
+      return blockingUnaryCall(
+          getChannel(), getSendTransactionMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public grpcCode.PeerToPeerOuterClass.SuccessMSG sendBlock(grpcCode.PeerToPeerOuterClass.BlockMSG request) {
+      return blockingUnaryCall(
+          getChannel(), getSendBlockMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG sendBlockChainSize(grpcCode.PeerToPeerOuterClass.NodeInfoMSG request) {
+      return blockingUnaryCall(
+          getChannel(), getSendBlockChainSizeMethod(), getCallOptions(), request);
+    }
+
+    /**
+     */
+    public java.util.Iterator<grpcCode.PeerToPeerOuterClass.BlockContentMSG> sendFullBlockChain(
+        grpcCode.PeerToPeerOuterClass.NodeInfoMSG request) {
+      return blockingServerStreamingCall(
+          getChannel(), getSendFullBlockChainMethod(), getCallOptions(), request);
+    }
   }
 
   /**
@@ -515,6 +760,30 @@ public final class PeerToPeerGrpc {
       return futureUnaryCall(
           getChannel().newCall(getGetIDMethod(), getCallOptions()), request);
     }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<grpcCode.PeerToPeerOuterClass.SuccessMSG> sendTransaction(
+        grpcCode.PeerToPeerOuterClass.TransactionMSG request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSendTransactionMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<grpcCode.PeerToPeerOuterClass.SuccessMSG> sendBlock(
+        grpcCode.PeerToPeerOuterClass.BlockMSG request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSendBlockMethod(), getCallOptions()), request);
+    }
+
+    /**
+     */
+    public com.google.common.util.concurrent.ListenableFuture<grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG> sendBlockChainSize(
+        grpcCode.PeerToPeerOuterClass.NodeInfoMSG request) {
+      return futureUnaryCall(
+          getChannel().newCall(getSendBlockChainSizeMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_PING = 0;
@@ -523,6 +792,10 @@ public final class PeerToPeerGrpc {
   private static final int METHODID_FIND = 3;
   private static final int METHODID_FIRST_CONN = 4;
   private static final int METHODID_GET_ID = 5;
+  private static final int METHODID_SEND_TRANSACTION = 6;
+  private static final int METHODID_SEND_BLOCK = 7;
+  private static final int METHODID_SEND_BLOCK_CHAIN_SIZE = 8;
+  private static final int METHODID_SEND_FULL_BLOCK_CHAIN = 9;
 
   private static final class MethodHandlers<Req, Resp> implements
       io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -564,6 +837,22 @@ public final class PeerToPeerGrpc {
         case METHODID_GET_ID:
           serviceImpl.getID((grpcCode.PeerToPeerOuterClass.GetIdMSG) request,
               (io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.GetIdResponse>) responseObserver);
+          break;
+        case METHODID_SEND_TRANSACTION:
+          serviceImpl.sendTransaction((grpcCode.PeerToPeerOuterClass.TransactionMSG) request,
+              (io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.SuccessMSG>) responseObserver);
+          break;
+        case METHODID_SEND_BLOCK:
+          serviceImpl.sendBlock((grpcCode.PeerToPeerOuterClass.BlockMSG) request,
+              (io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.SuccessMSG>) responseObserver);
+          break;
+        case METHODID_SEND_BLOCK_CHAIN_SIZE:
+          serviceImpl.sendBlockChainSize((grpcCode.PeerToPeerOuterClass.NodeInfoMSG) request,
+              (io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG>) responseObserver);
+          break;
+        case METHODID_SEND_FULL_BLOCK_CHAIN:
+          serviceImpl.sendFullBlockChain((grpcCode.PeerToPeerOuterClass.NodeInfoMSG) request,
+              (io.grpc.stub.StreamObserver<grpcCode.PeerToPeerOuterClass.BlockContentMSG>) responseObserver);
           break;
         default:
           throw new AssertionError();
@@ -632,6 +921,10 @@ public final class PeerToPeerGrpc {
               .addMethod(getFindMethod())
               .addMethod(getFirstConnMethod())
               .addMethod(getGetIDMethod())
+              .addMethod(getSendTransactionMethod())
+              .addMethod(getSendBlockMethod())
+              .addMethod(getSendBlockChainSizeMethod())
+              .addMethod(getSendFullBlockChainMethod())
               .build();
         }
       }

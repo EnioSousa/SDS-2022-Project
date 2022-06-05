@@ -6705,6 +6705,4974 @@ public final class PeerToPeerOuterClass {
 
   }
 
+  public interface TransactionMSGOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:TransactionMSG)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    boolean hasNodeInfo();
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    grpcCode.PeerToPeerOuterClass.NodeInfoMSG getNodeInfo();
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    grpcCode.PeerToPeerOuterClass.NodeInfoMSGOrBuilder getNodeInfoOrBuilder();
+
+    /**
+     * <code>bytes sourceEntity = 2;</code>
+     */
+    com.google.protobuf.ByteString getSourceEntity();
+
+    /**
+     * <code>bytes destEntity = 3;</code>
+     */
+    com.google.protobuf.ByteString getDestEntity();
+
+    /**
+     * <code>bytes productId = 4;</code>
+     */
+    com.google.protobuf.ByteString getProductId();
+
+    /**
+     * <code>int32 bidTrans = 5;</code>
+     */
+    int getBidTrans();
+  }
+  /**
+   * Protobuf type {@code TransactionMSG}
+   */
+  public  static final class TransactionMSG extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:TransactionMSG)
+      TransactionMSGOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use TransactionMSG.newBuilder() to construct.
+    private TransactionMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private TransactionMSG() {
+      sourceEntity_ = com.google.protobuf.ByteString.EMPTY;
+      destEntity_ = com.google.protobuf.ByteString.EMPTY;
+      productId_ = com.google.protobuf.ByteString.EMPTY;
+      bidTrans_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private TransactionMSG(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              grpcCode.PeerToPeerOuterClass.NodeInfoMSG.Builder subBuilder = null;
+              if (nodeInfo_ != null) {
+                subBuilder = nodeInfo_.toBuilder();
+              }
+              nodeInfo_ = input.readMessage(grpcCode.PeerToPeerOuterClass.NodeInfoMSG.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(nodeInfo_);
+                nodeInfo_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 18: {
+
+              sourceEntity_ = input.readBytes();
+              break;
+            }
+            case 26: {
+
+              destEntity_ = input.readBytes();
+              break;
+            }
+            case 34: {
+
+              productId_ = input.readBytes();
+              break;
+            }
+            case 40: {
+
+              bidTrans_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_TransactionMSG_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_TransactionMSG_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpcCode.PeerToPeerOuterClass.TransactionMSG.class, grpcCode.PeerToPeerOuterClass.TransactionMSG.Builder.class);
+    }
+
+    public static final int NODEINFO_FIELD_NUMBER = 1;
+    private grpcCode.PeerToPeerOuterClass.NodeInfoMSG nodeInfo_;
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    public boolean hasNodeInfo() {
+      return nodeInfo_ != null;
+    }
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    public grpcCode.PeerToPeerOuterClass.NodeInfoMSG getNodeInfo() {
+      return nodeInfo_ == null ? grpcCode.PeerToPeerOuterClass.NodeInfoMSG.getDefaultInstance() : nodeInfo_;
+    }
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    public grpcCode.PeerToPeerOuterClass.NodeInfoMSGOrBuilder getNodeInfoOrBuilder() {
+      return getNodeInfo();
+    }
+
+    public static final int SOURCEENTITY_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString sourceEntity_;
+    /**
+     * <code>bytes sourceEntity = 2;</code>
+     */
+    public com.google.protobuf.ByteString getSourceEntity() {
+      return sourceEntity_;
+    }
+
+    public static final int DESTENTITY_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString destEntity_;
+    /**
+     * <code>bytes destEntity = 3;</code>
+     */
+    public com.google.protobuf.ByteString getDestEntity() {
+      return destEntity_;
+    }
+
+    public static final int PRODUCTID_FIELD_NUMBER = 4;
+    private com.google.protobuf.ByteString productId_;
+    /**
+     * <code>bytes productId = 4;</code>
+     */
+    public com.google.protobuf.ByteString getProductId() {
+      return productId_;
+    }
+
+    public static final int BIDTRANS_FIELD_NUMBER = 5;
+    private int bidTrans_;
+    /**
+     * <code>int32 bidTrans = 5;</code>
+     */
+    public int getBidTrans() {
+      return bidTrans_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (nodeInfo_ != null) {
+        output.writeMessage(1, getNodeInfo());
+      }
+      if (!sourceEntity_.isEmpty()) {
+        output.writeBytes(2, sourceEntity_);
+      }
+      if (!destEntity_.isEmpty()) {
+        output.writeBytes(3, destEntity_);
+      }
+      if (!productId_.isEmpty()) {
+        output.writeBytes(4, productId_);
+      }
+      if (bidTrans_ != 0) {
+        output.writeInt32(5, bidTrans_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (nodeInfo_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getNodeInfo());
+      }
+      if (!sourceEntity_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, sourceEntity_);
+      }
+      if (!destEntity_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, destEntity_);
+      }
+      if (!productId_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(4, productId_);
+      }
+      if (bidTrans_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(5, bidTrans_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpcCode.PeerToPeerOuterClass.TransactionMSG)) {
+        return super.equals(obj);
+      }
+      grpcCode.PeerToPeerOuterClass.TransactionMSG other = (grpcCode.PeerToPeerOuterClass.TransactionMSG) obj;
+
+      boolean result = true;
+      result = result && (hasNodeInfo() == other.hasNodeInfo());
+      if (hasNodeInfo()) {
+        result = result && getNodeInfo()
+            .equals(other.getNodeInfo());
+      }
+      result = result && getSourceEntity()
+          .equals(other.getSourceEntity());
+      result = result && getDestEntity()
+          .equals(other.getDestEntity());
+      result = result && getProductId()
+          .equals(other.getProductId());
+      result = result && (getBidTrans()
+          == other.getBidTrans());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasNodeInfo()) {
+        hash = (37 * hash) + NODEINFO_FIELD_NUMBER;
+        hash = (53 * hash) + getNodeInfo().hashCode();
+      }
+      hash = (37 * hash) + SOURCEENTITY_FIELD_NUMBER;
+      hash = (53 * hash) + getSourceEntity().hashCode();
+      hash = (37 * hash) + DESTENTITY_FIELD_NUMBER;
+      hash = (53 * hash) + getDestEntity().hashCode();
+      hash = (37 * hash) + PRODUCTID_FIELD_NUMBER;
+      hash = (53 * hash) + getProductId().hashCode();
+      hash = (37 * hash) + BIDTRANS_FIELD_NUMBER;
+      hash = (53 * hash) + getBidTrans();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.TransactionMSG parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionMSG parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionMSG parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionMSG parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionMSG parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionMSG parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionMSG parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionMSG parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionMSG parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionMSG parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionMSG parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionMSG parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpcCode.PeerToPeerOuterClass.TransactionMSG prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code TransactionMSG}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:TransactionMSG)
+        grpcCode.PeerToPeerOuterClass.TransactionMSGOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_TransactionMSG_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_TransactionMSG_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpcCode.PeerToPeerOuterClass.TransactionMSG.class, grpcCode.PeerToPeerOuterClass.TransactionMSG.Builder.class);
+      }
+
+      // Construct using grpcCode.PeerToPeerOuterClass.TransactionMSG.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (nodeInfoBuilder_ == null) {
+          nodeInfo_ = null;
+        } else {
+          nodeInfo_ = null;
+          nodeInfoBuilder_ = null;
+        }
+        sourceEntity_ = com.google.protobuf.ByteString.EMPTY;
+
+        destEntity_ = com.google.protobuf.ByteString.EMPTY;
+
+        productId_ = com.google.protobuf.ByteString.EMPTY;
+
+        bidTrans_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_TransactionMSG_descriptor;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.TransactionMSG getDefaultInstanceForType() {
+        return grpcCode.PeerToPeerOuterClass.TransactionMSG.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.TransactionMSG build() {
+        grpcCode.PeerToPeerOuterClass.TransactionMSG result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.TransactionMSG buildPartial() {
+        grpcCode.PeerToPeerOuterClass.TransactionMSG result = new grpcCode.PeerToPeerOuterClass.TransactionMSG(this);
+        if (nodeInfoBuilder_ == null) {
+          result.nodeInfo_ = nodeInfo_;
+        } else {
+          result.nodeInfo_ = nodeInfoBuilder_.build();
+        }
+        result.sourceEntity_ = sourceEntity_;
+        result.destEntity_ = destEntity_;
+        result.productId_ = productId_;
+        result.bidTrans_ = bidTrans_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpcCode.PeerToPeerOuterClass.TransactionMSG) {
+          return mergeFrom((grpcCode.PeerToPeerOuterClass.TransactionMSG)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpcCode.PeerToPeerOuterClass.TransactionMSG other) {
+        if (other == grpcCode.PeerToPeerOuterClass.TransactionMSG.getDefaultInstance()) return this;
+        if (other.hasNodeInfo()) {
+          mergeNodeInfo(other.getNodeInfo());
+        }
+        if (other.getSourceEntity() != com.google.protobuf.ByteString.EMPTY) {
+          setSourceEntity(other.getSourceEntity());
+        }
+        if (other.getDestEntity() != com.google.protobuf.ByteString.EMPTY) {
+          setDestEntity(other.getDestEntity());
+        }
+        if (other.getProductId() != com.google.protobuf.ByteString.EMPTY) {
+          setProductId(other.getProductId());
+        }
+        if (other.getBidTrans() != 0) {
+          setBidTrans(other.getBidTrans());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpcCode.PeerToPeerOuterClass.TransactionMSG parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpcCode.PeerToPeerOuterClass.TransactionMSG) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private grpcCode.PeerToPeerOuterClass.NodeInfoMSG nodeInfo_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpcCode.PeerToPeerOuterClass.NodeInfoMSG, grpcCode.PeerToPeerOuterClass.NodeInfoMSG.Builder, grpcCode.PeerToPeerOuterClass.NodeInfoMSGOrBuilder> nodeInfoBuilder_;
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public boolean hasNodeInfo() {
+        return nodeInfoBuilder_ != null || nodeInfo_ != null;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.NodeInfoMSG getNodeInfo() {
+        if (nodeInfoBuilder_ == null) {
+          return nodeInfo_ == null ? grpcCode.PeerToPeerOuterClass.NodeInfoMSG.getDefaultInstance() : nodeInfo_;
+        } else {
+          return nodeInfoBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public Builder setNodeInfo(grpcCode.PeerToPeerOuterClass.NodeInfoMSG value) {
+        if (nodeInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          nodeInfo_ = value;
+          onChanged();
+        } else {
+          nodeInfoBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public Builder setNodeInfo(
+          grpcCode.PeerToPeerOuterClass.NodeInfoMSG.Builder builderForValue) {
+        if (nodeInfoBuilder_ == null) {
+          nodeInfo_ = builderForValue.build();
+          onChanged();
+        } else {
+          nodeInfoBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public Builder mergeNodeInfo(grpcCode.PeerToPeerOuterClass.NodeInfoMSG value) {
+        if (nodeInfoBuilder_ == null) {
+          if (nodeInfo_ != null) {
+            nodeInfo_ =
+              grpcCode.PeerToPeerOuterClass.NodeInfoMSG.newBuilder(nodeInfo_).mergeFrom(value).buildPartial();
+          } else {
+            nodeInfo_ = value;
+          }
+          onChanged();
+        } else {
+          nodeInfoBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public Builder clearNodeInfo() {
+        if (nodeInfoBuilder_ == null) {
+          nodeInfo_ = null;
+          onChanged();
+        } else {
+          nodeInfo_ = null;
+          nodeInfoBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.NodeInfoMSG.Builder getNodeInfoBuilder() {
+        
+        onChanged();
+        return getNodeInfoFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.NodeInfoMSGOrBuilder getNodeInfoOrBuilder() {
+        if (nodeInfoBuilder_ != null) {
+          return nodeInfoBuilder_.getMessageOrBuilder();
+        } else {
+          return nodeInfo_ == null ?
+              grpcCode.PeerToPeerOuterClass.NodeInfoMSG.getDefaultInstance() : nodeInfo_;
+        }
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpcCode.PeerToPeerOuterClass.NodeInfoMSG, grpcCode.PeerToPeerOuterClass.NodeInfoMSG.Builder, grpcCode.PeerToPeerOuterClass.NodeInfoMSGOrBuilder> 
+          getNodeInfoFieldBuilder() {
+        if (nodeInfoBuilder_ == null) {
+          nodeInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              grpcCode.PeerToPeerOuterClass.NodeInfoMSG, grpcCode.PeerToPeerOuterClass.NodeInfoMSG.Builder, grpcCode.PeerToPeerOuterClass.NodeInfoMSGOrBuilder>(
+                  getNodeInfo(),
+                  getParentForChildren(),
+                  isClean());
+          nodeInfo_ = null;
+        }
+        return nodeInfoBuilder_;
+      }
+
+      private com.google.protobuf.ByteString sourceEntity_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes sourceEntity = 2;</code>
+       */
+      public com.google.protobuf.ByteString getSourceEntity() {
+        return sourceEntity_;
+      }
+      /**
+       * <code>bytes sourceEntity = 2;</code>
+       */
+      public Builder setSourceEntity(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        sourceEntity_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes sourceEntity = 2;</code>
+       */
+      public Builder clearSourceEntity() {
+        
+        sourceEntity_ = getDefaultInstance().getSourceEntity();
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString destEntity_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes destEntity = 3;</code>
+       */
+      public com.google.protobuf.ByteString getDestEntity() {
+        return destEntity_;
+      }
+      /**
+       * <code>bytes destEntity = 3;</code>
+       */
+      public Builder setDestEntity(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        destEntity_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes destEntity = 3;</code>
+       */
+      public Builder clearDestEntity() {
+        
+        destEntity_ = getDefaultInstance().getDestEntity();
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString productId_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes productId = 4;</code>
+       */
+      public com.google.protobuf.ByteString getProductId() {
+        return productId_;
+      }
+      /**
+       * <code>bytes productId = 4;</code>
+       */
+      public Builder setProductId(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        productId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes productId = 4;</code>
+       */
+      public Builder clearProductId() {
+        
+        productId_ = getDefaultInstance().getProductId();
+        onChanged();
+        return this;
+      }
+
+      private int bidTrans_ ;
+      /**
+       * <code>int32 bidTrans = 5;</code>
+       */
+      public int getBidTrans() {
+        return bidTrans_;
+      }
+      /**
+       * <code>int32 bidTrans = 5;</code>
+       */
+      public Builder setBidTrans(int value) {
+        
+        bidTrans_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 bidTrans = 5;</code>
+       */
+      public Builder clearBidTrans() {
+        
+        bidTrans_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:TransactionMSG)
+    }
+
+    // @@protoc_insertion_point(class_scope:TransactionMSG)
+    private static final grpcCode.PeerToPeerOuterClass.TransactionMSG DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpcCode.PeerToPeerOuterClass.TransactionMSG();
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.TransactionMSG getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<TransactionMSG>
+        PARSER = new com.google.protobuf.AbstractParser<TransactionMSG>() {
+      @java.lang.Override
+      public TransactionMSG parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new TransactionMSG(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<TransactionMSG> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TransactionMSG> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpcCode.PeerToPeerOuterClass.TransactionMSG getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface TransactionContentMSGOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:TransactionContentMSG)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bytes sourceEntity = 1;</code>
+     */
+    com.google.protobuf.ByteString getSourceEntity();
+
+    /**
+     * <code>bytes destEntity = 2;</code>
+     */
+    com.google.protobuf.ByteString getDestEntity();
+
+    /**
+     * <code>bytes productId = 3;</code>
+     */
+    com.google.protobuf.ByteString getProductId();
+
+    /**
+     * <code>int32 bidTrans = 4;</code>
+     */
+    int getBidTrans();
+  }
+  /**
+   * Protobuf type {@code TransactionContentMSG}
+   */
+  public  static final class TransactionContentMSG extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:TransactionContentMSG)
+      TransactionContentMSGOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use TransactionContentMSG.newBuilder() to construct.
+    private TransactionContentMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private TransactionContentMSG() {
+      sourceEntity_ = com.google.protobuf.ByteString.EMPTY;
+      destEntity_ = com.google.protobuf.ByteString.EMPTY;
+      productId_ = com.google.protobuf.ByteString.EMPTY;
+      bidTrans_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private TransactionContentMSG(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+
+              sourceEntity_ = input.readBytes();
+              break;
+            }
+            case 18: {
+
+              destEntity_ = input.readBytes();
+              break;
+            }
+            case 26: {
+
+              productId_ = input.readBytes();
+              break;
+            }
+            case 32: {
+
+              bidTrans_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_TransactionContentMSG_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_TransactionContentMSG_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpcCode.PeerToPeerOuterClass.TransactionContentMSG.class, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder.class);
+    }
+
+    public static final int SOURCEENTITY_FIELD_NUMBER = 1;
+    private com.google.protobuf.ByteString sourceEntity_;
+    /**
+     * <code>bytes sourceEntity = 1;</code>
+     */
+    public com.google.protobuf.ByteString getSourceEntity() {
+      return sourceEntity_;
+    }
+
+    public static final int DESTENTITY_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString destEntity_;
+    /**
+     * <code>bytes destEntity = 2;</code>
+     */
+    public com.google.protobuf.ByteString getDestEntity() {
+      return destEntity_;
+    }
+
+    public static final int PRODUCTID_FIELD_NUMBER = 3;
+    private com.google.protobuf.ByteString productId_;
+    /**
+     * <code>bytes productId = 3;</code>
+     */
+    public com.google.protobuf.ByteString getProductId() {
+      return productId_;
+    }
+
+    public static final int BIDTRANS_FIELD_NUMBER = 4;
+    private int bidTrans_;
+    /**
+     * <code>int32 bidTrans = 4;</code>
+     */
+    public int getBidTrans() {
+      return bidTrans_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!sourceEntity_.isEmpty()) {
+        output.writeBytes(1, sourceEntity_);
+      }
+      if (!destEntity_.isEmpty()) {
+        output.writeBytes(2, destEntity_);
+      }
+      if (!productId_.isEmpty()) {
+        output.writeBytes(3, productId_);
+      }
+      if (bidTrans_ != 0) {
+        output.writeInt32(4, bidTrans_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!sourceEntity_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, sourceEntity_);
+      }
+      if (!destEntity_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, destEntity_);
+      }
+      if (!productId_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(3, productId_);
+      }
+      if (bidTrans_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, bidTrans_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpcCode.PeerToPeerOuterClass.TransactionContentMSG)) {
+        return super.equals(obj);
+      }
+      grpcCode.PeerToPeerOuterClass.TransactionContentMSG other = (grpcCode.PeerToPeerOuterClass.TransactionContentMSG) obj;
+
+      boolean result = true;
+      result = result && getSourceEntity()
+          .equals(other.getSourceEntity());
+      result = result && getDestEntity()
+          .equals(other.getDestEntity());
+      result = result && getProductId()
+          .equals(other.getProductId());
+      result = result && (getBidTrans()
+          == other.getBidTrans());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SOURCEENTITY_FIELD_NUMBER;
+      hash = (53 * hash) + getSourceEntity().hashCode();
+      hash = (37 * hash) + DESTENTITY_FIELD_NUMBER;
+      hash = (53 * hash) + getDestEntity().hashCode();
+      hash = (37 * hash) + PRODUCTID_FIELD_NUMBER;
+      hash = (53 * hash) + getProductId().hashCode();
+      hash = (37 * hash) + BIDTRANS_FIELD_NUMBER;
+      hash = (53 * hash) + getBidTrans();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.TransactionContentMSG parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionContentMSG parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionContentMSG parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionContentMSG parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionContentMSG parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionContentMSG parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionContentMSG parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionContentMSG parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionContentMSG parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionContentMSG parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionContentMSG parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.TransactionContentMSG parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpcCode.PeerToPeerOuterClass.TransactionContentMSG prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code TransactionContentMSG}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:TransactionContentMSG)
+        grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_TransactionContentMSG_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_TransactionContentMSG_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpcCode.PeerToPeerOuterClass.TransactionContentMSG.class, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder.class);
+      }
+
+      // Construct using grpcCode.PeerToPeerOuterClass.TransactionContentMSG.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        sourceEntity_ = com.google.protobuf.ByteString.EMPTY;
+
+        destEntity_ = com.google.protobuf.ByteString.EMPTY;
+
+        productId_ = com.google.protobuf.ByteString.EMPTY;
+
+        bidTrans_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_TransactionContentMSG_descriptor;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.TransactionContentMSG getDefaultInstanceForType() {
+        return grpcCode.PeerToPeerOuterClass.TransactionContentMSG.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.TransactionContentMSG build() {
+        grpcCode.PeerToPeerOuterClass.TransactionContentMSG result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.TransactionContentMSG buildPartial() {
+        grpcCode.PeerToPeerOuterClass.TransactionContentMSG result = new grpcCode.PeerToPeerOuterClass.TransactionContentMSG(this);
+        result.sourceEntity_ = sourceEntity_;
+        result.destEntity_ = destEntity_;
+        result.productId_ = productId_;
+        result.bidTrans_ = bidTrans_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpcCode.PeerToPeerOuterClass.TransactionContentMSG) {
+          return mergeFrom((grpcCode.PeerToPeerOuterClass.TransactionContentMSG)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpcCode.PeerToPeerOuterClass.TransactionContentMSG other) {
+        if (other == grpcCode.PeerToPeerOuterClass.TransactionContentMSG.getDefaultInstance()) return this;
+        if (other.getSourceEntity() != com.google.protobuf.ByteString.EMPTY) {
+          setSourceEntity(other.getSourceEntity());
+        }
+        if (other.getDestEntity() != com.google.protobuf.ByteString.EMPTY) {
+          setDestEntity(other.getDestEntity());
+        }
+        if (other.getProductId() != com.google.protobuf.ByteString.EMPTY) {
+          setProductId(other.getProductId());
+        }
+        if (other.getBidTrans() != 0) {
+          setBidTrans(other.getBidTrans());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpcCode.PeerToPeerOuterClass.TransactionContentMSG parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpcCode.PeerToPeerOuterClass.TransactionContentMSG) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private com.google.protobuf.ByteString sourceEntity_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes sourceEntity = 1;</code>
+       */
+      public com.google.protobuf.ByteString getSourceEntity() {
+        return sourceEntity_;
+      }
+      /**
+       * <code>bytes sourceEntity = 1;</code>
+       */
+      public Builder setSourceEntity(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        sourceEntity_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes sourceEntity = 1;</code>
+       */
+      public Builder clearSourceEntity() {
+        
+        sourceEntity_ = getDefaultInstance().getSourceEntity();
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString destEntity_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes destEntity = 2;</code>
+       */
+      public com.google.protobuf.ByteString getDestEntity() {
+        return destEntity_;
+      }
+      /**
+       * <code>bytes destEntity = 2;</code>
+       */
+      public Builder setDestEntity(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        destEntity_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes destEntity = 2;</code>
+       */
+      public Builder clearDestEntity() {
+        
+        destEntity_ = getDefaultInstance().getDestEntity();
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString productId_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes productId = 3;</code>
+       */
+      public com.google.protobuf.ByteString getProductId() {
+        return productId_;
+      }
+      /**
+       * <code>bytes productId = 3;</code>
+       */
+      public Builder setProductId(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        productId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes productId = 3;</code>
+       */
+      public Builder clearProductId() {
+        
+        productId_ = getDefaultInstance().getProductId();
+        onChanged();
+        return this;
+      }
+
+      private int bidTrans_ ;
+      /**
+       * <code>int32 bidTrans = 4;</code>
+       */
+      public int getBidTrans() {
+        return bidTrans_;
+      }
+      /**
+       * <code>int32 bidTrans = 4;</code>
+       */
+      public Builder setBidTrans(int value) {
+        
+        bidTrans_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 bidTrans = 4;</code>
+       */
+      public Builder clearBidTrans() {
+        
+        bidTrans_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:TransactionContentMSG)
+    }
+
+    // @@protoc_insertion_point(class_scope:TransactionContentMSG)
+    private static final grpcCode.PeerToPeerOuterClass.TransactionContentMSG DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpcCode.PeerToPeerOuterClass.TransactionContentMSG();
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.TransactionContentMSG getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<TransactionContentMSG>
+        PARSER = new com.google.protobuf.AbstractParser<TransactionContentMSG>() {
+      @java.lang.Override
+      public TransactionContentMSG parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new TransactionContentMSG(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<TransactionContentMSG> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TransactionContentMSG> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpcCode.PeerToPeerOuterClass.TransactionContentMSG getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BlockMSGOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:BlockMSG)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    boolean hasNodeInfo();
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    grpcCode.PeerToPeerOuterClass.NodeInfoMSG getNodeInfo();
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    grpcCode.PeerToPeerOuterClass.NodeInfoMSGOrBuilder getNodeInfoOrBuilder();
+
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 2;</code>
+     */
+    boolean hasBlockHeader();
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 2;</code>
+     */
+    grpcCode.PeerToPeerOuterClass.BlockHeaderMSG getBlockHeader();
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 2;</code>
+     */
+    grpcCode.PeerToPeerOuterClass.BlockHeaderMSGOrBuilder getBlockHeaderOrBuilder();
+
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 3;</code>
+     */
+    java.util.List<grpcCode.PeerToPeerOuterClass.TransactionContentMSG> 
+        getTransactionList();
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 3;</code>
+     */
+    grpcCode.PeerToPeerOuterClass.TransactionContentMSG getTransaction(int index);
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 3;</code>
+     */
+    int getTransactionCount();
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 3;</code>
+     */
+    java.util.List<? extends grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder> 
+        getTransactionOrBuilderList();
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 3;</code>
+     */
+    grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder getTransactionOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code BlockMSG}
+   */
+  public  static final class BlockMSG extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:BlockMSG)
+      BlockMSGOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use BlockMSG.newBuilder() to construct.
+    private BlockMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BlockMSG() {
+      transaction_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BlockMSG(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              grpcCode.PeerToPeerOuterClass.NodeInfoMSG.Builder subBuilder = null;
+              if (nodeInfo_ != null) {
+                subBuilder = nodeInfo_.toBuilder();
+              }
+              nodeInfo_ = input.readMessage(grpcCode.PeerToPeerOuterClass.NodeInfoMSG.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(nodeInfo_);
+                nodeInfo_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 18: {
+              grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder subBuilder = null;
+              if (blockHeader_ != null) {
+                subBuilder = blockHeader_.toBuilder();
+              }
+              blockHeader_ = input.readMessage(grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(blockHeader_);
+                blockHeader_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                transaction_ = new java.util.ArrayList<grpcCode.PeerToPeerOuterClass.TransactionContentMSG>();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              transaction_.add(
+                  input.readMessage(grpcCode.PeerToPeerOuterClass.TransactionContentMSG.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+          transaction_ = java.util.Collections.unmodifiableList(transaction_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_BlockMSG_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_BlockMSG_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpcCode.PeerToPeerOuterClass.BlockMSG.class, grpcCode.PeerToPeerOuterClass.BlockMSG.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int NODEINFO_FIELD_NUMBER = 1;
+    private grpcCode.PeerToPeerOuterClass.NodeInfoMSG nodeInfo_;
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    public boolean hasNodeInfo() {
+      return nodeInfo_ != null;
+    }
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    public grpcCode.PeerToPeerOuterClass.NodeInfoMSG getNodeInfo() {
+      return nodeInfo_ == null ? grpcCode.PeerToPeerOuterClass.NodeInfoMSG.getDefaultInstance() : nodeInfo_;
+    }
+    /**
+     * <code>.NodeInfoMSG nodeInfo = 1;</code>
+     */
+    public grpcCode.PeerToPeerOuterClass.NodeInfoMSGOrBuilder getNodeInfoOrBuilder() {
+      return getNodeInfo();
+    }
+
+    public static final int BLOCKHEADER_FIELD_NUMBER = 2;
+    private grpcCode.PeerToPeerOuterClass.BlockHeaderMSG blockHeader_;
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 2;</code>
+     */
+    public boolean hasBlockHeader() {
+      return blockHeader_ != null;
+    }
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 2;</code>
+     */
+    public grpcCode.PeerToPeerOuterClass.BlockHeaderMSG getBlockHeader() {
+      return blockHeader_ == null ? grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.getDefaultInstance() : blockHeader_;
+    }
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 2;</code>
+     */
+    public grpcCode.PeerToPeerOuterClass.BlockHeaderMSGOrBuilder getBlockHeaderOrBuilder() {
+      return getBlockHeader();
+    }
+
+    public static final int TRANSACTION_FIELD_NUMBER = 3;
+    private java.util.List<grpcCode.PeerToPeerOuterClass.TransactionContentMSG> transaction_;
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 3;</code>
+     */
+    public java.util.List<grpcCode.PeerToPeerOuterClass.TransactionContentMSG> getTransactionList() {
+      return transaction_;
+    }
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 3;</code>
+     */
+    public java.util.List<? extends grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder> 
+        getTransactionOrBuilderList() {
+      return transaction_;
+    }
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 3;</code>
+     */
+    public int getTransactionCount() {
+      return transaction_.size();
+    }
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 3;</code>
+     */
+    public grpcCode.PeerToPeerOuterClass.TransactionContentMSG getTransaction(int index) {
+      return transaction_.get(index);
+    }
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 3;</code>
+     */
+    public grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder getTransactionOrBuilder(
+        int index) {
+      return transaction_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (nodeInfo_ != null) {
+        output.writeMessage(1, getNodeInfo());
+      }
+      if (blockHeader_ != null) {
+        output.writeMessage(2, getBlockHeader());
+      }
+      for (int i = 0; i < transaction_.size(); i++) {
+        output.writeMessage(3, transaction_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (nodeInfo_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getNodeInfo());
+      }
+      if (blockHeader_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, getBlockHeader());
+      }
+      for (int i = 0; i < transaction_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, transaction_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpcCode.PeerToPeerOuterClass.BlockMSG)) {
+        return super.equals(obj);
+      }
+      grpcCode.PeerToPeerOuterClass.BlockMSG other = (grpcCode.PeerToPeerOuterClass.BlockMSG) obj;
+
+      boolean result = true;
+      result = result && (hasNodeInfo() == other.hasNodeInfo());
+      if (hasNodeInfo()) {
+        result = result && getNodeInfo()
+            .equals(other.getNodeInfo());
+      }
+      result = result && (hasBlockHeader() == other.hasBlockHeader());
+      if (hasBlockHeader()) {
+        result = result && getBlockHeader()
+            .equals(other.getBlockHeader());
+      }
+      result = result && getTransactionList()
+          .equals(other.getTransactionList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasNodeInfo()) {
+        hash = (37 * hash) + NODEINFO_FIELD_NUMBER;
+        hash = (53 * hash) + getNodeInfo().hashCode();
+      }
+      if (hasBlockHeader()) {
+        hash = (37 * hash) + BLOCKHEADER_FIELD_NUMBER;
+        hash = (53 * hash) + getBlockHeader().hashCode();
+      }
+      if (getTransactionCount() > 0) {
+        hash = (37 * hash) + TRANSACTION_FIELD_NUMBER;
+        hash = (53 * hash) + getTransactionList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.BlockMSG parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockMSG parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockMSG parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockMSG parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockMSG parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockMSG parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockMSG parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockMSG parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockMSG parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockMSG parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockMSG parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockMSG parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpcCode.PeerToPeerOuterClass.BlockMSG prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code BlockMSG}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:BlockMSG)
+        grpcCode.PeerToPeerOuterClass.BlockMSGOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_BlockMSG_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_BlockMSG_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpcCode.PeerToPeerOuterClass.BlockMSG.class, grpcCode.PeerToPeerOuterClass.BlockMSG.Builder.class);
+      }
+
+      // Construct using grpcCode.PeerToPeerOuterClass.BlockMSG.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getTransactionFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (nodeInfoBuilder_ == null) {
+          nodeInfo_ = null;
+        } else {
+          nodeInfo_ = null;
+          nodeInfoBuilder_ = null;
+        }
+        if (blockHeaderBuilder_ == null) {
+          blockHeader_ = null;
+        } else {
+          blockHeader_ = null;
+          blockHeaderBuilder_ = null;
+        }
+        if (transactionBuilder_ == null) {
+          transaction_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          transactionBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_BlockMSG_descriptor;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.BlockMSG getDefaultInstanceForType() {
+        return grpcCode.PeerToPeerOuterClass.BlockMSG.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.BlockMSG build() {
+        grpcCode.PeerToPeerOuterClass.BlockMSG result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.BlockMSG buildPartial() {
+        grpcCode.PeerToPeerOuterClass.BlockMSG result = new grpcCode.PeerToPeerOuterClass.BlockMSG(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (nodeInfoBuilder_ == null) {
+          result.nodeInfo_ = nodeInfo_;
+        } else {
+          result.nodeInfo_ = nodeInfoBuilder_.build();
+        }
+        if (blockHeaderBuilder_ == null) {
+          result.blockHeader_ = blockHeader_;
+        } else {
+          result.blockHeader_ = blockHeaderBuilder_.build();
+        }
+        if (transactionBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            transaction_ = java.util.Collections.unmodifiableList(transaction_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.transaction_ = transaction_;
+        } else {
+          result.transaction_ = transactionBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpcCode.PeerToPeerOuterClass.BlockMSG) {
+          return mergeFrom((grpcCode.PeerToPeerOuterClass.BlockMSG)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpcCode.PeerToPeerOuterClass.BlockMSG other) {
+        if (other == grpcCode.PeerToPeerOuterClass.BlockMSG.getDefaultInstance()) return this;
+        if (other.hasNodeInfo()) {
+          mergeNodeInfo(other.getNodeInfo());
+        }
+        if (other.hasBlockHeader()) {
+          mergeBlockHeader(other.getBlockHeader());
+        }
+        if (transactionBuilder_ == null) {
+          if (!other.transaction_.isEmpty()) {
+            if (transaction_.isEmpty()) {
+              transaction_ = other.transaction_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureTransactionIsMutable();
+              transaction_.addAll(other.transaction_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.transaction_.isEmpty()) {
+            if (transactionBuilder_.isEmpty()) {
+              transactionBuilder_.dispose();
+              transactionBuilder_ = null;
+              transaction_ = other.transaction_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              transactionBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getTransactionFieldBuilder() : null;
+            } else {
+              transactionBuilder_.addAllMessages(other.transaction_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpcCode.PeerToPeerOuterClass.BlockMSG parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpcCode.PeerToPeerOuterClass.BlockMSG) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private grpcCode.PeerToPeerOuterClass.NodeInfoMSG nodeInfo_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpcCode.PeerToPeerOuterClass.NodeInfoMSG, grpcCode.PeerToPeerOuterClass.NodeInfoMSG.Builder, grpcCode.PeerToPeerOuterClass.NodeInfoMSGOrBuilder> nodeInfoBuilder_;
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public boolean hasNodeInfo() {
+        return nodeInfoBuilder_ != null || nodeInfo_ != null;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.NodeInfoMSG getNodeInfo() {
+        if (nodeInfoBuilder_ == null) {
+          return nodeInfo_ == null ? grpcCode.PeerToPeerOuterClass.NodeInfoMSG.getDefaultInstance() : nodeInfo_;
+        } else {
+          return nodeInfoBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public Builder setNodeInfo(grpcCode.PeerToPeerOuterClass.NodeInfoMSG value) {
+        if (nodeInfoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          nodeInfo_ = value;
+          onChanged();
+        } else {
+          nodeInfoBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public Builder setNodeInfo(
+          grpcCode.PeerToPeerOuterClass.NodeInfoMSG.Builder builderForValue) {
+        if (nodeInfoBuilder_ == null) {
+          nodeInfo_ = builderForValue.build();
+          onChanged();
+        } else {
+          nodeInfoBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public Builder mergeNodeInfo(grpcCode.PeerToPeerOuterClass.NodeInfoMSG value) {
+        if (nodeInfoBuilder_ == null) {
+          if (nodeInfo_ != null) {
+            nodeInfo_ =
+              grpcCode.PeerToPeerOuterClass.NodeInfoMSG.newBuilder(nodeInfo_).mergeFrom(value).buildPartial();
+          } else {
+            nodeInfo_ = value;
+          }
+          onChanged();
+        } else {
+          nodeInfoBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public Builder clearNodeInfo() {
+        if (nodeInfoBuilder_ == null) {
+          nodeInfo_ = null;
+          onChanged();
+        } else {
+          nodeInfo_ = null;
+          nodeInfoBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.NodeInfoMSG.Builder getNodeInfoBuilder() {
+        
+        onChanged();
+        return getNodeInfoFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.NodeInfoMSGOrBuilder getNodeInfoOrBuilder() {
+        if (nodeInfoBuilder_ != null) {
+          return nodeInfoBuilder_.getMessageOrBuilder();
+        } else {
+          return nodeInfo_ == null ?
+              grpcCode.PeerToPeerOuterClass.NodeInfoMSG.getDefaultInstance() : nodeInfo_;
+        }
+      }
+      /**
+       * <code>.NodeInfoMSG nodeInfo = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpcCode.PeerToPeerOuterClass.NodeInfoMSG, grpcCode.PeerToPeerOuterClass.NodeInfoMSG.Builder, grpcCode.PeerToPeerOuterClass.NodeInfoMSGOrBuilder> 
+          getNodeInfoFieldBuilder() {
+        if (nodeInfoBuilder_ == null) {
+          nodeInfoBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              grpcCode.PeerToPeerOuterClass.NodeInfoMSG, grpcCode.PeerToPeerOuterClass.NodeInfoMSG.Builder, grpcCode.PeerToPeerOuterClass.NodeInfoMSGOrBuilder>(
+                  getNodeInfo(),
+                  getParentForChildren(),
+                  isClean());
+          nodeInfo_ = null;
+        }
+        return nodeInfoBuilder_;
+      }
+
+      private grpcCode.PeerToPeerOuterClass.BlockHeaderMSG blockHeader_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpcCode.PeerToPeerOuterClass.BlockHeaderMSG, grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder, grpcCode.PeerToPeerOuterClass.BlockHeaderMSGOrBuilder> blockHeaderBuilder_;
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 2;</code>
+       */
+      public boolean hasBlockHeader() {
+        return blockHeaderBuilder_ != null || blockHeader_ != null;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 2;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.BlockHeaderMSG getBlockHeader() {
+        if (blockHeaderBuilder_ == null) {
+          return blockHeader_ == null ? grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.getDefaultInstance() : blockHeader_;
+        } else {
+          return blockHeaderBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 2;</code>
+       */
+      public Builder setBlockHeader(grpcCode.PeerToPeerOuterClass.BlockHeaderMSG value) {
+        if (blockHeaderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          blockHeader_ = value;
+          onChanged();
+        } else {
+          blockHeaderBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 2;</code>
+       */
+      public Builder setBlockHeader(
+          grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder builderForValue) {
+        if (blockHeaderBuilder_ == null) {
+          blockHeader_ = builderForValue.build();
+          onChanged();
+        } else {
+          blockHeaderBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 2;</code>
+       */
+      public Builder mergeBlockHeader(grpcCode.PeerToPeerOuterClass.BlockHeaderMSG value) {
+        if (blockHeaderBuilder_ == null) {
+          if (blockHeader_ != null) {
+            blockHeader_ =
+              grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.newBuilder(blockHeader_).mergeFrom(value).buildPartial();
+          } else {
+            blockHeader_ = value;
+          }
+          onChanged();
+        } else {
+          blockHeaderBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 2;</code>
+       */
+      public Builder clearBlockHeader() {
+        if (blockHeaderBuilder_ == null) {
+          blockHeader_ = null;
+          onChanged();
+        } else {
+          blockHeader_ = null;
+          blockHeaderBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 2;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder getBlockHeaderBuilder() {
+        
+        onChanged();
+        return getBlockHeaderFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 2;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.BlockHeaderMSGOrBuilder getBlockHeaderOrBuilder() {
+        if (blockHeaderBuilder_ != null) {
+          return blockHeaderBuilder_.getMessageOrBuilder();
+        } else {
+          return blockHeader_ == null ?
+              grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.getDefaultInstance() : blockHeader_;
+        }
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpcCode.PeerToPeerOuterClass.BlockHeaderMSG, grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder, grpcCode.PeerToPeerOuterClass.BlockHeaderMSGOrBuilder> 
+          getBlockHeaderFieldBuilder() {
+        if (blockHeaderBuilder_ == null) {
+          blockHeaderBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              grpcCode.PeerToPeerOuterClass.BlockHeaderMSG, grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder, grpcCode.PeerToPeerOuterClass.BlockHeaderMSGOrBuilder>(
+                  getBlockHeader(),
+                  getParentForChildren(),
+                  isClean());
+          blockHeader_ = null;
+        }
+        return blockHeaderBuilder_;
+      }
+
+      private java.util.List<grpcCode.PeerToPeerOuterClass.TransactionContentMSG> transaction_ =
+        java.util.Collections.emptyList();
+      private void ensureTransactionIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          transaction_ = new java.util.ArrayList<grpcCode.PeerToPeerOuterClass.TransactionContentMSG>(transaction_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          grpcCode.PeerToPeerOuterClass.TransactionContentMSG, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder, grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder> transactionBuilder_;
+
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public java.util.List<grpcCode.PeerToPeerOuterClass.TransactionContentMSG> getTransactionList() {
+        if (transactionBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(transaction_);
+        } else {
+          return transactionBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public int getTransactionCount() {
+        if (transactionBuilder_ == null) {
+          return transaction_.size();
+        } else {
+          return transactionBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.TransactionContentMSG getTransaction(int index) {
+        if (transactionBuilder_ == null) {
+          return transaction_.get(index);
+        } else {
+          return transactionBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public Builder setTransaction(
+          int index, grpcCode.PeerToPeerOuterClass.TransactionContentMSG value) {
+        if (transactionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTransactionIsMutable();
+          transaction_.set(index, value);
+          onChanged();
+        } else {
+          transactionBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public Builder setTransaction(
+          int index, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder builderForValue) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          transaction_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          transactionBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public Builder addTransaction(grpcCode.PeerToPeerOuterClass.TransactionContentMSG value) {
+        if (transactionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTransactionIsMutable();
+          transaction_.add(value);
+          onChanged();
+        } else {
+          transactionBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public Builder addTransaction(
+          int index, grpcCode.PeerToPeerOuterClass.TransactionContentMSG value) {
+        if (transactionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTransactionIsMutable();
+          transaction_.add(index, value);
+          onChanged();
+        } else {
+          transactionBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public Builder addTransaction(
+          grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder builderForValue) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          transaction_.add(builderForValue.build());
+          onChanged();
+        } else {
+          transactionBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public Builder addTransaction(
+          int index, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder builderForValue) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          transaction_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          transactionBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public Builder addAllTransaction(
+          java.lang.Iterable<? extends grpcCode.PeerToPeerOuterClass.TransactionContentMSG> values) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, transaction_);
+          onChanged();
+        } else {
+          transactionBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public Builder clearTransaction() {
+        if (transactionBuilder_ == null) {
+          transaction_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          transactionBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public Builder removeTransaction(int index) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          transaction_.remove(index);
+          onChanged();
+        } else {
+          transactionBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder getTransactionBuilder(
+          int index) {
+        return getTransactionFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder getTransactionOrBuilder(
+          int index) {
+        if (transactionBuilder_ == null) {
+          return transaction_.get(index);  } else {
+          return transactionBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public java.util.List<? extends grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder> 
+           getTransactionOrBuilderList() {
+        if (transactionBuilder_ != null) {
+          return transactionBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(transaction_);
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder addTransactionBuilder() {
+        return getTransactionFieldBuilder().addBuilder(
+            grpcCode.PeerToPeerOuterClass.TransactionContentMSG.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder addTransactionBuilder(
+          int index) {
+        return getTransactionFieldBuilder().addBuilder(
+            index, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 3;</code>
+       */
+      public java.util.List<grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder> 
+           getTransactionBuilderList() {
+        return getTransactionFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          grpcCode.PeerToPeerOuterClass.TransactionContentMSG, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder, grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder> 
+          getTransactionFieldBuilder() {
+        if (transactionBuilder_ == null) {
+          transactionBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              grpcCode.PeerToPeerOuterClass.TransactionContentMSG, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder, grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder>(
+                  transaction_,
+                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  getParentForChildren(),
+                  isClean());
+          transaction_ = null;
+        }
+        return transactionBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:BlockMSG)
+    }
+
+    // @@protoc_insertion_point(class_scope:BlockMSG)
+    private static final grpcCode.PeerToPeerOuterClass.BlockMSG DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpcCode.PeerToPeerOuterClass.BlockMSG();
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.BlockMSG getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BlockMSG>
+        PARSER = new com.google.protobuf.AbstractParser<BlockMSG>() {
+      @java.lang.Override
+      public BlockMSG parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BlockMSG(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BlockMSG> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BlockMSG> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpcCode.PeerToPeerOuterClass.BlockMSG getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BlockContentMSGOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:BlockContentMSG)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 1;</code>
+     */
+    boolean hasBlockHeader();
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 1;</code>
+     */
+    grpcCode.PeerToPeerOuterClass.BlockHeaderMSG getBlockHeader();
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 1;</code>
+     */
+    grpcCode.PeerToPeerOuterClass.BlockHeaderMSGOrBuilder getBlockHeaderOrBuilder();
+
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    java.util.List<grpcCode.PeerToPeerOuterClass.TransactionContentMSG> 
+        getTransactionList();
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    grpcCode.PeerToPeerOuterClass.TransactionContentMSG getTransaction(int index);
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    int getTransactionCount();
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    java.util.List<? extends grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder> 
+        getTransactionOrBuilderList();
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder getTransactionOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code BlockContentMSG}
+   */
+  public  static final class BlockContentMSG extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:BlockContentMSG)
+      BlockContentMSGOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use BlockContentMSG.newBuilder() to construct.
+    private BlockContentMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BlockContentMSG() {
+      transaction_ = java.util.Collections.emptyList();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BlockContentMSG(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 10: {
+              grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder subBuilder = null;
+              if (blockHeader_ != null) {
+                subBuilder = blockHeader_.toBuilder();
+              }
+              blockHeader_ = input.readMessage(grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(blockHeader_);
+                blockHeader_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                transaction_ = new java.util.ArrayList<grpcCode.PeerToPeerOuterClass.TransactionContentMSG>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              transaction_.add(
+                  input.readMessage(grpcCode.PeerToPeerOuterClass.TransactionContentMSG.parser(), extensionRegistry));
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          transaction_ = java.util.Collections.unmodifiableList(transaction_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_BlockContentMSG_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_BlockContentMSG_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpcCode.PeerToPeerOuterClass.BlockContentMSG.class, grpcCode.PeerToPeerOuterClass.BlockContentMSG.Builder.class);
+    }
+
+    private int bitField0_;
+    public static final int BLOCKHEADER_FIELD_NUMBER = 1;
+    private grpcCode.PeerToPeerOuterClass.BlockHeaderMSG blockHeader_;
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 1;</code>
+     */
+    public boolean hasBlockHeader() {
+      return blockHeader_ != null;
+    }
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 1;</code>
+     */
+    public grpcCode.PeerToPeerOuterClass.BlockHeaderMSG getBlockHeader() {
+      return blockHeader_ == null ? grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.getDefaultInstance() : blockHeader_;
+    }
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 1;</code>
+     */
+    public grpcCode.PeerToPeerOuterClass.BlockHeaderMSGOrBuilder getBlockHeaderOrBuilder() {
+      return getBlockHeader();
+    }
+
+    public static final int TRANSACTION_FIELD_NUMBER = 2;
+    private java.util.List<grpcCode.PeerToPeerOuterClass.TransactionContentMSG> transaction_;
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    public java.util.List<grpcCode.PeerToPeerOuterClass.TransactionContentMSG> getTransactionList() {
+      return transaction_;
+    }
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    public java.util.List<? extends grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder> 
+        getTransactionOrBuilderList() {
+      return transaction_;
+    }
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    public int getTransactionCount() {
+      return transaction_.size();
+    }
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    public grpcCode.PeerToPeerOuterClass.TransactionContentMSG getTransaction(int index) {
+      return transaction_.get(index);
+    }
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    public grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder getTransactionOrBuilder(
+        int index) {
+      return transaction_.get(index);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (blockHeader_ != null) {
+        output.writeMessage(1, getBlockHeader());
+      }
+      for (int i = 0; i < transaction_.size(); i++) {
+        output.writeMessage(2, transaction_.get(i));
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (blockHeader_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getBlockHeader());
+      }
+      for (int i = 0; i < transaction_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, transaction_.get(i));
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpcCode.PeerToPeerOuterClass.BlockContentMSG)) {
+        return super.equals(obj);
+      }
+      grpcCode.PeerToPeerOuterClass.BlockContentMSG other = (grpcCode.PeerToPeerOuterClass.BlockContentMSG) obj;
+
+      boolean result = true;
+      result = result && (hasBlockHeader() == other.hasBlockHeader());
+      if (hasBlockHeader()) {
+        result = result && getBlockHeader()
+            .equals(other.getBlockHeader());
+      }
+      result = result && getTransactionList()
+          .equals(other.getTransactionList());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasBlockHeader()) {
+        hash = (37 * hash) + BLOCKHEADER_FIELD_NUMBER;
+        hash = (53 * hash) + getBlockHeader().hashCode();
+      }
+      if (getTransactionCount() > 0) {
+        hash = (37 * hash) + TRANSACTION_FIELD_NUMBER;
+        hash = (53 * hash) + getTransactionList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.BlockContentMSG parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockContentMSG parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockContentMSG parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockContentMSG parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockContentMSG parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockContentMSG parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockContentMSG parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockContentMSG parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockContentMSG parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockContentMSG parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockContentMSG parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockContentMSG parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpcCode.PeerToPeerOuterClass.BlockContentMSG prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code BlockContentMSG}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:BlockContentMSG)
+        grpcCode.PeerToPeerOuterClass.BlockContentMSGOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_BlockContentMSG_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_BlockContentMSG_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpcCode.PeerToPeerOuterClass.BlockContentMSG.class, grpcCode.PeerToPeerOuterClass.BlockContentMSG.Builder.class);
+      }
+
+      // Construct using grpcCode.PeerToPeerOuterClass.BlockContentMSG.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+          getTransactionFieldBuilder();
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (blockHeaderBuilder_ == null) {
+          blockHeader_ = null;
+        } else {
+          blockHeader_ = null;
+          blockHeaderBuilder_ = null;
+        }
+        if (transactionBuilder_ == null) {
+          transaction_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          transactionBuilder_.clear();
+        }
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_BlockContentMSG_descriptor;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.BlockContentMSG getDefaultInstanceForType() {
+        return grpcCode.PeerToPeerOuterClass.BlockContentMSG.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.BlockContentMSG build() {
+        grpcCode.PeerToPeerOuterClass.BlockContentMSG result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.BlockContentMSG buildPartial() {
+        grpcCode.PeerToPeerOuterClass.BlockContentMSG result = new grpcCode.PeerToPeerOuterClass.BlockContentMSG(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (blockHeaderBuilder_ == null) {
+          result.blockHeader_ = blockHeader_;
+        } else {
+          result.blockHeader_ = blockHeaderBuilder_.build();
+        }
+        if (transactionBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            transaction_ = java.util.Collections.unmodifiableList(transaction_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.transaction_ = transaction_;
+        } else {
+          result.transaction_ = transactionBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpcCode.PeerToPeerOuterClass.BlockContentMSG) {
+          return mergeFrom((grpcCode.PeerToPeerOuterClass.BlockContentMSG)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpcCode.PeerToPeerOuterClass.BlockContentMSG other) {
+        if (other == grpcCode.PeerToPeerOuterClass.BlockContentMSG.getDefaultInstance()) return this;
+        if (other.hasBlockHeader()) {
+          mergeBlockHeader(other.getBlockHeader());
+        }
+        if (transactionBuilder_ == null) {
+          if (!other.transaction_.isEmpty()) {
+            if (transaction_.isEmpty()) {
+              transaction_ = other.transaction_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureTransactionIsMutable();
+              transaction_.addAll(other.transaction_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.transaction_.isEmpty()) {
+            if (transactionBuilder_.isEmpty()) {
+              transactionBuilder_.dispose();
+              transactionBuilder_ = null;
+              transaction_ = other.transaction_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              transactionBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getTransactionFieldBuilder() : null;
+            } else {
+              transactionBuilder_.addAllMessages(other.transaction_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpcCode.PeerToPeerOuterClass.BlockContentMSG parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpcCode.PeerToPeerOuterClass.BlockContentMSG) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private grpcCode.PeerToPeerOuterClass.BlockHeaderMSG blockHeader_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpcCode.PeerToPeerOuterClass.BlockHeaderMSG, grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder, grpcCode.PeerToPeerOuterClass.BlockHeaderMSGOrBuilder> blockHeaderBuilder_;
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public boolean hasBlockHeader() {
+        return blockHeaderBuilder_ != null || blockHeader_ != null;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.BlockHeaderMSG getBlockHeader() {
+        if (blockHeaderBuilder_ == null) {
+          return blockHeader_ == null ? grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.getDefaultInstance() : blockHeader_;
+        } else {
+          return blockHeaderBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public Builder setBlockHeader(grpcCode.PeerToPeerOuterClass.BlockHeaderMSG value) {
+        if (blockHeaderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          blockHeader_ = value;
+          onChanged();
+        } else {
+          blockHeaderBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public Builder setBlockHeader(
+          grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder builderForValue) {
+        if (blockHeaderBuilder_ == null) {
+          blockHeader_ = builderForValue.build();
+          onChanged();
+        } else {
+          blockHeaderBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public Builder mergeBlockHeader(grpcCode.PeerToPeerOuterClass.BlockHeaderMSG value) {
+        if (blockHeaderBuilder_ == null) {
+          if (blockHeader_ != null) {
+            blockHeader_ =
+              grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.newBuilder(blockHeader_).mergeFrom(value).buildPartial();
+          } else {
+            blockHeader_ = value;
+          }
+          onChanged();
+        } else {
+          blockHeaderBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public Builder clearBlockHeader() {
+        if (blockHeaderBuilder_ == null) {
+          blockHeader_ = null;
+          onChanged();
+        } else {
+          blockHeader_ = null;
+          blockHeaderBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder getBlockHeaderBuilder() {
+        
+        onChanged();
+        return getBlockHeaderFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.BlockHeaderMSGOrBuilder getBlockHeaderOrBuilder() {
+        if (blockHeaderBuilder_ != null) {
+          return blockHeaderBuilder_.getMessageOrBuilder();
+        } else {
+          return blockHeader_ == null ?
+              grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.getDefaultInstance() : blockHeader_;
+        }
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpcCode.PeerToPeerOuterClass.BlockHeaderMSG, grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder, grpcCode.PeerToPeerOuterClass.BlockHeaderMSGOrBuilder> 
+          getBlockHeaderFieldBuilder() {
+        if (blockHeaderBuilder_ == null) {
+          blockHeaderBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              grpcCode.PeerToPeerOuterClass.BlockHeaderMSG, grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder, grpcCode.PeerToPeerOuterClass.BlockHeaderMSGOrBuilder>(
+                  getBlockHeader(),
+                  getParentForChildren(),
+                  isClean());
+          blockHeader_ = null;
+        }
+        return blockHeaderBuilder_;
+      }
+
+      private java.util.List<grpcCode.PeerToPeerOuterClass.TransactionContentMSG> transaction_ =
+        java.util.Collections.emptyList();
+      private void ensureTransactionIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          transaction_ = new java.util.ArrayList<grpcCode.PeerToPeerOuterClass.TransactionContentMSG>(transaction_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          grpcCode.PeerToPeerOuterClass.TransactionContentMSG, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder, grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder> transactionBuilder_;
+
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public java.util.List<grpcCode.PeerToPeerOuterClass.TransactionContentMSG> getTransactionList() {
+        if (transactionBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(transaction_);
+        } else {
+          return transactionBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public int getTransactionCount() {
+        if (transactionBuilder_ == null) {
+          return transaction_.size();
+        } else {
+          return transactionBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.TransactionContentMSG getTransaction(int index) {
+        if (transactionBuilder_ == null) {
+          return transaction_.get(index);
+        } else {
+          return transactionBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder setTransaction(
+          int index, grpcCode.PeerToPeerOuterClass.TransactionContentMSG value) {
+        if (transactionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTransactionIsMutable();
+          transaction_.set(index, value);
+          onChanged();
+        } else {
+          transactionBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder setTransaction(
+          int index, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder builderForValue) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          transaction_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          transactionBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder addTransaction(grpcCode.PeerToPeerOuterClass.TransactionContentMSG value) {
+        if (transactionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTransactionIsMutable();
+          transaction_.add(value);
+          onChanged();
+        } else {
+          transactionBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder addTransaction(
+          int index, grpcCode.PeerToPeerOuterClass.TransactionContentMSG value) {
+        if (transactionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTransactionIsMutable();
+          transaction_.add(index, value);
+          onChanged();
+        } else {
+          transactionBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder addTransaction(
+          grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder builderForValue) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          transaction_.add(builderForValue.build());
+          onChanged();
+        } else {
+          transactionBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder addTransaction(
+          int index, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder builderForValue) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          transaction_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          transactionBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder addAllTransaction(
+          java.lang.Iterable<? extends grpcCode.PeerToPeerOuterClass.TransactionContentMSG> values) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, transaction_);
+          onChanged();
+        } else {
+          transactionBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder clearTransaction() {
+        if (transactionBuilder_ == null) {
+          transaction_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          transactionBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder removeTransaction(int index) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          transaction_.remove(index);
+          onChanged();
+        } else {
+          transactionBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder getTransactionBuilder(
+          int index) {
+        return getTransactionFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder getTransactionOrBuilder(
+          int index) {
+        if (transactionBuilder_ == null) {
+          return transaction_.get(index);  } else {
+          return transactionBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public java.util.List<? extends grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder> 
+           getTransactionOrBuilderList() {
+        if (transactionBuilder_ != null) {
+          return transactionBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(transaction_);
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder addTransactionBuilder() {
+        return getTransactionFieldBuilder().addBuilder(
+            grpcCode.PeerToPeerOuterClass.TransactionContentMSG.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder addTransactionBuilder(
+          int index) {
+        return getTransactionFieldBuilder().addBuilder(
+            index, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public java.util.List<grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder> 
+           getTransactionBuilderList() {
+        return getTransactionFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          grpcCode.PeerToPeerOuterClass.TransactionContentMSG, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder, grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder> 
+          getTransactionFieldBuilder() {
+        if (transactionBuilder_ == null) {
+          transactionBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              grpcCode.PeerToPeerOuterClass.TransactionContentMSG, grpcCode.PeerToPeerOuterClass.TransactionContentMSG.Builder, grpcCode.PeerToPeerOuterClass.TransactionContentMSGOrBuilder>(
+                  transaction_,
+                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  getParentForChildren(),
+                  isClean());
+          transaction_ = null;
+        }
+        return transactionBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:BlockContentMSG)
+    }
+
+    // @@protoc_insertion_point(class_scope:BlockContentMSG)
+    private static final grpcCode.PeerToPeerOuterClass.BlockContentMSG DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpcCode.PeerToPeerOuterClass.BlockContentMSG();
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.BlockContentMSG getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BlockContentMSG>
+        PARSER = new com.google.protobuf.AbstractParser<BlockContentMSG>() {
+      @java.lang.Override
+      public BlockContentMSG parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BlockContentMSG(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BlockContentMSG> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BlockContentMSG> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpcCode.PeerToPeerOuterClass.BlockContentMSG getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BlockHeaderMSGOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:BlockHeaderMSG)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 version = 1;</code>
+     */
+    int getVersion();
+
+    /**
+     * <code>int64 time = 2;</code>
+     */
+    long getTime();
+
+    /**
+     * <code>int32 difficulty = 3;</code>
+     */
+    int getDifficulty();
+
+    /**
+     * <code>bytes prevHash = 4;</code>
+     */
+    com.google.protobuf.ByteString getPrevHash();
+
+    /**
+     * <code>bytes merkleRoot = 5;</code>
+     */
+    com.google.protobuf.ByteString getMerkleRoot();
+
+    /**
+     * <code>int32 nonce = 6;</code>
+     */
+    int getNonce();
+  }
+  /**
+   * Protobuf type {@code BlockHeaderMSG}
+   */
+  public  static final class BlockHeaderMSG extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:BlockHeaderMSG)
+      BlockHeaderMSGOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use BlockHeaderMSG.newBuilder() to construct.
+    private BlockHeaderMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BlockHeaderMSG() {
+      version_ = 0;
+      time_ = 0L;
+      difficulty_ = 0;
+      prevHash_ = com.google.protobuf.ByteString.EMPTY;
+      merkleRoot_ = com.google.protobuf.ByteString.EMPTY;
+      nonce_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BlockHeaderMSG(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              version_ = input.readInt32();
+              break;
+            }
+            case 16: {
+
+              time_ = input.readInt64();
+              break;
+            }
+            case 24: {
+
+              difficulty_ = input.readInt32();
+              break;
+            }
+            case 34: {
+
+              prevHash_ = input.readBytes();
+              break;
+            }
+            case 42: {
+
+              merkleRoot_ = input.readBytes();
+              break;
+            }
+            case 48: {
+
+              nonce_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_BlockHeaderMSG_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_BlockHeaderMSG_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.class, grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder.class);
+    }
+
+    public static final int VERSION_FIELD_NUMBER = 1;
+    private int version_;
+    /**
+     * <code>int32 version = 1;</code>
+     */
+    public int getVersion() {
+      return version_;
+    }
+
+    public static final int TIME_FIELD_NUMBER = 2;
+    private long time_;
+    /**
+     * <code>int64 time = 2;</code>
+     */
+    public long getTime() {
+      return time_;
+    }
+
+    public static final int DIFFICULTY_FIELD_NUMBER = 3;
+    private int difficulty_;
+    /**
+     * <code>int32 difficulty = 3;</code>
+     */
+    public int getDifficulty() {
+      return difficulty_;
+    }
+
+    public static final int PREVHASH_FIELD_NUMBER = 4;
+    private com.google.protobuf.ByteString prevHash_;
+    /**
+     * <code>bytes prevHash = 4;</code>
+     */
+    public com.google.protobuf.ByteString getPrevHash() {
+      return prevHash_;
+    }
+
+    public static final int MERKLEROOT_FIELD_NUMBER = 5;
+    private com.google.protobuf.ByteString merkleRoot_;
+    /**
+     * <code>bytes merkleRoot = 5;</code>
+     */
+    public com.google.protobuf.ByteString getMerkleRoot() {
+      return merkleRoot_;
+    }
+
+    public static final int NONCE_FIELD_NUMBER = 6;
+    private int nonce_;
+    /**
+     * <code>int32 nonce = 6;</code>
+     */
+    public int getNonce() {
+      return nonce_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (version_ != 0) {
+        output.writeInt32(1, version_);
+      }
+      if (time_ != 0L) {
+        output.writeInt64(2, time_);
+      }
+      if (difficulty_ != 0) {
+        output.writeInt32(3, difficulty_);
+      }
+      if (!prevHash_.isEmpty()) {
+        output.writeBytes(4, prevHash_);
+      }
+      if (!merkleRoot_.isEmpty()) {
+        output.writeBytes(5, merkleRoot_);
+      }
+      if (nonce_ != 0) {
+        output.writeInt32(6, nonce_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (version_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, version_);
+      }
+      if (time_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(2, time_);
+      }
+      if (difficulty_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, difficulty_);
+      }
+      if (!prevHash_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(4, prevHash_);
+      }
+      if (!merkleRoot_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(5, merkleRoot_);
+      }
+      if (nonce_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(6, nonce_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpcCode.PeerToPeerOuterClass.BlockHeaderMSG)) {
+        return super.equals(obj);
+      }
+      grpcCode.PeerToPeerOuterClass.BlockHeaderMSG other = (grpcCode.PeerToPeerOuterClass.BlockHeaderMSG) obj;
+
+      boolean result = true;
+      result = result && (getVersion()
+          == other.getVersion());
+      result = result && (getTime()
+          == other.getTime());
+      result = result && (getDifficulty()
+          == other.getDifficulty());
+      result = result && getPrevHash()
+          .equals(other.getPrevHash());
+      result = result && getMerkleRoot()
+          .equals(other.getMerkleRoot());
+      result = result && (getNonce()
+          == other.getNonce());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + VERSION_FIELD_NUMBER;
+      hash = (53 * hash) + getVersion();
+      hash = (37 * hash) + TIME_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getTime());
+      hash = (37 * hash) + DIFFICULTY_FIELD_NUMBER;
+      hash = (53 * hash) + getDifficulty();
+      hash = (37 * hash) + PREVHASH_FIELD_NUMBER;
+      hash = (53 * hash) + getPrevHash().hashCode();
+      hash = (37 * hash) + MERKLEROOT_FIELD_NUMBER;
+      hash = (53 * hash) + getMerkleRoot().hashCode();
+      hash = (37 * hash) + NONCE_FIELD_NUMBER;
+      hash = (53 * hash) + getNonce();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.BlockHeaderMSG parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockHeaderMSG parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockHeaderMSG parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockHeaderMSG parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockHeaderMSG parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockHeaderMSG parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockHeaderMSG parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockHeaderMSG parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockHeaderMSG parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockHeaderMSG parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockHeaderMSG parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockHeaderMSG parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpcCode.PeerToPeerOuterClass.BlockHeaderMSG prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code BlockHeaderMSG}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:BlockHeaderMSG)
+        grpcCode.PeerToPeerOuterClass.BlockHeaderMSGOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_BlockHeaderMSG_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_BlockHeaderMSG_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.class, grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.Builder.class);
+      }
+
+      // Construct using grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        version_ = 0;
+
+        time_ = 0L;
+
+        difficulty_ = 0;
+
+        prevHash_ = com.google.protobuf.ByteString.EMPTY;
+
+        merkleRoot_ = com.google.protobuf.ByteString.EMPTY;
+
+        nonce_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_BlockHeaderMSG_descriptor;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.BlockHeaderMSG getDefaultInstanceForType() {
+        return grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.BlockHeaderMSG build() {
+        grpcCode.PeerToPeerOuterClass.BlockHeaderMSG result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.BlockHeaderMSG buildPartial() {
+        grpcCode.PeerToPeerOuterClass.BlockHeaderMSG result = new grpcCode.PeerToPeerOuterClass.BlockHeaderMSG(this);
+        result.version_ = version_;
+        result.time_ = time_;
+        result.difficulty_ = difficulty_;
+        result.prevHash_ = prevHash_;
+        result.merkleRoot_ = merkleRoot_;
+        result.nonce_ = nonce_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpcCode.PeerToPeerOuterClass.BlockHeaderMSG) {
+          return mergeFrom((grpcCode.PeerToPeerOuterClass.BlockHeaderMSG)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpcCode.PeerToPeerOuterClass.BlockHeaderMSG other) {
+        if (other == grpcCode.PeerToPeerOuterClass.BlockHeaderMSG.getDefaultInstance()) return this;
+        if (other.getVersion() != 0) {
+          setVersion(other.getVersion());
+        }
+        if (other.getTime() != 0L) {
+          setTime(other.getTime());
+        }
+        if (other.getDifficulty() != 0) {
+          setDifficulty(other.getDifficulty());
+        }
+        if (other.getPrevHash() != com.google.protobuf.ByteString.EMPTY) {
+          setPrevHash(other.getPrevHash());
+        }
+        if (other.getMerkleRoot() != com.google.protobuf.ByteString.EMPTY) {
+          setMerkleRoot(other.getMerkleRoot());
+        }
+        if (other.getNonce() != 0) {
+          setNonce(other.getNonce());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpcCode.PeerToPeerOuterClass.BlockHeaderMSG parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpcCode.PeerToPeerOuterClass.BlockHeaderMSG) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int version_ ;
+      /**
+       * <code>int32 version = 1;</code>
+       */
+      public int getVersion() {
+        return version_;
+      }
+      /**
+       * <code>int32 version = 1;</code>
+       */
+      public Builder setVersion(int value) {
+        
+        version_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 version = 1;</code>
+       */
+      public Builder clearVersion() {
+        
+        version_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private long time_ ;
+      /**
+       * <code>int64 time = 2;</code>
+       */
+      public long getTime() {
+        return time_;
+      }
+      /**
+       * <code>int64 time = 2;</code>
+       */
+      public Builder setTime(long value) {
+        
+        time_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 time = 2;</code>
+       */
+      public Builder clearTime() {
+        
+        time_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private int difficulty_ ;
+      /**
+       * <code>int32 difficulty = 3;</code>
+       */
+      public int getDifficulty() {
+        return difficulty_;
+      }
+      /**
+       * <code>int32 difficulty = 3;</code>
+       */
+      public Builder setDifficulty(int value) {
+        
+        difficulty_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 difficulty = 3;</code>
+       */
+      public Builder clearDifficulty() {
+        
+        difficulty_ = 0;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString prevHash_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes prevHash = 4;</code>
+       */
+      public com.google.protobuf.ByteString getPrevHash() {
+        return prevHash_;
+      }
+      /**
+       * <code>bytes prevHash = 4;</code>
+       */
+      public Builder setPrevHash(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        prevHash_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes prevHash = 4;</code>
+       */
+      public Builder clearPrevHash() {
+        
+        prevHash_ = getDefaultInstance().getPrevHash();
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString merkleRoot_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>bytes merkleRoot = 5;</code>
+       */
+      public com.google.protobuf.ByteString getMerkleRoot() {
+        return merkleRoot_;
+      }
+      /**
+       * <code>bytes merkleRoot = 5;</code>
+       */
+      public Builder setMerkleRoot(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        merkleRoot_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bytes merkleRoot = 5;</code>
+       */
+      public Builder clearMerkleRoot() {
+        
+        merkleRoot_ = getDefaultInstance().getMerkleRoot();
+        onChanged();
+        return this;
+      }
+
+      private int nonce_ ;
+      /**
+       * <code>int32 nonce = 6;</code>
+       */
+      public int getNonce() {
+        return nonce_;
+      }
+      /**
+       * <code>int32 nonce = 6;</code>
+       */
+      public Builder setNonce(int value) {
+        
+        nonce_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 nonce = 6;</code>
+       */
+      public Builder clearNonce() {
+        
+        nonce_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:BlockHeaderMSG)
+    }
+
+    // @@protoc_insertion_point(class_scope:BlockHeaderMSG)
+    private static final grpcCode.PeerToPeerOuterClass.BlockHeaderMSG DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpcCode.PeerToPeerOuterClass.BlockHeaderMSG();
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.BlockHeaderMSG getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BlockHeaderMSG>
+        PARSER = new com.google.protobuf.AbstractParser<BlockHeaderMSG>() {
+      @java.lang.Override
+      public BlockHeaderMSG parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BlockHeaderMSG(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BlockHeaderMSG> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BlockHeaderMSG> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpcCode.PeerToPeerOuterClass.BlockHeaderMSG getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface BlockChainSizeMSGOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:BlockChainSizeMSG)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 size = 1;</code>
+     */
+    int getSize();
+  }
+  /**
+   * Protobuf type {@code BlockChainSizeMSG}
+   */
+  public  static final class BlockChainSizeMSG extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:BlockChainSizeMSG)
+      BlockChainSizeMSGOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use BlockChainSizeMSG.newBuilder() to construct.
+    private BlockChainSizeMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private BlockChainSizeMSG() {
+      size_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BlockChainSizeMSG(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              size_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_BlockChainSizeMSG_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpcCode.PeerToPeerOuterClass.internal_static_BlockChainSizeMSG_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG.class, grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG.Builder.class);
+    }
+
+    public static final int SIZE_FIELD_NUMBER = 1;
+    private int size_;
+    /**
+     * <code>int32 size = 1;</code>
+     */
+    public int getSize() {
+      return size_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (size_ != 0) {
+        output.writeInt32(1, size_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (size_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, size_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG)) {
+        return super.equals(obj);
+      }
+      grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG other = (grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG) obj;
+
+      boolean result = true;
+      result = result && (getSize()
+          == other.getSize());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SIZE_FIELD_NUMBER;
+      hash = (53 * hash) + getSize();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code BlockChainSizeMSG}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:BlockChainSizeMSG)
+        grpcCode.PeerToPeerOuterClass.BlockChainSizeMSGOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_BlockChainSizeMSG_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_BlockChainSizeMSG_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG.class, grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG.Builder.class);
+      }
+
+      // Construct using grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        size_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpcCode.PeerToPeerOuterClass.internal_static_BlockChainSizeMSG_descriptor;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG getDefaultInstanceForType() {
+        return grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG build() {
+        grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG buildPartial() {
+        grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG result = new grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG(this);
+        result.size_ = size_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG) {
+          return mergeFrom((grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG other) {
+        if (other == grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG.getDefaultInstance()) return this;
+        if (other.getSize() != 0) {
+          setSize(other.getSize());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int size_ ;
+      /**
+       * <code>int32 size = 1;</code>
+       */
+      public int getSize() {
+        return size_;
+      }
+      /**
+       * <code>int32 size = 1;</code>
+       */
+      public Builder setSize(int value) {
+        
+        size_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 size = 1;</code>
+       */
+      public Builder clearSize() {
+        
+        size_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:BlockChainSizeMSG)
+    }
+
+    // @@protoc_insertion_point(class_scope:BlockChainSizeMSG)
+    private static final grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG();
+    }
+
+    public static grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BlockChainSizeMSG>
+        PARSER = new com.google.protobuf.AbstractParser<BlockChainSizeMSG>() {
+      @java.lang.Override
+      public BlockChainSizeMSG parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BlockChainSizeMSG(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BlockChainSizeMSG> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BlockChainSizeMSG> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpcCode.PeerToPeerOuterClass.BlockChainSizeMSG getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_InitMSG_descriptor;
   private static final 
@@ -6760,6 +11728,36 @@ public final class PeerToPeerOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_SuccessMSG_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_TransactionMSG_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_TransactionMSG_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_TransactionContentMSG_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_TransactionContentMSG_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_BlockMSG_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_BlockMSG_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_BlockContentMSG_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_BlockContentMSG_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_BlockHeaderMSG_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_BlockHeaderMSG_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_BlockChainSizeMSG_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_BlockChainSizeMSG_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -6782,14 +11780,35 @@ public final class PeerToPeerOuterClass {
       "\007FindMSG\022\037\n\trequester\030\001 \001(\0132\014.NodeInfoMS" +
       "G\022\013\n\003key\030\002 \001(\014\"A\n\017FindResponseMSG\022\037\n\tres" +
       "ponder\030\001 \001(\0132\014.NodeInfoMSG\022\r\n\005value\030\002 \001(" +
-      "\014\"\035\n\nSuccessMSG\022\017\n\007success\030\001 \001(\0102\365\001\n\nPee" +
-      "rToPeer\022#\n\004Ping\022\014.NodeInfoMSG\032\013.SuccessM" +
-      "SG\"\000\022*\n\010FindNode\022\014.FindNodeMSG\032\014.NodeInf" +
-      "oMSG\"\0000\001\022 \n\005Store\022\010.SaveMSG\032\013.SuccessMSG" +
-      "\"\000\022&\n\004Find\022\010.FindMSG\032\020.FindResponseMSG\"\000" +
-      "0\001\022&\n\tFirstConn\022\010.InitMSG\032\r.InitResponse" +
-      "\"\000\022$\n\005GetID\022\t.GetIdMSG\032\016.GetIdResponse\"\000" +
-      "B\n\n\010grpcCodeb\006proto3"
+      "\014\"\035\n\nSuccessMSG\022\017\n\007success\030\001 \001(\010\"\177\n\016Tran" +
+      "sactionMSG\022\036\n\010nodeInfo\030\001 \001(\0132\014.NodeInfoM" +
+      "SG\022\024\n\014sourceEntity\030\002 \001(\014\022\022\n\ndestEntity\030\003" +
+      " \001(\014\022\021\n\tproductId\030\004 \001(\014\022\020\n\010bidTrans\030\005 \001(" +
+      "\005\"f\n\025TransactionContentMSG\022\024\n\014sourceEnti" +
+      "ty\030\001 \001(\014\022\022\n\ndestEntity\030\002 \001(\014\022\021\n\tproductI" +
+      "d\030\003 \001(\014\022\020\n\010bidTrans\030\004 \001(\005\"}\n\010BlockMSG\022\036\n" +
+      "\010nodeInfo\030\001 \001(\0132\014.NodeInfoMSG\022$\n\013blockHe" +
+      "ader\030\002 \001(\0132\017.BlockHeaderMSG\022+\n\013transacti" +
+      "on\030\003 \003(\0132\026.TransactionContentMSG\"d\n\017Bloc" +
+      "kContentMSG\022$\n\013blockHeader\030\001 \001(\0132\017.Block" +
+      "HeaderMSG\022+\n\013transaction\030\002 \003(\0132\026.Transac" +
+      "tionContentMSG\"x\n\016BlockHeaderMSG\022\017\n\007vers" +
+      "ion\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\022\022\n\ndifficulty\030\003 " +
+      "\001(\005\022\020\n\010prevHash\030\004 \001(\014\022\022\n\nmerkleRoot\030\005 \001(" +
+      "\014\022\r\n\005nonce\030\006 \001(\005\"!\n\021BlockChainSizeMSG\022\014\n" +
+      "\004size\030\001 \001(\0052\303\003\n\nPeerToPeer\022#\n\004Ping\022\014.Nod" +
+      "eInfoMSG\032\013.SuccessMSG\"\000\022*\n\010FindNode\022\014.Fi" +
+      "ndNodeMSG\032\014.NodeInfoMSG\"\0000\001\022 \n\005Store\022\010.S" +
+      "aveMSG\032\013.SuccessMSG\"\000\022&\n\004Find\022\010.FindMSG\032" +
+      "\020.FindResponseMSG\"\0000\001\022&\n\tFirstConn\022\010.Ini" +
+      "tMSG\032\r.InitResponse\"\000\022$\n\005GetID\022\t.GetIdMS" +
+      "G\032\016.GetIdResponse\"\000\0221\n\017SendTransaction\022\017" +
+      ".TransactionMSG\032\013.SuccessMSG\"\000\022%\n\tSendBl" +
+      "ock\022\t.BlockMSG\032\013.SuccessMSG\"\000\0228\n\022SendBlo" +
+      "ckChainSize\022\014.NodeInfoMSG\032\022.BlockChainSi" +
+      "zeMSG\"\000\0228\n\022SendFullBlockChain\022\014.NodeInfo" +
+      "MSG\032\020.BlockContentMSG\"\0000\001B\n\n\010grpcCodeb\006p" +
+      "roto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -6869,6 +11888,42 @@ public final class PeerToPeerOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_SuccessMSG_descriptor,
         new java.lang.String[] { "Success", });
+    internal_static_TransactionMSG_descriptor =
+      getDescriptor().getMessageTypes().get(11);
+    internal_static_TransactionMSG_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_TransactionMSG_descriptor,
+        new java.lang.String[] { "NodeInfo", "SourceEntity", "DestEntity", "ProductId", "BidTrans", });
+    internal_static_TransactionContentMSG_descriptor =
+      getDescriptor().getMessageTypes().get(12);
+    internal_static_TransactionContentMSG_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_TransactionContentMSG_descriptor,
+        new java.lang.String[] { "SourceEntity", "DestEntity", "ProductId", "BidTrans", });
+    internal_static_BlockMSG_descriptor =
+      getDescriptor().getMessageTypes().get(13);
+    internal_static_BlockMSG_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_BlockMSG_descriptor,
+        new java.lang.String[] { "NodeInfo", "BlockHeader", "Transaction", });
+    internal_static_BlockContentMSG_descriptor =
+      getDescriptor().getMessageTypes().get(14);
+    internal_static_BlockContentMSG_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_BlockContentMSG_descriptor,
+        new java.lang.String[] { "BlockHeader", "Transaction", });
+    internal_static_BlockHeaderMSG_descriptor =
+      getDescriptor().getMessageTypes().get(15);
+    internal_static_BlockHeaderMSG_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_BlockHeaderMSG_descriptor,
+        new java.lang.String[] { "Version", "Time", "Difficulty", "PrevHash", "MerkleRoot", "Nonce", });
+    internal_static_BlockChainSizeMSG_descriptor =
+      getDescriptor().getMessageTypes().get(16);
+    internal_static_BlockChainSizeMSG_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_BlockChainSizeMSG_descriptor,
+        new java.lang.String[] { "Size", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

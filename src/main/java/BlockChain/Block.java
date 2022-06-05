@@ -1,15 +1,24 @@
 package BlockChain;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
-// TODO: Alot.. 1) This neeeds tests. 2) Need a way proper data base. 3) A lot more..........
+// TODO: Alot.. 1) This needs tests. 2) Needs a  proper data base. 3) A lot more
+//  ..........
 
 /**
  * This class holds all the information relative to a given block. It contains the block header, the
  * transaction list and the merkle tree
  */
 public class Block {
+    /**
+     * Logger
+     */
+    public static Logger LOGGER = LogManager.getLogger(Block.class);
+
     private final List<Transaction> transactionsList;
     private final MerkleTree merkleTree;
     private final BlockHeader blockHeader;
@@ -73,5 +82,48 @@ public class Block {
      */
     public BlockHeader getBlockHeader() {
         return blockHeader;
+    }
+
+    public static boolean verifyBlock(Block block) {
+        if (!BlockHeader.verifyBlockHeader(block.getBlockHeader())) {
+            return false;
+        }
+
+        for (Transaction transaction : block.transactionsList) {
+            if (!Transaction.verifyTransaction(transaction)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(getBlockHeader());
+
+        for (Transaction transaction : getTransactionsList()) {
+            try {
+                stringBuilder.append(HashAlgorithm.byteToHex(blockHeader.getHash()));
+                stringBuilder.append(": " + transaction);
+            } catch (NoSuchAlgorithmException e) {
+                LOGGER.error("Hash error: " + e);
+            }
+        }
+
+        return stringBuilder.toString();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this)
+            return true;
+
+        if (other == null || !(other instanceof Block))
+            return false;
+
+        return blockHeader.equals(((Block) other).getBlockHeader());
     }
 }

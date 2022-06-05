@@ -34,6 +34,7 @@ public class Transaction {
 
     /**
      * Gets the hash that represent the transaction
+     *
      * @return The SHA-256 hash with the important fields used
      * @throws NoSuchAlgorithmException If the hashing algorithm is not found
      */
@@ -55,6 +56,7 @@ public class Transaction {
 
     /**
      * Translates an entity into something we can read
+     *
      * @param entity byte arrays containing an identifier of the entity
      * @return A string readable of the entity identifier
      */
@@ -75,5 +77,26 @@ public class Transaction {
                 "\nType=" +
                 (bidTrans >= 0 ? "bid" : "transfer") +
                 "\n}";
+    }
+
+    // TODO: verify transaction, e.g check that the product is available etc..
+    public static boolean verifyTransaction(Transaction transaction) {
+        return true;
+    }
+
+    public byte[] getSourceEntity() {
+        return sourceEntity;
+    }
+
+    public byte[] getDestEntity() {
+        return destEntity;
+    }
+
+    public byte[] getProductId() {
+        return productId;
+    }
+
+    public int getBidTrans() {
+        return bidTrans;
     }
 }

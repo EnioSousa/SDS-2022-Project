@@ -3141,35 +3141,61 @@ public final class BlockChainOuterClass {
 
   }
 
-  public interface SuccessOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:Success)
+  public interface BlockContentMSGOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:BlockContentMSG)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>bytes success = 1;</code>
+     * <code>.BlockHeaderMSG blockHeader = 1;</code>
      */
-    com.google.protobuf.ByteString getSuccess();
+    boolean hasBlockHeader();
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 1;</code>
+     */
+    grpcCode.BlockChainOuterClass.BlockHeaderMSG getBlockHeader();
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 1;</code>
+     */
+    grpcCode.BlockChainOuterClass.BlockHeaderMSGOrBuilder getBlockHeaderOrBuilder();
 
     /**
-     * <code>bytes signature = 2;</code>
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
      */
-    com.google.protobuf.ByteString getSignature();
+    java.util.List<grpcCode.BlockChainOuterClass.TransactionContentMSG> 
+        getTransactionList();
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    grpcCode.BlockChainOuterClass.TransactionContentMSG getTransaction(int index);
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    int getTransactionCount();
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    java.util.List<? extends grpcCode.BlockChainOuterClass.TransactionContentMSGOrBuilder> 
+        getTransactionOrBuilderList();
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    grpcCode.BlockChainOuterClass.TransactionContentMSGOrBuilder getTransactionOrBuilder(
+        int index);
   }
   /**
-   * Protobuf type {@code Success}
+   * Protobuf type {@code BlockContentMSG}
    */
-  public  static final class Success extends
+  public  static final class BlockContentMSG extends
       com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:Success)
-      SuccessOrBuilder {
+      // @@protoc_insertion_point(message_implements:BlockContentMSG)
+      BlockContentMSGOrBuilder {
   private static final long serialVersionUID = 0L;
-    // Use Success.newBuilder() to construct.
-    private Success(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+    // Use BlockContentMSG.newBuilder() to construct.
+    private BlockContentMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
     }
-    private Success() {
-      success_ = com.google.protobuf.ByteString.EMPTY;
-      signature_ = com.google.protobuf.ByteString.EMPTY;
+    private BlockContentMSG() {
+      transaction_ = java.util.Collections.emptyList();
     }
 
     @java.lang.Override
@@ -3177,7 +3203,7 @@ public final class BlockChainOuterClass {
     getUnknownFields() {
       return this.unknownFields;
     }
-    private Success(
+    private BlockContentMSG(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -3197,13 +3223,25 @@ public final class BlockChainOuterClass {
               done = true;
               break;
             case 10: {
+              grpcCode.BlockChainOuterClass.BlockHeaderMSG.Builder subBuilder = null;
+              if (blockHeader_ != null) {
+                subBuilder = blockHeader_.toBuilder();
+              }
+              blockHeader_ = input.readMessage(grpcCode.BlockChainOuterClass.BlockHeaderMSG.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(blockHeader_);
+                blockHeader_ = subBuilder.buildPartial();
+              }
 
-              success_ = input.readBytes();
               break;
             }
             case 18: {
-
-              signature_ = input.readBytes();
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                transaction_ = new java.util.ArrayList<grpcCode.BlockChainOuterClass.TransactionContentMSG>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              transaction_.add(
+                  input.readMessage(grpcCode.BlockChainOuterClass.TransactionContentMSG.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -3221,39 +3259,81 @@ public final class BlockChainOuterClass {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          transaction_ = java.util.Collections.unmodifiableList(transaction_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return grpcCode.BlockChainOuterClass.internal_static_Success_descriptor;
+      return grpcCode.BlockChainOuterClass.internal_static_BlockContentMSG_descriptor;
     }
 
     @java.lang.Override
     protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return grpcCode.BlockChainOuterClass.internal_static_Success_fieldAccessorTable
+      return grpcCode.BlockChainOuterClass.internal_static_BlockContentMSG_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              grpcCode.BlockChainOuterClass.Success.class, grpcCode.BlockChainOuterClass.Success.Builder.class);
+              grpcCode.BlockChainOuterClass.BlockContentMSG.class, grpcCode.BlockChainOuterClass.BlockContentMSG.Builder.class);
     }
 
-    public static final int SUCCESS_FIELD_NUMBER = 1;
-    private com.google.protobuf.ByteString success_;
+    private int bitField0_;
+    public static final int BLOCKHEADER_FIELD_NUMBER = 1;
+    private grpcCode.BlockChainOuterClass.BlockHeaderMSG blockHeader_;
     /**
-     * <code>bytes success = 1;</code>
+     * <code>.BlockHeaderMSG blockHeader = 1;</code>
      */
-    public com.google.protobuf.ByteString getSuccess() {
-      return success_;
+    public boolean hasBlockHeader() {
+      return blockHeader_ != null;
+    }
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 1;</code>
+     */
+    public grpcCode.BlockChainOuterClass.BlockHeaderMSG getBlockHeader() {
+      return blockHeader_ == null ? grpcCode.BlockChainOuterClass.BlockHeaderMSG.getDefaultInstance() : blockHeader_;
+    }
+    /**
+     * <code>.BlockHeaderMSG blockHeader = 1;</code>
+     */
+    public grpcCode.BlockChainOuterClass.BlockHeaderMSGOrBuilder getBlockHeaderOrBuilder() {
+      return getBlockHeader();
     }
 
-    public static final int SIGNATURE_FIELD_NUMBER = 2;
-    private com.google.protobuf.ByteString signature_;
+    public static final int TRANSACTION_FIELD_NUMBER = 2;
+    private java.util.List<grpcCode.BlockChainOuterClass.TransactionContentMSG> transaction_;
     /**
-     * <code>bytes signature = 2;</code>
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
      */
-    public com.google.protobuf.ByteString getSignature() {
-      return signature_;
+    public java.util.List<grpcCode.BlockChainOuterClass.TransactionContentMSG> getTransactionList() {
+      return transaction_;
+    }
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    public java.util.List<? extends grpcCode.BlockChainOuterClass.TransactionContentMSGOrBuilder> 
+        getTransactionOrBuilderList() {
+      return transaction_;
+    }
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    public int getTransactionCount() {
+      return transaction_.size();
+    }
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    public grpcCode.BlockChainOuterClass.TransactionContentMSG getTransaction(int index) {
+      return transaction_.get(index);
+    }
+    /**
+     * <code>repeated .TransactionContentMSG transaction = 2;</code>
+     */
+    public grpcCode.BlockChainOuterClass.TransactionContentMSGOrBuilder getTransactionOrBuilder(
+        int index) {
+      return transaction_.get(index);
     }
 
     private byte memoizedIsInitialized = -1;
@@ -3270,11 +3350,11 @@ public final class BlockChainOuterClass {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!success_.isEmpty()) {
-        output.writeBytes(1, success_);
+      if (blockHeader_ != null) {
+        output.writeMessage(1, getBlockHeader());
       }
-      if (!signature_.isEmpty()) {
-        output.writeBytes(2, signature_);
+      for (int i = 0; i < transaction_.size(); i++) {
+        output.writeMessage(2, transaction_.get(i));
       }
       unknownFields.writeTo(output);
     }
@@ -3285,13 +3365,13 @@ public final class BlockChainOuterClass {
       if (size != -1) return size;
 
       size = 0;
-      if (!success_.isEmpty()) {
+      if (blockHeader_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, success_);
+          .computeMessageSize(1, getBlockHeader());
       }
-      if (!signature_.isEmpty()) {
+      for (int i = 0; i < transaction_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, signature_);
+          .computeMessageSize(2, transaction_.get(i));
       }
       size += unknownFields.getSerializedSize();
       memoizedSize = size;
@@ -3303,16 +3383,19 @@ public final class BlockChainOuterClass {
       if (obj == this) {
        return true;
       }
-      if (!(obj instanceof grpcCode.BlockChainOuterClass.Success)) {
+      if (!(obj instanceof grpcCode.BlockChainOuterClass.BlockContentMSG)) {
         return super.equals(obj);
       }
-      grpcCode.BlockChainOuterClass.Success other = (grpcCode.BlockChainOuterClass.Success) obj;
+      grpcCode.BlockChainOuterClass.BlockContentMSG other = (grpcCode.BlockChainOuterClass.BlockContentMSG) obj;
 
       boolean result = true;
-      result = result && getSuccess()
-          .equals(other.getSuccess());
-      result = result && getSignature()
-          .equals(other.getSignature());
+      result = result && (hasBlockHeader() == other.hasBlockHeader());
+      if (hasBlockHeader()) {
+        result = result && getBlockHeader()
+            .equals(other.getBlockHeader());
+      }
+      result = result && getTransactionList()
+          .equals(other.getTransactionList());
       result = result && unknownFields.equals(other.unknownFields);
       return result;
     }
@@ -3324,78 +3407,82 @@ public final class BlockChainOuterClass {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
-      hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
-      hash = (53 * hash) + getSuccess().hashCode();
-      hash = (37 * hash) + SIGNATURE_FIELD_NUMBER;
-      hash = (53 * hash) + getSignature().hashCode();
+      if (hasBlockHeader()) {
+        hash = (37 * hash) + BLOCKHEADER_FIELD_NUMBER;
+        hash = (53 * hash) + getBlockHeader().hashCode();
+      }
+      if (getTransactionCount() > 0) {
+        hash = (37 * hash) + TRANSACTION_FIELD_NUMBER;
+        hash = (53 * hash) + getTransactionList().hashCode();
+      }
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
     }
 
-    public static grpcCode.BlockChainOuterClass.Success parseFrom(
+    public static grpcCode.BlockChainOuterClass.BlockContentMSG parseFrom(
         java.nio.ByteBuffer data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static grpcCode.BlockChainOuterClass.Success parseFrom(
+    public static grpcCode.BlockChainOuterClass.BlockContentMSG parseFrom(
         java.nio.ByteBuffer data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static grpcCode.BlockChainOuterClass.Success parseFrom(
+    public static grpcCode.BlockChainOuterClass.BlockContentMSG parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static grpcCode.BlockChainOuterClass.Success parseFrom(
+    public static grpcCode.BlockChainOuterClass.BlockContentMSG parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static grpcCode.BlockChainOuterClass.Success parseFrom(byte[] data)
+    public static grpcCode.BlockChainOuterClass.BlockContentMSG parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static grpcCode.BlockChainOuterClass.Success parseFrom(
+    public static grpcCode.BlockChainOuterClass.BlockContentMSG parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static grpcCode.BlockChainOuterClass.Success parseFrom(java.io.InputStream input)
+    public static grpcCode.BlockChainOuterClass.BlockContentMSG parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static grpcCode.BlockChainOuterClass.Success parseFrom(
+    public static grpcCode.BlockChainOuterClass.BlockContentMSG parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input, extensionRegistry);
     }
-    public static grpcCode.BlockChainOuterClass.Success parseDelimitedFrom(java.io.InputStream input)
+    public static grpcCode.BlockChainOuterClass.BlockContentMSG parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input);
     }
-    public static grpcCode.BlockChainOuterClass.Success parseDelimitedFrom(
+    public static grpcCode.BlockChainOuterClass.BlockContentMSG parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
-    public static grpcCode.BlockChainOuterClass.Success parseFrom(
+    public static grpcCode.BlockChainOuterClass.BlockContentMSG parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return com.google.protobuf.GeneratedMessageV3
           .parseWithIOException(PARSER, input);
     }
-    public static grpcCode.BlockChainOuterClass.Success parseFrom(
+    public static grpcCode.BlockChainOuterClass.BlockContentMSG parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -3408,7 +3495,7 @@ public final class BlockChainOuterClass {
     public static Builder newBuilder() {
       return DEFAULT_INSTANCE.toBuilder();
     }
-    public static Builder newBuilder(grpcCode.BlockChainOuterClass.Success prototype) {
+    public static Builder newBuilder(grpcCode.BlockChainOuterClass.BlockContentMSG prototype) {
       return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
     }
     @java.lang.Override
@@ -3424,26 +3511,26 @@ public final class BlockChainOuterClass {
       return builder;
     }
     /**
-     * Protobuf type {@code Success}
+     * Protobuf type {@code BlockContentMSG}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:Success)
-        grpcCode.BlockChainOuterClass.SuccessOrBuilder {
+        // @@protoc_insertion_point(builder_implements:BlockContentMSG)
+        grpcCode.BlockChainOuterClass.BlockContentMSGOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return grpcCode.BlockChainOuterClass.internal_static_Success_descriptor;
+        return grpcCode.BlockChainOuterClass.internal_static_BlockContentMSG_descriptor;
       }
 
       @java.lang.Override
       protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return grpcCode.BlockChainOuterClass.internal_static_Success_fieldAccessorTable
+        return grpcCode.BlockChainOuterClass.internal_static_BlockContentMSG_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                grpcCode.BlockChainOuterClass.Success.class, grpcCode.BlockChainOuterClass.Success.Builder.class);
+                grpcCode.BlockChainOuterClass.BlockContentMSG.class, grpcCode.BlockChainOuterClass.BlockContentMSG.Builder.class);
       }
 
-      // Construct using grpcCode.BlockChainOuterClass.Success.newBuilder()
+      // Construct using grpcCode.BlockChainOuterClass.BlockContentMSG.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -3456,32 +3543,41 @@ public final class BlockChainOuterClass {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessageV3
                 .alwaysUseFieldBuilders) {
+          getTransactionFieldBuilder();
         }
       }
       @java.lang.Override
       public Builder clear() {
         super.clear();
-        success_ = com.google.protobuf.ByteString.EMPTY;
-
-        signature_ = com.google.protobuf.ByteString.EMPTY;
-
+        if (blockHeaderBuilder_ == null) {
+          blockHeader_ = null;
+        } else {
+          blockHeader_ = null;
+          blockHeaderBuilder_ = null;
+        }
+        if (transactionBuilder_ == null) {
+          transaction_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          transactionBuilder_.clear();
+        }
         return this;
       }
 
       @java.lang.Override
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return grpcCode.BlockChainOuterClass.internal_static_Success_descriptor;
+        return grpcCode.BlockChainOuterClass.internal_static_BlockContentMSG_descriptor;
       }
 
       @java.lang.Override
-      public grpcCode.BlockChainOuterClass.Success getDefaultInstanceForType() {
-        return grpcCode.BlockChainOuterClass.Success.getDefaultInstance();
+      public grpcCode.BlockChainOuterClass.BlockContentMSG getDefaultInstanceForType() {
+        return grpcCode.BlockChainOuterClass.BlockContentMSG.getDefaultInstance();
       }
 
       @java.lang.Override
-      public grpcCode.BlockChainOuterClass.Success build() {
-        grpcCode.BlockChainOuterClass.Success result = buildPartial();
+      public grpcCode.BlockChainOuterClass.BlockContentMSG build() {
+        grpcCode.BlockChainOuterClass.BlockContentMSG result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
@@ -3489,10 +3585,25 @@ public final class BlockChainOuterClass {
       }
 
       @java.lang.Override
-      public grpcCode.BlockChainOuterClass.Success buildPartial() {
-        grpcCode.BlockChainOuterClass.Success result = new grpcCode.BlockChainOuterClass.Success(this);
-        result.success_ = success_;
-        result.signature_ = signature_;
+      public grpcCode.BlockChainOuterClass.BlockContentMSG buildPartial() {
+        grpcCode.BlockChainOuterClass.BlockContentMSG result = new grpcCode.BlockChainOuterClass.BlockContentMSG(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (blockHeaderBuilder_ == null) {
+          result.blockHeader_ = blockHeader_;
+        } else {
+          result.blockHeader_ = blockHeaderBuilder_.build();
+        }
+        if (transactionBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            transaction_ = java.util.Collections.unmodifiableList(transaction_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.transaction_ = transaction_;
+        } else {
+          result.transaction_ = transactionBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
@@ -3531,21 +3642,44 @@ public final class BlockChainOuterClass {
       }
       @java.lang.Override
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof grpcCode.BlockChainOuterClass.Success) {
-          return mergeFrom((grpcCode.BlockChainOuterClass.Success)other);
+        if (other instanceof grpcCode.BlockChainOuterClass.BlockContentMSG) {
+          return mergeFrom((grpcCode.BlockChainOuterClass.BlockContentMSG)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(grpcCode.BlockChainOuterClass.Success other) {
-        if (other == grpcCode.BlockChainOuterClass.Success.getDefaultInstance()) return this;
-        if (other.getSuccess() != com.google.protobuf.ByteString.EMPTY) {
-          setSuccess(other.getSuccess());
+      public Builder mergeFrom(grpcCode.BlockChainOuterClass.BlockContentMSG other) {
+        if (other == grpcCode.BlockChainOuterClass.BlockContentMSG.getDefaultInstance()) return this;
+        if (other.hasBlockHeader()) {
+          mergeBlockHeader(other.getBlockHeader());
         }
-        if (other.getSignature() != com.google.protobuf.ByteString.EMPTY) {
-          setSignature(other.getSignature());
+        if (transactionBuilder_ == null) {
+          if (!other.transaction_.isEmpty()) {
+            if (transaction_.isEmpty()) {
+              transaction_ = other.transaction_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureTransactionIsMutable();
+              transaction_.addAll(other.transaction_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.transaction_.isEmpty()) {
+            if (transactionBuilder_.isEmpty()) {
+              transactionBuilder_.dispose();
+              transactionBuilder_ = null;
+              transaction_ = other.transaction_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              transactionBuilder_ = 
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
+                   getTransactionFieldBuilder() : null;
+            } else {
+              transactionBuilder_.addAllMessages(other.transaction_);
+            }
+          }
         }
         this.mergeUnknownFields(other.unknownFields);
         onChanged();
@@ -3562,11 +3696,820 @@ public final class BlockChainOuterClass {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        grpcCode.BlockChainOuterClass.Success parsedMessage = null;
+        grpcCode.BlockChainOuterClass.BlockContentMSG parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (grpcCode.BlockChainOuterClass.Success) e.getUnfinishedMessage();
+          parsedMessage = (grpcCode.BlockChainOuterClass.BlockContentMSG) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      private grpcCode.BlockChainOuterClass.BlockHeaderMSG blockHeader_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpcCode.BlockChainOuterClass.BlockHeaderMSG, grpcCode.BlockChainOuterClass.BlockHeaderMSG.Builder, grpcCode.BlockChainOuterClass.BlockHeaderMSGOrBuilder> blockHeaderBuilder_;
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public boolean hasBlockHeader() {
+        return blockHeaderBuilder_ != null || blockHeader_ != null;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public grpcCode.BlockChainOuterClass.BlockHeaderMSG getBlockHeader() {
+        if (blockHeaderBuilder_ == null) {
+          return blockHeader_ == null ? grpcCode.BlockChainOuterClass.BlockHeaderMSG.getDefaultInstance() : blockHeader_;
+        } else {
+          return blockHeaderBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public Builder setBlockHeader(grpcCode.BlockChainOuterClass.BlockHeaderMSG value) {
+        if (blockHeaderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          blockHeader_ = value;
+          onChanged();
+        } else {
+          blockHeaderBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public Builder setBlockHeader(
+          grpcCode.BlockChainOuterClass.BlockHeaderMSG.Builder builderForValue) {
+        if (blockHeaderBuilder_ == null) {
+          blockHeader_ = builderForValue.build();
+          onChanged();
+        } else {
+          blockHeaderBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public Builder mergeBlockHeader(grpcCode.BlockChainOuterClass.BlockHeaderMSG value) {
+        if (blockHeaderBuilder_ == null) {
+          if (blockHeader_ != null) {
+            blockHeader_ =
+              grpcCode.BlockChainOuterClass.BlockHeaderMSG.newBuilder(blockHeader_).mergeFrom(value).buildPartial();
+          } else {
+            blockHeader_ = value;
+          }
+          onChanged();
+        } else {
+          blockHeaderBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public Builder clearBlockHeader() {
+        if (blockHeaderBuilder_ == null) {
+          blockHeader_ = null;
+          onChanged();
+        } else {
+          blockHeader_ = null;
+          blockHeaderBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public grpcCode.BlockChainOuterClass.BlockHeaderMSG.Builder getBlockHeaderBuilder() {
+        
+        onChanged();
+        return getBlockHeaderFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      public grpcCode.BlockChainOuterClass.BlockHeaderMSGOrBuilder getBlockHeaderOrBuilder() {
+        if (blockHeaderBuilder_ != null) {
+          return blockHeaderBuilder_.getMessageOrBuilder();
+        } else {
+          return blockHeader_ == null ?
+              grpcCode.BlockChainOuterClass.BlockHeaderMSG.getDefaultInstance() : blockHeader_;
+        }
+      }
+      /**
+       * <code>.BlockHeaderMSG blockHeader = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          grpcCode.BlockChainOuterClass.BlockHeaderMSG, grpcCode.BlockChainOuterClass.BlockHeaderMSG.Builder, grpcCode.BlockChainOuterClass.BlockHeaderMSGOrBuilder> 
+          getBlockHeaderFieldBuilder() {
+        if (blockHeaderBuilder_ == null) {
+          blockHeaderBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              grpcCode.BlockChainOuterClass.BlockHeaderMSG, grpcCode.BlockChainOuterClass.BlockHeaderMSG.Builder, grpcCode.BlockChainOuterClass.BlockHeaderMSGOrBuilder>(
+                  getBlockHeader(),
+                  getParentForChildren(),
+                  isClean());
+          blockHeader_ = null;
+        }
+        return blockHeaderBuilder_;
+      }
+
+      private java.util.List<grpcCode.BlockChainOuterClass.TransactionContentMSG> transaction_ =
+        java.util.Collections.emptyList();
+      private void ensureTransactionIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          transaction_ = new java.util.ArrayList<grpcCode.BlockChainOuterClass.TransactionContentMSG>(transaction_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          grpcCode.BlockChainOuterClass.TransactionContentMSG, grpcCode.BlockChainOuterClass.TransactionContentMSG.Builder, grpcCode.BlockChainOuterClass.TransactionContentMSGOrBuilder> transactionBuilder_;
+
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public java.util.List<grpcCode.BlockChainOuterClass.TransactionContentMSG> getTransactionList() {
+        if (transactionBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(transaction_);
+        } else {
+          return transactionBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public int getTransactionCount() {
+        if (transactionBuilder_ == null) {
+          return transaction_.size();
+        } else {
+          return transactionBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public grpcCode.BlockChainOuterClass.TransactionContentMSG getTransaction(int index) {
+        if (transactionBuilder_ == null) {
+          return transaction_.get(index);
+        } else {
+          return transactionBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder setTransaction(
+          int index, grpcCode.BlockChainOuterClass.TransactionContentMSG value) {
+        if (transactionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTransactionIsMutable();
+          transaction_.set(index, value);
+          onChanged();
+        } else {
+          transactionBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder setTransaction(
+          int index, grpcCode.BlockChainOuterClass.TransactionContentMSG.Builder builderForValue) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          transaction_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          transactionBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder addTransaction(grpcCode.BlockChainOuterClass.TransactionContentMSG value) {
+        if (transactionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTransactionIsMutable();
+          transaction_.add(value);
+          onChanged();
+        } else {
+          transactionBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder addTransaction(
+          int index, grpcCode.BlockChainOuterClass.TransactionContentMSG value) {
+        if (transactionBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureTransactionIsMutable();
+          transaction_.add(index, value);
+          onChanged();
+        } else {
+          transactionBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder addTransaction(
+          grpcCode.BlockChainOuterClass.TransactionContentMSG.Builder builderForValue) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          transaction_.add(builderForValue.build());
+          onChanged();
+        } else {
+          transactionBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder addTransaction(
+          int index, grpcCode.BlockChainOuterClass.TransactionContentMSG.Builder builderForValue) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          transaction_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          transactionBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder addAllTransaction(
+          java.lang.Iterable<? extends grpcCode.BlockChainOuterClass.TransactionContentMSG> values) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          com.google.protobuf.AbstractMessageLite.Builder.addAll(
+              values, transaction_);
+          onChanged();
+        } else {
+          transactionBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder clearTransaction() {
+        if (transactionBuilder_ == null) {
+          transaction_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          transactionBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public Builder removeTransaction(int index) {
+        if (transactionBuilder_ == null) {
+          ensureTransactionIsMutable();
+          transaction_.remove(index);
+          onChanged();
+        } else {
+          transactionBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public grpcCode.BlockChainOuterClass.TransactionContentMSG.Builder getTransactionBuilder(
+          int index) {
+        return getTransactionFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public grpcCode.BlockChainOuterClass.TransactionContentMSGOrBuilder getTransactionOrBuilder(
+          int index) {
+        if (transactionBuilder_ == null) {
+          return transaction_.get(index);  } else {
+          return transactionBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public java.util.List<? extends grpcCode.BlockChainOuterClass.TransactionContentMSGOrBuilder> 
+           getTransactionOrBuilderList() {
+        if (transactionBuilder_ != null) {
+          return transactionBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(transaction_);
+        }
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public grpcCode.BlockChainOuterClass.TransactionContentMSG.Builder addTransactionBuilder() {
+        return getTransactionFieldBuilder().addBuilder(
+            grpcCode.BlockChainOuterClass.TransactionContentMSG.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public grpcCode.BlockChainOuterClass.TransactionContentMSG.Builder addTransactionBuilder(
+          int index) {
+        return getTransactionFieldBuilder().addBuilder(
+            index, grpcCode.BlockChainOuterClass.TransactionContentMSG.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .TransactionContentMSG transaction = 2;</code>
+       */
+      public java.util.List<grpcCode.BlockChainOuterClass.TransactionContentMSG.Builder> 
+           getTransactionBuilderList() {
+        return getTransactionFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilderV3<
+          grpcCode.BlockChainOuterClass.TransactionContentMSG, grpcCode.BlockChainOuterClass.TransactionContentMSG.Builder, grpcCode.BlockChainOuterClass.TransactionContentMSGOrBuilder> 
+          getTransactionFieldBuilder() {
+        if (transactionBuilder_ == null) {
+          transactionBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
+              grpcCode.BlockChainOuterClass.TransactionContentMSG, grpcCode.BlockChainOuterClass.TransactionContentMSG.Builder, grpcCode.BlockChainOuterClass.TransactionContentMSGOrBuilder>(
+                  transaction_,
+                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  getParentForChildren(),
+                  isClean());
+          transaction_ = null;
+        }
+        return transactionBuilder_;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:BlockContentMSG)
+    }
+
+    // @@protoc_insertion_point(class_scope:BlockContentMSG)
+    private static final grpcCode.BlockChainOuterClass.BlockContentMSG DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpcCode.BlockChainOuterClass.BlockContentMSG();
+    }
+
+    public static grpcCode.BlockChainOuterClass.BlockContentMSG getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<BlockContentMSG>
+        PARSER = new com.google.protobuf.AbstractParser<BlockContentMSG>() {
+      @java.lang.Override
+      public BlockContentMSG parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BlockContentMSG(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<BlockContentMSG> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BlockContentMSG> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpcCode.BlockChainOuterClass.BlockContentMSG getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface SuccessMSGOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:SuccessMSG)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>bool success = 1;</code>
+     */
+    boolean getSuccess();
+  }
+  /**
+   * Protobuf type {@code SuccessMSG}
+   */
+  public  static final class SuccessMSG extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:SuccessMSG)
+      SuccessMSGOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use SuccessMSG.newBuilder() to construct.
+    private SuccessMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private SuccessMSG() {
+      success_ = false;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private SuccessMSG(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              success_ = input.readBool();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpcCode.BlockChainOuterClass.internal_static_SuccessMSG_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpcCode.BlockChainOuterClass.internal_static_SuccessMSG_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpcCode.BlockChainOuterClass.SuccessMSG.class, grpcCode.BlockChainOuterClass.SuccessMSG.Builder.class);
+    }
+
+    public static final int SUCCESS_FIELD_NUMBER = 1;
+    private boolean success_;
+    /**
+     * <code>bool success = 1;</code>
+     */
+    public boolean getSuccess() {
+      return success_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (success_ != false) {
+        output.writeBool(1, success_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (success_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(1, success_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpcCode.BlockChainOuterClass.SuccessMSG)) {
+        return super.equals(obj);
+      }
+      grpcCode.BlockChainOuterClass.SuccessMSG other = (grpcCode.BlockChainOuterClass.SuccessMSG) obj;
+
+      boolean result = true;
+      result = result && (getSuccess()
+          == other.getSuccess());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getSuccess());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpcCode.BlockChainOuterClass.SuccessMSG parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.BlockChainOuterClass.SuccessMSG parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.SuccessMSG parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.BlockChainOuterClass.SuccessMSG parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.SuccessMSG parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.BlockChainOuterClass.SuccessMSG parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.SuccessMSG parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.BlockChainOuterClass.SuccessMSG parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.SuccessMSG parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpcCode.BlockChainOuterClass.SuccessMSG parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.SuccessMSG parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.BlockChainOuterClass.SuccessMSG parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpcCode.BlockChainOuterClass.SuccessMSG prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code SuccessMSG}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:SuccessMSG)
+        grpcCode.BlockChainOuterClass.SuccessMSGOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpcCode.BlockChainOuterClass.internal_static_SuccessMSG_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpcCode.BlockChainOuterClass.internal_static_SuccessMSG_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpcCode.BlockChainOuterClass.SuccessMSG.class, grpcCode.BlockChainOuterClass.SuccessMSG.Builder.class);
+      }
+
+      // Construct using grpcCode.BlockChainOuterClass.SuccessMSG.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        success_ = false;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpcCode.BlockChainOuterClass.internal_static_SuccessMSG_descriptor;
+      }
+
+      @java.lang.Override
+      public grpcCode.BlockChainOuterClass.SuccessMSG getDefaultInstanceForType() {
+        return grpcCode.BlockChainOuterClass.SuccessMSG.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpcCode.BlockChainOuterClass.SuccessMSG build() {
+        grpcCode.BlockChainOuterClass.SuccessMSG result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpcCode.BlockChainOuterClass.SuccessMSG buildPartial() {
+        grpcCode.BlockChainOuterClass.SuccessMSG result = new grpcCode.BlockChainOuterClass.SuccessMSG(this);
+        result.success_ = success_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpcCode.BlockChainOuterClass.SuccessMSG) {
+          return mergeFrom((grpcCode.BlockChainOuterClass.SuccessMSG)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpcCode.BlockChainOuterClass.SuccessMSG other) {
+        if (other == grpcCode.BlockChainOuterClass.SuccessMSG.getDefaultInstance()) return this;
+        if (other.getSuccess() != false) {
+          setSuccess(other.getSuccess());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpcCode.BlockChainOuterClass.SuccessMSG parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpcCode.BlockChainOuterClass.SuccessMSG) e.getUnfinishedMessage();
           throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
@@ -3576,60 +4519,28 @@ public final class BlockChainOuterClass {
         return this;
       }
 
-      private com.google.protobuf.ByteString success_ = com.google.protobuf.ByteString.EMPTY;
+      private boolean success_ ;
       /**
-       * <code>bytes success = 1;</code>
+       * <code>bool success = 1;</code>
        */
-      public com.google.protobuf.ByteString getSuccess() {
+      public boolean getSuccess() {
         return success_;
       }
       /**
-       * <code>bytes success = 1;</code>
+       * <code>bool success = 1;</code>
        */
-      public Builder setSuccess(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
+      public Builder setSuccess(boolean value) {
+        
         success_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>bytes success = 1;</code>
+       * <code>bool success = 1;</code>
        */
       public Builder clearSuccess() {
         
-        success_ = getDefaultInstance().getSuccess();
-        onChanged();
-        return this;
-      }
-
-      private com.google.protobuf.ByteString signature_ = com.google.protobuf.ByteString.EMPTY;
-      /**
-       * <code>bytes signature = 2;</code>
-       */
-      public com.google.protobuf.ByteString getSignature() {
-        return signature_;
-      }
-      /**
-       * <code>bytes signature = 2;</code>
-       */
-      public Builder setSignature(com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        signature_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>bytes signature = 2;</code>
-       */
-      public Builder clearSignature() {
-        
-        signature_ = getDefaultInstance().getSignature();
+        success_ = false;
         onChanged();
         return this;
       }
@@ -3646,41 +4557,41 @@ public final class BlockChainOuterClass {
       }
 
 
-      // @@protoc_insertion_point(builder_scope:Success)
+      // @@protoc_insertion_point(builder_scope:SuccessMSG)
     }
 
-    // @@protoc_insertion_point(class_scope:Success)
-    private static final grpcCode.BlockChainOuterClass.Success DEFAULT_INSTANCE;
+    // @@protoc_insertion_point(class_scope:SuccessMSG)
+    private static final grpcCode.BlockChainOuterClass.SuccessMSG DEFAULT_INSTANCE;
     static {
-      DEFAULT_INSTANCE = new grpcCode.BlockChainOuterClass.Success();
+      DEFAULT_INSTANCE = new grpcCode.BlockChainOuterClass.SuccessMSG();
     }
 
-    public static grpcCode.BlockChainOuterClass.Success getDefaultInstance() {
+    public static grpcCode.BlockChainOuterClass.SuccessMSG getDefaultInstance() {
       return DEFAULT_INSTANCE;
     }
 
-    private static final com.google.protobuf.Parser<Success>
-        PARSER = new com.google.protobuf.AbstractParser<Success>() {
+    private static final com.google.protobuf.Parser<SuccessMSG>
+        PARSER = new com.google.protobuf.AbstractParser<SuccessMSG>() {
       @java.lang.Override
-      public Success parsePartialFrom(
+      public SuccessMSG parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Success(input, extensionRegistry);
+        return new SuccessMSG(input, extensionRegistry);
       }
     };
 
-    public static com.google.protobuf.Parser<Success> parser() {
+    public static com.google.protobuf.Parser<SuccessMSG> parser() {
       return PARSER;
     }
 
     @java.lang.Override
-    public com.google.protobuf.Parser<Success> getParserForType() {
+    public com.google.protobuf.Parser<SuccessMSG> getParserForType() {
       return PARSER;
     }
 
     @java.lang.Override
-    public grpcCode.BlockChainOuterClass.Success getDefaultInstanceForType() {
+    public grpcCode.BlockChainOuterClass.SuccessMSG getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -5249,6 +6160,482 @@ public final class BlockChainOuterClass {
 
   }
 
+  public interface blockChainSizeMSGOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:blockChainSizeMSG)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int32 size = 1;</code>
+     */
+    int getSize();
+  }
+  /**
+   * Protobuf type {@code blockChainSizeMSG}
+   */
+  public  static final class blockChainSizeMSG extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:blockChainSizeMSG)
+      blockChainSizeMSGOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use blockChainSizeMSG.newBuilder() to construct.
+    private blockChainSizeMSG(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private blockChainSizeMSG() {
+      size_ = 0;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    private blockChainSizeMSG(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      if (extensionRegistry == null) {
+        throw new java.lang.NullPointerException();
+      }
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            case 8: {
+
+              size_ = input.readInt32();
+              break;
+            }
+            default: {
+              if (!parseUnknownFieldProto3(
+                  input, unknownFields, extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return grpcCode.BlockChainOuterClass.internal_static_blockChainSizeMSG_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return grpcCode.BlockChainOuterClass.internal_static_blockChainSizeMSG_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              grpcCode.BlockChainOuterClass.blockChainSizeMSG.class, grpcCode.BlockChainOuterClass.blockChainSizeMSG.Builder.class);
+    }
+
+    public static final int SIZE_FIELD_NUMBER = 1;
+    private int size_;
+    /**
+     * <code>int32 size = 1;</code>
+     */
+    public int getSize() {
+      return size_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (size_ != 0) {
+        output.writeInt32(1, size_);
+      }
+      unknownFields.writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (size_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, size_);
+      }
+      size += unknownFields.getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof grpcCode.BlockChainOuterClass.blockChainSizeMSG)) {
+        return super.equals(obj);
+      }
+      grpcCode.BlockChainOuterClass.blockChainSizeMSG other = (grpcCode.BlockChainOuterClass.blockChainSizeMSG) obj;
+
+      boolean result = true;
+      result = result && (getSize()
+          == other.getSize());
+      result = result && unknownFields.equals(other.unknownFields);
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + SIZE_FIELD_NUMBER;
+      hash = (53 * hash) + getSize();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static grpcCode.BlockChainOuterClass.blockChainSizeMSG parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.BlockChainOuterClass.blockChainSizeMSG parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.blockChainSizeMSG parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.BlockChainOuterClass.blockChainSizeMSG parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.blockChainSizeMSG parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static grpcCode.BlockChainOuterClass.blockChainSizeMSG parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.blockChainSizeMSG parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.BlockChainOuterClass.blockChainSizeMSG parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.blockChainSizeMSG parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static grpcCode.BlockChainOuterClass.blockChainSizeMSG parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static grpcCode.BlockChainOuterClass.blockChainSizeMSG parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static grpcCode.BlockChainOuterClass.blockChainSizeMSG parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(grpcCode.BlockChainOuterClass.blockChainSizeMSG prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code blockChainSizeMSG}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:blockChainSizeMSG)
+        grpcCode.BlockChainOuterClass.blockChainSizeMSGOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return grpcCode.BlockChainOuterClass.internal_static_blockChainSizeMSG_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return grpcCode.BlockChainOuterClass.internal_static_blockChainSizeMSG_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                grpcCode.BlockChainOuterClass.blockChainSizeMSG.class, grpcCode.BlockChainOuterClass.blockChainSizeMSG.Builder.class);
+      }
+
+      // Construct using grpcCode.BlockChainOuterClass.blockChainSizeMSG.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        size_ = 0;
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return grpcCode.BlockChainOuterClass.internal_static_blockChainSizeMSG_descriptor;
+      }
+
+      @java.lang.Override
+      public grpcCode.BlockChainOuterClass.blockChainSizeMSG getDefaultInstanceForType() {
+        return grpcCode.BlockChainOuterClass.blockChainSizeMSG.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public grpcCode.BlockChainOuterClass.blockChainSizeMSG build() {
+        grpcCode.BlockChainOuterClass.blockChainSizeMSG result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public grpcCode.BlockChainOuterClass.blockChainSizeMSG buildPartial() {
+        grpcCode.BlockChainOuterClass.blockChainSizeMSG result = new grpcCode.BlockChainOuterClass.blockChainSizeMSG(this);
+        result.size_ = size_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof grpcCode.BlockChainOuterClass.blockChainSizeMSG) {
+          return mergeFrom((grpcCode.BlockChainOuterClass.blockChainSizeMSG)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(grpcCode.BlockChainOuterClass.blockChainSizeMSG other) {
+        if (other == grpcCode.BlockChainOuterClass.blockChainSizeMSG.getDefaultInstance()) return this;
+        if (other.getSize() != 0) {
+          setSize(other.getSize());
+        }
+        this.mergeUnknownFields(other.unknownFields);
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        grpcCode.BlockChainOuterClass.blockChainSizeMSG parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (grpcCode.BlockChainOuterClass.blockChainSizeMSG) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private int size_ ;
+      /**
+       * <code>int32 size = 1;</code>
+       */
+      public int getSize() {
+        return size_;
+      }
+      /**
+       * <code>int32 size = 1;</code>
+       */
+      public Builder setSize(int value) {
+        
+        size_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int32 size = 1;</code>
+       */
+      public Builder clearSize() {
+        
+        size_ = 0;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFieldsProto3(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:blockChainSizeMSG)
+    }
+
+    // @@protoc_insertion_point(class_scope:blockChainSizeMSG)
+    private static final grpcCode.BlockChainOuterClass.blockChainSizeMSG DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new grpcCode.BlockChainOuterClass.blockChainSizeMSG();
+    }
+
+    public static grpcCode.BlockChainOuterClass.blockChainSizeMSG getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<blockChainSizeMSG>
+        PARSER = new com.google.protobuf.AbstractParser<blockChainSizeMSG>() {
+      @java.lang.Override
+      public blockChainSizeMSG parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new blockChainSizeMSG(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<blockChainSizeMSG> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<blockChainSizeMSG> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public grpcCode.BlockChainOuterClass.blockChainSizeMSG getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_EmptyMSG_descriptor;
   private static final 
@@ -5270,10 +6657,15 @@ public final class BlockChainOuterClass {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_BlockMSG_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_Success_descriptor;
+    internal_static_BlockContentMSG_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_Success_fieldAccessorTable;
+      internal_static_BlockContentMSG_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_SuccessMSG_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_SuccessMSG_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_NodeInfoMSG_descriptor;
   private static final 
@@ -5284,6 +6676,11 @@ public final class BlockChainOuterClass {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_BlockHeaderMSG_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_blockChainSizeMSG_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_blockChainSizeMSG_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -5302,16 +6699,22 @@ public final class BlockChainOuterClass {
       "\003 \001(\014\022\020\n\010bidTrans\030\004 \001(\005\"}\n\010BlockMSG\022\036\n\010n" +
       "odeInfo\030\001 \001(\0132\014.NodeInfoMSG\022$\n\013blockHead" +
       "er\030\002 \001(\0132\017.BlockHeaderMSG\022+\n\013transaction" +
-      "\030\003 \003(\0132\026.TransactionContentMSG\"-\n\007Succes" +
-      "s\022\017\n\007success\030\001 \001(\014\022\021\n\tsignature\030\002 \001(\014\"?\n" +
-      "\013NodeInfoMSG\022\016\n\006nodeId\030\001 \001(\014\022\016\n\006nodeIp\030\002" +
-      " \001(\t\022\020\n\010nodePort\030\003 \001(\005\"x\n\016BlockHeaderMSG" +
-      "\022\017\n\007version\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\022\022\n\ndiffi" +
-      "culty\030\003 \001(\005\022\020\n\010prevHash\030\004 \001(\014\022\022\n\nmerkleR" +
-      "oot\030\005 \001(\014\022\r\n\005nonce\030\006 \001(\0052`\n\nBlockChain\022." +
-      "\n\017SendTransaction\022\017.TransactionMSG\032\010.Suc" +
-      "cess\"\000\022\"\n\tsendBlock\022\t.BlockMSG\032\010.Success" +
-      "\"\000B\n\n\010grpcCodeb\006proto3"
+      "\030\003 \003(\0132\026.TransactionContentMSG\"d\n\017BlockC" +
+      "ontentMSG\022$\n\013blockHeader\030\001 \001(\0132\017.BlockHe" +
+      "aderMSG\022+\n\013transaction\030\002 \003(\0132\026.Transacti" +
+      "onContentMSG\"\035\n\nSuccessMSG\022\017\n\007success\030\001 " +
+      "\001(\010\"?\n\013NodeInfoMSG\022\016\n\006nodeId\030\001 \001(\014\022\016\n\006no" +
+      "deIp\030\002 \001(\t\022\020\n\010nodePort\030\003 \001(\005\"x\n\016BlockHea" +
+      "derMSG\022\017\n\007version\030\001 \001(\005\022\014\n\004time\030\002 \001(\003\022\022\n" +
+      "\ndifficulty\030\003 \001(\005\022\020\n\010prevHash\030\004 \001(\014\022\022\n\nm" +
+      "erkleRoot\030\005 \001(\014\022\r\n\005nonce\030\006 \001(\005\"!\n\021blockC" +
+      "hainSizeMSG\022\014\n\004size\030\001 \001(\0052\332\001\n\nBlockChain" +
+      "\0221\n\017SendTransaction\022\017.TransactionMSG\032\013.S" +
+      "uccessMSG\"\000\022%\n\tSendBlock\022\t.BlockMSG\032\013.Su" +
+      "ccessMSG\"\000\0228\n\022SendBlockChainSize\022\014.NodeI" +
+      "nfoMSG\032\022.blockChainSizeMSG\"\000\0228\n\022SendFull" +
+      "BlockChain\022\014.NodeInfoMSG\032\020.BlockContentM" +
+      "SG\"\0000\001B\n\n\010grpcCodeb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -5349,24 +6752,36 @@ public final class BlockChainOuterClass {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_BlockMSG_descriptor,
         new java.lang.String[] { "NodeInfo", "BlockHeader", "Transaction", });
-    internal_static_Success_descriptor =
+    internal_static_BlockContentMSG_descriptor =
       getDescriptor().getMessageTypes().get(4);
-    internal_static_Success_fieldAccessorTable = new
+    internal_static_BlockContentMSG_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_Success_descriptor,
-        new java.lang.String[] { "Success", "Signature", });
-    internal_static_NodeInfoMSG_descriptor =
+        internal_static_BlockContentMSG_descriptor,
+        new java.lang.String[] { "BlockHeader", "Transaction", });
+    internal_static_SuccessMSG_descriptor =
       getDescriptor().getMessageTypes().get(5);
+    internal_static_SuccessMSG_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_SuccessMSG_descriptor,
+        new java.lang.String[] { "Success", });
+    internal_static_NodeInfoMSG_descriptor =
+      getDescriptor().getMessageTypes().get(6);
     internal_static_NodeInfoMSG_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_NodeInfoMSG_descriptor,
         new java.lang.String[] { "NodeId", "NodeIp", "NodePort", });
     internal_static_BlockHeaderMSG_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_BlockHeaderMSG_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_BlockHeaderMSG_descriptor,
         new java.lang.String[] { "Version", "Time", "Difficulty", "PrevHash", "MerkleRoot", "Nonce", });
+    internal_static_blockChainSizeMSG_descriptor =
+      getDescriptor().getMessageTypes().get(8);
+    internal_static_blockChainSizeMSG_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_blockChainSizeMSG_descriptor,
+        new java.lang.String[] { "Size", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)

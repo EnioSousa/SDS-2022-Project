@@ -1,7 +1,6 @@
 package PeerToPeer;
 
-import BlockChain.HashAlgorithm;
-import BlockChain.Security;
+import BlockChain.*;
 import Utils.Bootstrap;
 import Utils.InfoJoin;
 import org.apache.logging.log4j.LogManager;
@@ -66,21 +65,28 @@ public class Node {
      * List of all nodes known by the SUPER node
      */
     private final LinkedList<byte[]> usedIds = new LinkedList<>();
-
+    /**
+     * List used for the join challenge
+     */
     private LinkedList<InfoJoin> tableJoin = new LinkedList<>();
     /**
      * Variable holds the security functions
      */
     private Security security;
+    /**
+     * BlockChain running in this node
+     */
+    private Chain blockChain;
+    /**
+     * Holds a list of possible transactions
+     */
+    private LinkedList<Transaction> transactionPool;
 
     /**
      * The info of the bootstrap node
      */
     public static NodeInfo knownNode =
             new NodeInfo(Bootstrap.bootstrapId, Bootstrap.bootstrapIp, Bootstrap.bootstrapPort);
-
-    // TODO: Be careful with the node initialization, try to start with a
-    //  null value
 
     /**
      * @param nodeInfo
@@ -95,14 +101,15 @@ public class Node {
 
         nodeClients = new ConcurrentLinkedQueue<>();
 
-        //TODO: Change id and key size. They have to be the same
-        //kBuckets = new K_Buckets(this, 8, 4);
         storedValues = new StoredValues(idSize, this);
 
         // If node is bootstrap initiate k buckets, otherwise its initiated
         // on join
         if (nodeInfo.equals(knownNode)) {
             initializeKbuckets();
+        } else {
+            blockChain = new Chain();
+            transactionPool = new LinkedList<>();
         }
     }
 
@@ -526,5 +533,89 @@ public class Node {
      */
     public Security getSecurity() {
         return security;
+    }
+
+    public LinkedList<Transaction> getTransactionPool() {
+        return transactionPool;
+    }
+
+    public void addTransactionToPool(Transaction transaction) {
+        getTransactionPool().add(transaction);
+    }
+
+    public Chain getBlockChain() {
+        return blockChain;
+    }
+
+    public void newBlock() {
+        try {
+            Block block = new Block(1,
+                    System.currentTimeMillis(),
+                    Utils.BlockChain.difficulty,
+                    getBlockChain().getLastHash(),
+                    new LinkedList<Transaction>(getTransactionPool()));
+
+            getBlockChain().addBlock(block);
+
+            sendBlock(block);
+        } catch (Exception e) {
+            LOGGER.error("Error: " + e);
+        }
+    }
+
+    public void addBlock(Block block) {
+        try {
+            if (Arrays.compare(block.getBlockHeader().getPrevHash(),
+                    getBlockChain().getLastHash()) == 0) {
+                getBlockChain().addBlock(block);
+            }
+        } catch (Exception e) {
+            LOGGER.info("Block has different last hash that us: " +
+                    HashAlgorithm.byteToHex(block.getBlockHeader().getPrevHash()));
+        }
+    }
+
+    public void sendTransaction(Transaction transaction) {
+        byte[] prodId = transaction.getProductId();
+
+        try {
+            byte[] prodIdHash = HashAlgorithm.generateHash(prodId, getIdSize());
+
+            LinkedList<NodeInfo> potentialMiners =
+                    getKBuckets().getKClosest(prodIdHash);
+
+            for (NodeInfo nodeInfo : potentialMiners) {
+                getNodeClient(nodeInfo).doSendTransaction(transaction);
+            }
+
+        } catch (NoSuchAlgorithmException e) {
+            LOGGER.error("Error with the hash algorithm: ");
+        }
+    }
+
+    public void sendBlock(Block block) {
+        byte[] possibleId = HashAlgorithm.generateRandomByteArray(idSize);
+
+        LinkedList<NodeInfo> potentialMiners =
+                getKBuckets().getKClosest(possibleId);
+
+        for (NodeInfo nodeInfo : potentialMiners) {
+            getNodeClient(nodeInfo).doSendBlock(block);
+        }
+    }
+
+    public void sendBlockChainSize() {
+        byte[] possibleId = HashAlgorithm.generateRandomByteArray(idSize);
+
+        LinkedList<NodeInfo> potentialMiners =
+                getKBuckets().getKClosest(possibleId);
+
+        for (NodeInfo nodeInfo : potentialMiners) {
+            getNodeClient(nodeInfo).sendBlockChainSize();
+        }
+    }
+
+    public void sendBlockChain(NodeInfo nodeInfo) {
+        getNodeClient(nodeInfo).sendFullBlockChain();
     }
 }
